@@ -1,0 +1,2233 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-14T15:16:23.900Z",
+  "forecastDate": "20260815",
+  "availableDates": [
+    "20260815",
+    "20260816",
+    "20260817"
+  ],
+  "statusDate": "20260814",
+  "sources": {
+    "forecast": "https://www.data.go.kr/data/15144520/openapi.do",
+    "schedule": "https://www.data.go.kr/data/15142302/openapi.do",
+    "status": "https://www.data.go.kr/data/15142304/openapi.do"
+  },
+  "islands": {
+    "geumodo": {
+      "ferryRequired": true,
+      "forecast": [
+        {
+          "date": "20260815",
+          "time": "06:20",
+          "ship": "금오고속페리호",
+          "departure": "여수",
+          "route": "여수-역포(오전순환2)",
+          "stops": "여수,여천,우학,안도,서고지,역포,안도,우학,유송,여천,여수",
+          "targetStop": "여천",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "14:30",
+          "ship": "금오고속페리호",
+          "departure": "여수",
+          "route": "여수-역포(오후순환)",
+          "stops": "여수,여천,유송,우학,안도,서고지,역포,안도,우학,유송,여천,여수",
+          "targetStop": "여천",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "08:30",
+          "ship": "북도고속페리",
+          "departure": "신기",
+          "route": "신기-여천1",
+          "stops": "신기,여천",
+          "targetStop": "여천",
+          "relation": "endpoint",
+          "state": "비운",
+          "note": "예비선"
+        },
+        {
+          "date": "20260815",
+          "time": "07:30",
+          "ship": "한려페리7호",
+          "departure": "백야",
+          "route": "백야-함구미(개도)",
+          "stops": "백야,개도(화산),함구미",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "08:10",
+          "ship": "한려페리7호",
+          "departure": "함구미",
+          "route": "백야-함구미(개도)",
+          "stops": "백야,개도(화산),함구미",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "09:10",
+          "ship": "한려페리7호",
+          "departure": "백야",
+          "route": "백야-함구미(개도)",
+          "stops": "백야,개도(화산),함구미",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "10:00",
+          "ship": "한려페리7호",
+          "departure": "함구미",
+          "route": "백야-함구미(개도)",
+          "stops": "백야,개도(화산),함구미",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "11:00",
+          "ship": "한려페리7호",
+          "departure": "백야",
+          "route": "백야-함구미(개도)",
+          "stops": "백야,개도(화산),함구미",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "12:25",
+          "ship": "한려페리7호",
+          "departure": "함구미",
+          "route": "백야-함구미(개도)",
+          "stops": "백야,개도(화산),함구미",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "13:20",
+          "ship": "한려페리7호",
+          "departure": "백야",
+          "route": "백야-함구미(개도)",
+          "stops": "백야,개도(화산),함구미",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "14:45",
+          "ship": "한려페리7호",
+          "departure": "함구미",
+          "route": "백야-함구미(개도)",
+          "stops": "백야,개도(화산),함구미",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "15:50",
+          "ship": "한려페리7호",
+          "departure": "백야",
+          "route": "백야-함구미(개도)",
+          "stops": "백야,개도(화산),함구미",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        }
+      ],
+      "schedule": [
+        {
+          "date": "20260815",
+          "time": "08:30",
+          "ship": "북도고속페리",
+          "origin": "신기",
+          "destination": "여천",
+          "route": "신기여천1",
+          "targetStop": "여천",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": "기타"
+        },
+        {
+          "date": "20260815",
+          "time": "07:30",
+          "ship": "한려페리7호",
+          "origin": "백야",
+          "destination": "함구미",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "08:10",
+          "ship": "한려페리7호",
+          "origin": "함구미",
+          "destination": "백야",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "09:10",
+          "ship": "한려페리7호",
+          "origin": "백야",
+          "destination": "함구미",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "10:00",
+          "ship": "한려페리7호",
+          "origin": "함구미",
+          "destination": "백야",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "11:00",
+          "ship": "한려페리7호",
+          "origin": "백야",
+          "destination": "함구미",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "12:25",
+          "ship": "한려페리7호",
+          "origin": "함구미",
+          "destination": "백야",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "13:20",
+          "ship": "한려페리7호",
+          "origin": "백야",
+          "destination": "함구미",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "14:45",
+          "ship": "한려페리7호",
+          "origin": "함구미",
+          "destination": "백야",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "15:50",
+          "ship": "한려페리7호",
+          "origin": "백야",
+          "destination": "함구미",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "08:30",
+          "ship": "북도고속페리",
+          "origin": "신기",
+          "destination": "여천",
+          "route": "신기여천1",
+          "targetStop": "여천",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": "기타"
+        },
+        {
+          "date": "20260816",
+          "time": "07:30",
+          "ship": "한려페리7호",
+          "origin": "백야",
+          "destination": "함구미",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "08:10",
+          "ship": "한려페리7호",
+          "origin": "함구미",
+          "destination": "백야",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "09:10",
+          "ship": "한려페리7호",
+          "origin": "백야",
+          "destination": "함구미",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "10:00",
+          "ship": "한려페리7호",
+          "origin": "함구미",
+          "destination": "백야",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "11:00",
+          "ship": "한려페리7호",
+          "origin": "백야",
+          "destination": "함구미",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "12:25",
+          "ship": "한려페리7호",
+          "origin": "함구미",
+          "destination": "백야",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "13:20",
+          "ship": "한려페리7호",
+          "origin": "백야",
+          "destination": "함구미",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "14:45",
+          "ship": "한려페리7호",
+          "origin": "함구미",
+          "destination": "백야",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "15:50",
+          "ship": "한려페리7호",
+          "origin": "백야",
+          "destination": "함구미",
+          "route": "백야함구미(개도)",
+          "targetStop": "함구미",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        }
+      ],
+      "status": [
+        {
+          "time": "21:00",
+          "ship": "한림페리9호",
+          "port": "",
+          "route": "신기여천1",
+          "state": "운항중",
+          "changedAt": "2026-08-14T21:01:11"
+        },
+        {
+          "time": "21:00",
+          "ship": "한림페리9호",
+          "port": "여천",
+          "route": "신기여천1",
+          "state": "출항중",
+          "changedAt": "2026-08-14T20:57:45"
+        },
+        {
+          "time": "20:30",
+          "ship": "한림페리9호",
+          "port": "여천",
+          "route": "신기여천1",
+          "state": "완료",
+          "changedAt": "2026-08-14T20:54:31"
+        },
+        {
+          "time": "20:30",
+          "ship": "한림페리9호",
+          "port": "",
+          "route": "신기여천1",
+          "state": "운항중",
+          "changedAt": "2026-08-14T20:32:51"
+        },
+        {
+          "time": "20:00",
+          "ship": "한림페리9호",
+          "port": "",
+          "route": "신기여천1",
+          "state": "운항중",
+          "changedAt": "2026-08-14T20:03:21"
+        }
+      ]
+    },
+    "geomundo": {
+      "ferryRequired": true,
+      "forecast": [
+        {
+          "date": "20260815",
+          "time": "07:30",
+          "ship": "하멜",
+          "departure": "여수",
+          "route": "여수-거문(의성/서도)(홀수,4항차)",
+          "stops": "여수,나로,손죽,초도(의성),거문(서도),거문",
+          "targetStop": "거문",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "10:20",
+          "ship": "하멜",
+          "departure": "거문",
+          "route": "여수-거문(의성/서도)(홀수,4항차)",
+          "stops": "여수,나로,손죽,초도(의성),거문(서도),거문",
+          "targetStop": "거문",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "13:10",
+          "ship": "하멜",
+          "departure": "여수",
+          "route": "여수-거문(의성/서도)(홀수,4항차)",
+          "stops": "여수,나로,손죽,초도(의성),거문(서도),거문",
+          "targetStop": "거문",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "15:40",
+          "ship": "하멜",
+          "departure": "거문",
+          "route": "여수-거문(의성/서도)(홀수,4항차)",
+          "stops": "여수,나로,손죽,초도(의성),거문(서도),거문",
+          "targetStop": "거문",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        }
+      ],
+      "schedule": [
+        {
+          "date": "20260815",
+          "time": "07:30",
+          "ship": "하멜",
+          "origin": "여수",
+          "destination": "거문",
+          "route": "여수거문(의성/서도)(홀수,4항차)",
+          "targetStop": "거문",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "10:20",
+          "ship": "하멜",
+          "origin": "거문",
+          "destination": "여수",
+          "route": "여수거문(의성/서도)(홀수,4항차)",
+          "targetStop": "거문",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "13:10",
+          "ship": "하멜",
+          "origin": "여수",
+          "destination": "거문",
+          "route": "여수거문(의성/서도)(홀수,4항차)",
+          "targetStop": "거문",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "15:40",
+          "ship": "하멜",
+          "origin": "거문",
+          "destination": "여수",
+          "route": "여수거문(의성/서도)(홀수,4항차)",
+          "targetStop": "거문",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "07:30",
+          "ship": "하멜",
+          "origin": "여수",
+          "destination": "거문",
+          "route": "여수거문(대동/동도)(짝수일)",
+          "targetStop": "거문",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "10:20",
+          "ship": "하멜",
+          "origin": "거문",
+          "destination": "여수",
+          "route": "여수거문(대동/동도)(짝수일)",
+          "targetStop": "거문",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "13:10",
+          "ship": "하멜",
+          "origin": "여수",
+          "destination": "거문",
+          "route": "여수거문(대동/동도)(짝수일)",
+          "targetStop": "거문",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "15:40",
+          "ship": "하멜",
+          "origin": "거문",
+          "destination": "여수",
+          "route": "여수거문(의성/서도)(홀수,4항차)",
+          "targetStop": "거문",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        }
+      ],
+      "status": [
+        {
+          "time": "15:40",
+          "ship": "하멜",
+          "port": "",
+          "route": "여수거문(의성/서도)(홀수,4항차)",
+          "state": "운항중",
+          "changedAt": "2026-08-14T16:59:44"
+        },
+        {
+          "time": "15:40",
+          "ship": "하멜",
+          "port": "거문(서도)",
+          "route": "여수거문(의성/서도)(홀수,4항차)",
+          "state": "출항중",
+          "changedAt": "2026-08-14T15:44:46"
+        },
+        {
+          "time": "15:40",
+          "ship": "하멜",
+          "port": "거문",
+          "route": "여수거문(의성/서도)(홀수,4항차)",
+          "state": "출항중",
+          "changedAt": "2026-08-14T15:38:42"
+        },
+        {
+          "time": "13:10",
+          "ship": "하멜",
+          "port": "거문",
+          "route": "여수거문(대동/동도)(짝수일)",
+          "state": "완료",
+          "changedAt": "2026-08-14T15:27:38"
+        }
+      ]
+    },
+    "sado": {
+      "ferryRequired": true,
+      "forecast": [
+        {
+          "date": "20260815",
+          "time": "08:30",
+          "ship": "대형카훼리3호",
+          "departure": "낭도",
+          "route": "낭도-사도-추도",
+          "stops": "낭도,사도,추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "08:55",
+          "ship": "대형카훼리3호",
+          "departure": "추도",
+          "route": "낭도-사도-추도",
+          "stops": "낭도,사도,추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "09:40",
+          "ship": "대형카훼리3호",
+          "departure": "낭도",
+          "route": "낭-사-추-상-하",
+          "stops": "낭도,사도,추도,상화,하화",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "10:30",
+          "ship": "대형카훼리3호",
+          "departure": "하화",
+          "route": "낭-사-추-상-하",
+          "stops": "낭도,사도,추도,상화,하화",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "12:10",
+          "ship": "대형카훼리3호",
+          "departure": "낭도",
+          "route": "낭도-사도-추도",
+          "stops": "낭도,사도,추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "12:35",
+          "ship": "대형카훼리3호",
+          "departure": "추도",
+          "route": "낭도-사도-추도",
+          "stops": "낭도,사도,추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "15:00",
+          "ship": "대형카훼리3호",
+          "departure": "낭도",
+          "route": "낭도-사도-추도",
+          "stops": "낭도,사도,추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "15:25",
+          "ship": "대형카훼리3호",
+          "departure": "추도",
+          "route": "낭도-사도-추도",
+          "stops": "낭도,사도,추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "07:00",
+          "ship": "태평양1호",
+          "departure": "낭도",
+          "route": "월,수,목,금,토요일",
+          "stops": "낭도,사도,상화,하화,모전,여석,백야,여수",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "비운",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "14:00",
+          "ship": "태평양1호",
+          "departure": "여수",
+          "route": "월,수,목,금,토요일",
+          "stops": "낭도,사도,상화,하화,모전,여석,백야,여수",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "비운",
+          "note": ""
+        }
+      ],
+      "schedule": [
+        {
+          "date": "20260815",
+          "time": "08:30",
+          "ship": "대형카훼리3호",
+          "origin": "낭도",
+          "destination": "추도",
+          "route": "낭도사도-추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "08:55",
+          "ship": "대형카훼리3호",
+          "origin": "추도",
+          "destination": "낭도",
+          "route": "낭도사도-추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "12:10",
+          "ship": "대형카훼리3호",
+          "origin": "낭도",
+          "destination": "추도",
+          "route": "낭도사도-추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "12:35",
+          "ship": "대형카훼리3호",
+          "origin": "추도",
+          "destination": "낭도",
+          "route": "낭도사도-추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "15:00",
+          "ship": "대형카훼리3호",
+          "origin": "낭도",
+          "destination": "추도",
+          "route": "낭도사도-추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "15:25",
+          "ship": "대형카훼리3호",
+          "origin": "추도",
+          "destination": "낭도",
+          "route": "낭도사도-추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "08:30",
+          "ship": "대형카훼리3호",
+          "origin": "낭도",
+          "destination": "추도",
+          "route": "낭도사도-추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "08:55",
+          "ship": "대형카훼리3호",
+          "origin": "추도",
+          "destination": "낭도",
+          "route": "낭도사도-추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "09:40",
+          "ship": "대형카훼리3호",
+          "origin": "낭도",
+          "destination": "추도",
+          "route": "낭도사도-추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "10:05",
+          "ship": "대형카훼리3호",
+          "origin": "추도",
+          "destination": "낭도",
+          "route": "낭도사도-추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "12:10",
+          "ship": "대형카훼리3호",
+          "origin": "낭도",
+          "destination": "추도",
+          "route": "낭도사도-추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "12:35",
+          "ship": "대형카훼리3호",
+          "origin": "추도",
+          "destination": "낭도",
+          "route": "낭도사도-추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "15:00",
+          "ship": "대형카훼리3호",
+          "origin": "낭도",
+          "destination": "추도",
+          "route": "낭도사도-추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "15:25",
+          "ship": "대형카훼리3호",
+          "origin": "추도",
+          "destination": "낭도",
+          "route": "낭도사도-추도",
+          "targetStop": "사도",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        }
+      ],
+      "status": [
+        {
+          "time": "15:00",
+          "ship": "대형카훼리3호",
+          "port": "사도",
+          "route": "낭사-추-백",
+          "state": "입항중",
+          "changedAt": "2026-08-14T15:11:06"
+        },
+        {
+          "time": "14:25",
+          "ship": "대형카훼리3호",
+          "port": "",
+          "route": "낭도사도-추도",
+          "state": "운항중",
+          "changedAt": "2026-08-14T14:38:05"
+        },
+        {
+          "time": "14:25",
+          "ship": "대형카훼리3호",
+          "port": "사도",
+          "route": "낭도사도-추도",
+          "state": "출항중",
+          "changedAt": "2026-08-14T14:34:29"
+        },
+        {
+          "time": "14:00",
+          "ship": "대형카훼리3호",
+          "port": "",
+          "route": "낭도사도-추도",
+          "state": "운항중",
+          "changedAt": "2026-08-14T14:23:06"
+        },
+        {
+          "time": "14:00",
+          "ship": "대형카훼리3호",
+          "port": "사도",
+          "route": "낭도사도-추도",
+          "state": "출항중",
+          "changedAt": "2026-08-14T14:19:54"
+        }
+      ]
+    },
+    "nangdo": {
+      "ferryRequired": true,
+      "forecast": [
+        {
+          "date": "20260815",
+          "time": "08:30",
+          "ship": "대형카훼리3호",
+          "departure": "낭도",
+          "route": "낭도-사도-추도",
+          "stops": "낭도,사도,추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "08:55",
+          "ship": "대형카훼리3호",
+          "departure": "추도",
+          "route": "낭도-사도-추도",
+          "stops": "낭도,사도,추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "09:40",
+          "ship": "대형카훼리3호",
+          "departure": "낭도",
+          "route": "낭-사-추-상-하",
+          "stops": "낭도,사도,추도,상화,하화",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "10:30",
+          "ship": "대형카훼리3호",
+          "departure": "하화",
+          "route": "낭-사-추-상-하",
+          "stops": "낭도,사도,추도,상화,하화",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "12:10",
+          "ship": "대형카훼리3호",
+          "departure": "낭도",
+          "route": "낭도-사도-추도",
+          "stops": "낭도,사도,추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "12:35",
+          "ship": "대형카훼리3호",
+          "departure": "추도",
+          "route": "낭도-사도-추도",
+          "stops": "낭도,사도,추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "15:00",
+          "ship": "대형카훼리3호",
+          "departure": "낭도",
+          "route": "낭도-사도-추도",
+          "stops": "낭도,사도,추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "15:25",
+          "ship": "대형카훼리3호",
+          "departure": "추도",
+          "route": "낭도-사도-추도",
+          "stops": "낭도,사도,추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "07:00",
+          "ship": "태평양1호",
+          "departure": "낭도",
+          "route": "월,수,목,금,토요일",
+          "stops": "낭도,사도,상화,하화,모전,여석,백야,여수",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "비운",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "14:00",
+          "ship": "태평양1호",
+          "departure": "여수",
+          "route": "월,수,목,금,토요일",
+          "stops": "낭도,사도,상화,하화,모전,여석,백야,여수",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "비운",
+          "note": ""
+        }
+      ],
+      "schedule": [
+        {
+          "date": "20260815",
+          "time": "08:30",
+          "ship": "대형카훼리3호",
+          "origin": "낭도",
+          "destination": "추도",
+          "route": "낭도사도-추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "08:55",
+          "ship": "대형카훼리3호",
+          "origin": "추도",
+          "destination": "낭도",
+          "route": "낭도사도-추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "09:40",
+          "ship": "대형카훼리3호",
+          "origin": "낭도",
+          "destination": "하화",
+          "route": "낭사-추-상-하",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "10:30",
+          "ship": "대형카훼리3호",
+          "origin": "하화",
+          "destination": "낭도",
+          "route": "낭사-추-상-하",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "12:10",
+          "ship": "대형카훼리3호",
+          "origin": "낭도",
+          "destination": "추도",
+          "route": "낭도사도-추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "12:35",
+          "ship": "대형카훼리3호",
+          "origin": "추도",
+          "destination": "낭도",
+          "route": "낭도사도-추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "15:00",
+          "ship": "대형카훼리3호",
+          "origin": "낭도",
+          "destination": "추도",
+          "route": "낭도사도-추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "15:25",
+          "ship": "대형카훼리3호",
+          "origin": "추도",
+          "destination": "낭도",
+          "route": "낭도사도-추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "07:00",
+          "ship": "태평양1호",
+          "origin": "낭도",
+          "destination": "여수",
+          "route": "월수,목,금,토요일",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": "휴항(30일 미만)"
+        },
+        {
+          "date": "20260815",
+          "time": "14:00",
+          "ship": "태평양1호",
+          "origin": "여수",
+          "destination": "낭도",
+          "route": "월수,목,금,토요일",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": "휴항(30일 미만)"
+        },
+        {
+          "date": "20260816",
+          "time": "08:30",
+          "ship": "대형카훼리3호",
+          "origin": "낭도",
+          "destination": "추도",
+          "route": "낭도사도-추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "08:55",
+          "ship": "대형카훼리3호",
+          "origin": "추도",
+          "destination": "낭도",
+          "route": "낭도사도-추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "09:40",
+          "ship": "대형카훼리3호",
+          "origin": "낭도",
+          "destination": "추도",
+          "route": "낭도사도-추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "10:05",
+          "ship": "대형카훼리3호",
+          "origin": "추도",
+          "destination": "낭도",
+          "route": "낭도사도-추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "12:10",
+          "ship": "대형카훼리3호",
+          "origin": "낭도",
+          "destination": "추도",
+          "route": "낭도사도-추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "12:35",
+          "ship": "대형카훼리3호",
+          "origin": "추도",
+          "destination": "낭도",
+          "route": "낭도사도-추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "15:00",
+          "ship": "대형카훼리3호",
+          "origin": "낭도",
+          "destination": "추도",
+          "route": "낭도사도-추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "15:25",
+          "ship": "대형카훼리3호",
+          "origin": "추도",
+          "destination": "낭도",
+          "route": "낭도사도-추도",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "07:00",
+          "ship": "태평양1호",
+          "origin": "낭도",
+          "destination": "여수",
+          "route": "월수,목,금,토요일",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": "휴항(30일 미만)"
+        },
+        {
+          "date": "20260816",
+          "time": "14:00",
+          "ship": "태평양1호",
+          "origin": "여수",
+          "destination": "낭도",
+          "route": "월수,목,금,토요일",
+          "targetStop": "낭도",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": "휴항(30일 미만)"
+        }
+      ],
+      "status": [
+        {
+          "time": "15:00",
+          "ship": "대형카훼리3호",
+          "port": "낭도",
+          "route": "낭사-추-백",
+          "state": "출항중",
+          "changedAt": "2026-08-14T14:55:12"
+        },
+        {
+          "time": "14:25",
+          "ship": "대형카훼리3호",
+          "port": "낭도",
+          "route": "낭도사도-추도",
+          "state": "완료",
+          "changedAt": "2026-08-14T14:52:41"
+        },
+        {
+          "time": "14:25",
+          "ship": "대형카훼리3호",
+          "port": "",
+          "route": "낭도사도-추도",
+          "state": "운항중",
+          "changedAt": "2026-08-14T14:38:05"
+        },
+        {
+          "time": "14:00",
+          "ship": "대형카훼리3호",
+          "port": "",
+          "route": "낭도사도-추도",
+          "state": "운항중",
+          "changedAt": "2026-08-14T14:23:06"
+        }
+      ]
+    },
+    "gaedo": {
+      "ferryRequired": true,
+      "forecast": [
+        {
+          "date": "20260815",
+          "time": "07:00",
+          "ship": "태평양1호",
+          "departure": "낭도",
+          "route": "월,수,목,금,토요일",
+          "stops": "낭도,사도,상화,하화,모전,여석,백야,여수",
+          "targetStop": "여석",
+          "relation": "via",
+          "state": "비운",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "14:00",
+          "ship": "태평양1호",
+          "departure": "여수",
+          "route": "월,수,목,금,토요일",
+          "stops": "낭도,사도,상화,하화,모전,여석,백야,여수",
+          "targetStop": "여석",
+          "relation": "via",
+          "state": "비운",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "07:00",
+          "ship": "태평양3호",
+          "departure": "백야",
+          "route": "백야-제도-개도",
+          "stops": "백야,제도,개도(화산)",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "07:30",
+          "ship": "태평양3호",
+          "departure": "개도(화산)",
+          "route": "백야-제도-개도",
+          "stops": "백야,제도,개도(화산)",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "08:25",
+          "ship": "태평양3호",
+          "departure": "백야",
+          "route": "백-제-화-하-상",
+          "stops": "백야,제도,개도(화산),하화,상화",
+          "targetStop": "개도(화산)",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "09:20",
+          "ship": "태평양3호",
+          "departure": "상화",
+          "route": "백-제-화-하-상",
+          "stops": "백야,제도,개도(화산),하화,상화",
+          "targetStop": "개도(화산)",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "10:40",
+          "ship": "태평양3호",
+          "departure": "백야",
+          "route": "백야-제도-개도",
+          "stops": "백야,제도,개도(화산)",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "11:10",
+          "ship": "태평양3호",
+          "departure": "개도(화산)",
+          "route": "백야-제도-개도",
+          "stops": "백야,제도,개도(화산)",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "11:55",
+          "ship": "태평양3호",
+          "departure": "백야",
+          "route": "백-제-화-하-상",
+          "stops": "백야,제도,개도(화산),하화,상화",
+          "targetStop": "개도(화산)",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "12:55",
+          "ship": "태평양3호",
+          "departure": "상화",
+          "route": "백-제-화-하-상",
+          "stops": "백야,제도,개도(화산),하화,상화",
+          "targetStop": "개도(화산)",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "14:00",
+          "ship": "태평양3호",
+          "departure": "백야",
+          "route": "백야-제도-개도",
+          "stops": "백야,제도,개도(화산)",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "14:30",
+          "ship": "태평양3호",
+          "departure": "개도(화산)",
+          "route": "백야-제도-개도",
+          "stops": "백야,제도,개도(화산)",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        }
+      ],
+      "schedule": [
+        {
+          "date": "20260815",
+          "time": "07:00",
+          "ship": "태평양3호",
+          "origin": "백야",
+          "destination": "개도(화산)",
+          "route": "백야제도-개도",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "07:30",
+          "ship": "태평양3호",
+          "origin": "개도(화산)",
+          "destination": "백야",
+          "route": "백야제도-개도",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "10:40",
+          "ship": "태평양3호",
+          "origin": "백야",
+          "destination": "개도(화산)",
+          "route": "백야제도-개도",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "11:10",
+          "ship": "태평양3호",
+          "origin": "개도(화산)",
+          "destination": "백야",
+          "route": "백야제도-개도",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "14:00",
+          "ship": "태평양3호",
+          "origin": "백야",
+          "destination": "개도(화산)",
+          "route": "백야제도-개도",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "14:30",
+          "ship": "태평양3호",
+          "origin": "개도(화산)",
+          "destination": "백야",
+          "route": "백야제도-개도",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "06:40",
+          "ship": "한려페리7호",
+          "origin": "백야",
+          "destination": "개도(화산)",
+          "route": "백야개도(직항)",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "07:00",
+          "ship": "한려페리7호",
+          "origin": "개도(화산)",
+          "destination": "백야",
+          "route": "백야개도(직항)",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "07:30",
+          "ship": "한려페리7호",
+          "origin": "백야",
+          "destination": "함구미",
+          "route": "백야함구미(개도)",
+          "targetStop": "개도(화산)",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "08:10",
+          "ship": "한려페리7호",
+          "origin": "함구미",
+          "destination": "백야",
+          "route": "백야함구미(개도)",
+          "targetStop": "개도(화산)",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "09:10",
+          "ship": "한려페리7호",
+          "origin": "백야",
+          "destination": "함구미",
+          "route": "백야함구미(개도)",
+          "targetStop": "개도(화산)",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "10:00",
+          "ship": "한려페리7호",
+          "origin": "함구미",
+          "destination": "백야",
+          "route": "백야함구미(개도)",
+          "targetStop": "개도(화산)",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "07:00",
+          "ship": "태평양3호",
+          "origin": "백야",
+          "destination": "개도(화산)",
+          "route": "백야제도-개도",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "07:30",
+          "ship": "태평양3호",
+          "origin": "개도(화산)",
+          "destination": "백야",
+          "route": "백야제도-개도",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "10:40",
+          "ship": "태평양3호",
+          "origin": "백야",
+          "destination": "개도(화산)",
+          "route": "백야제도-개도",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "11:10",
+          "ship": "태평양3호",
+          "origin": "개도(화산)",
+          "destination": "백야",
+          "route": "백야제도-개도",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "14:00",
+          "ship": "태평양3호",
+          "origin": "백야",
+          "destination": "개도(화산)",
+          "route": "백야제도-개도",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "14:30",
+          "ship": "태평양3호",
+          "origin": "개도(화산)",
+          "destination": "백야",
+          "route": "백야제도-개도",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "06:40",
+          "ship": "한려페리7호",
+          "origin": "백야",
+          "destination": "개도(화산)",
+          "route": "백야개도(직항)",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "07:00",
+          "ship": "한려페리7호",
+          "origin": "개도(화산)",
+          "destination": "백야",
+          "route": "백야개도(직항)",
+          "targetStop": "개도(화산)",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "07:30",
+          "ship": "한려페리7호",
+          "origin": "백야",
+          "destination": "함구미",
+          "route": "백야함구미(개도)",
+          "targetStop": "개도(화산)",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "08:10",
+          "ship": "한려페리7호",
+          "origin": "함구미",
+          "destination": "백야",
+          "route": "백야함구미(개도)",
+          "targetStop": "개도(화산)",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "09:10",
+          "ship": "한려페리7호",
+          "origin": "백야",
+          "destination": "함구미",
+          "route": "백야함구미(개도)",
+          "targetStop": "개도(화산)",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "10:00",
+          "ship": "한려페리7호",
+          "origin": "함구미",
+          "destination": "백야",
+          "route": "백야함구미(개도)",
+          "targetStop": "개도(화산)",
+          "relation": "via",
+          "state": "출항전",
+          "reason": ""
+        }
+      ],
+      "status": [
+        {
+          "time": "16:35",
+          "ship": "한려페리7호",
+          "port": "",
+          "route": "백야함구미(개도)",
+          "state": "운항중",
+          "changedAt": "2026-08-14T17:16:09"
+        },
+        {
+          "time": "16:35",
+          "ship": "한려페리7호",
+          "port": "개도(화산)",
+          "route": "백야함구미(개도)",
+          "state": "출항중",
+          "changedAt": "2026-08-14T17:09:26"
+        },
+        {
+          "time": "14:50",
+          "ship": "한려페리9호",
+          "port": "개도(화산)",
+          "route": "여수함구미(3자봉)",
+          "state": "입항중",
+          "changedAt": "2026-08-14T17:02:21"
+        },
+        {
+          "time": "15:50",
+          "ship": "한려페리7호",
+          "port": "",
+          "route": "백야함구미(개도)",
+          "state": "완료",
+          "changedAt": "2026-08-14T16:43:01"
+        },
+        {
+          "time": "15:10",
+          "ship": "태평양3호",
+          "port": "개도(화산)",
+          "route": "백야제도-화산-하화",
+          "state": "출항중",
+          "changedAt": "2026-08-14T15:35:01"
+        }
+      ]
+    },
+    "odongdo": {
+      "ferryRequired": false,
+      "forecast": [],
+      "schedule": [],
+      "status": []
+    },
+    "dolsando": {
+      "ferryRequired": false,
+      "forecast": [],
+      "schedule": [],
+      "status": []
+    },
+    "jangdo": {
+      "ferryRequired": false,
+      "forecast": [],
+      "schedule": [],
+      "status": []
+    },
+    "hahwado": {
+      "ferryRequired": true,
+      "forecast": [
+        {
+          "date": "20260815",
+          "time": "09:40",
+          "ship": "대형카훼리3호",
+          "departure": "낭도",
+          "route": "낭-사-추-상-하",
+          "stops": "낭도,사도,추도,상화,하화",
+          "targetStop": "하화",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "10:30",
+          "ship": "대형카훼리3호",
+          "departure": "하화",
+          "route": "낭-사-추-상-하",
+          "stops": "낭도,사도,추도,상화,하화",
+          "targetStop": "하화",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "07:00",
+          "ship": "태평양1호",
+          "departure": "낭도",
+          "route": "월,수,목,금,토요일",
+          "stops": "낭도,사도,상화,하화,모전,여석,백야,여수",
+          "targetStop": "하화",
+          "relation": "via",
+          "state": "비운",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "14:00",
+          "ship": "태평양1호",
+          "departure": "여수",
+          "route": "월,수,목,금,토요일",
+          "stops": "낭도,사도,상화,하화,모전,여석,백야,여수",
+          "targetStop": "하화",
+          "relation": "via",
+          "state": "비운",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "08:25",
+          "ship": "태평양3호",
+          "departure": "백야",
+          "route": "백-제-화-하-상",
+          "stops": "백야,제도,개도(화산),하화,상화",
+          "targetStop": "하화",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "09:20",
+          "ship": "태평양3호",
+          "departure": "상화",
+          "route": "백-제-화-하-상",
+          "stops": "백야,제도,개도(화산),하화,상화",
+          "targetStop": "하화",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "11:55",
+          "ship": "태평양3호",
+          "departure": "백야",
+          "route": "백-제-화-하-상",
+          "stops": "백야,제도,개도(화산),하화,상화",
+          "targetStop": "하화",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "12:55",
+          "ship": "태평양3호",
+          "departure": "상화",
+          "route": "백-제-화-하-상",
+          "stops": "백야,제도,개도(화산),하화,상화",
+          "targetStop": "하화",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "15:10",
+          "ship": "태평양3호",
+          "departure": "백야",
+          "route": "백-제-화-하-상",
+          "stops": "백야,제도,개도(화산),하화,상화",
+          "targetStop": "하화",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "16:05",
+          "ship": "태평양3호",
+          "departure": "상화",
+          "route": "백-제-화-하-상",
+          "stops": "백야,제도,개도(화산),하화,상화",
+          "targetStop": "하화",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        }
+      ],
+      "schedule": [
+        {
+          "date": "20260815",
+          "time": "09:40",
+          "ship": "대형카훼리3호",
+          "origin": "낭도",
+          "destination": "하화",
+          "route": "낭사-추-상-하",
+          "targetStop": "하화",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "10:30",
+          "ship": "대형카훼리3호",
+          "origin": "하화",
+          "destination": "낭도",
+          "route": "낭사-추-상-하",
+          "targetStop": "하화",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        }
+      ],
+      "status": [
+        {
+          "time": "15:10",
+          "ship": "태평양3호",
+          "port": "하화",
+          "route": "백야제도-화산-하화",
+          "state": "완료",
+          "changedAt": "2026-08-14T15:57:00"
+        },
+        {
+          "time": "15:10",
+          "ship": "태평양3호",
+          "port": "",
+          "route": "백야제도-화산-하화",
+          "state": "운항중",
+          "changedAt": "2026-08-14T15:37:31"
+        },
+        {
+          "time": "09:20",
+          "ship": "태평양3호",
+          "port": "하화",
+          "route": "백제-화-하-상",
+          "state": "출항중",
+          "changedAt": "2026-08-14T09:24:10"
+        },
+        {
+          "time": "08:25",
+          "ship": "태평양3호",
+          "port": "하화",
+          "route": "백제-화-하-상",
+          "state": "출항중",
+          "changedAt": "2026-08-14T09:05:10"
+        }
+      ]
+    },
+    "yeojado": {
+      "ferryRequired": true,
+      "forecast": [],
+      "schedule": [],
+      "status": []
+    },
+    "sonjukdo": {
+      "ferryRequired": true,
+      "forecast": [
+        {
+          "date": "20260815",
+          "time": "08:30",
+          "ship": "섬사랑",
+          "departure": "손죽",
+          "route": "손죽-평도(광도)",
+          "stops": "손죽,소거문,평도,광도,평도,소거문,손죽",
+          "targetStop": "손죽",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "14:30",
+          "ship": "섬사랑",
+          "departure": "손죽",
+          "route": "손죽-평도(광도)",
+          "stops": "손죽,소거문,평도,광도,평도,소거문,손죽",
+          "targetStop": "손죽",
+          "relation": "endpoint",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "07:30",
+          "ship": "하멜",
+          "departure": "여수",
+          "route": "여수-거문(의성/서도)(홀수,4항차)",
+          "stops": "여수,나로,손죽,초도(의성),거문(서도),거문",
+          "targetStop": "손죽",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "10:20",
+          "ship": "하멜",
+          "departure": "거문",
+          "route": "여수-거문(의성/서도)(홀수,4항차)",
+          "stops": "여수,나로,손죽,초도(의성),거문(서도),거문",
+          "targetStop": "손죽",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "13:10",
+          "ship": "하멜",
+          "departure": "여수",
+          "route": "여수-거문(의성/서도)(홀수,4항차)",
+          "stops": "여수,나로,손죽,초도(의성),거문(서도),거문",
+          "targetStop": "손죽",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        },
+        {
+          "date": "20260815",
+          "time": "15:40",
+          "ship": "하멜",
+          "departure": "거문",
+          "route": "여수-거문(의성/서도)(홀수,4항차)",
+          "stops": "여수,나로,손죽,초도(의성),거문(서도),거문",
+          "targetStop": "손죽",
+          "relation": "via",
+          "state": "정상",
+          "note": ""
+        }
+      ],
+      "schedule": [
+        {
+          "date": "20260815",
+          "time": "08:30",
+          "ship": "섬사랑",
+          "origin": "손죽",
+          "destination": "손죽",
+          "route": "손죽평도(광도)",
+          "targetStop": "손죽",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260815",
+          "time": "14:30",
+          "ship": "섬사랑",
+          "origin": "손죽",
+          "destination": "손죽",
+          "route": "손죽평도(광도)",
+          "targetStop": "손죽",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "08:30",
+          "ship": "섬사랑",
+          "origin": "손죽",
+          "destination": "손죽",
+          "route": "손죽평도(광도)",
+          "targetStop": "손죽",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        },
+        {
+          "date": "20260816",
+          "time": "14:30",
+          "ship": "섬사랑",
+          "origin": "손죽",
+          "destination": "손죽",
+          "route": "손죽평도(광도)",
+          "targetStop": "손죽",
+          "relation": "endpoint",
+          "state": "출항전",
+          "reason": ""
+        }
+      ],
+      "status": [
+        {
+          "time": "14:30",
+          "ship": "섬사랑",
+          "port": "손죽",
+          "route": "손죽평도(광도)",
+          "state": "완료",
+          "changedAt": "2026-08-14T16:45:11"
+        },
+        {
+          "time": "15:40",
+          "ship": "하멜",
+          "port": "손죽",
+          "route": "여수거문(의성/서도)(홀수,4항차)",
+          "state": "출항중",
+          "changedAt": "2026-08-14T16:28:19"
+        },
+        {
+          "time": "14:30",
+          "ship": "섬사랑",
+          "port": "",
+          "route": "손죽평도(광도)",
+          "state": "운항중",
+          "changedAt": "2026-08-14T15:43:21"
+        },
+        {
+          "time": "13:10",
+          "ship": "하멜",
+          "port": "손죽",
+          "route": "여수거문(대동/동도)(짝수일)",
+          "state": "출항중",
+          "changedAt": "2026-08-14T14:23:49"
+        },
+        {
+          "time": "10:20",
+          "ship": "하멜",
+          "port": "손죽",
+          "route": "여수거문(대동/동도)(짝수일)",
+          "state": "출항중",
+          "changedAt": "2026-08-14T11:13:47"
+        }
+      ]
+    }
+  }
+}

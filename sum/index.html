@@ -1,0 +1,1019 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="여수 섬 여행을 위한 큐레이션 가이드. 출발 전 공식 여객선 운항 정보와 기상을 확인하세요.">
+  <title>여수 섬 큐레이션 | 섬으로</title>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      --ink: #0a1b26;
+      --ink-soft: #142c39;
+      --sand: #f6f2e9;
+      --cream: #fffdf9;
+      --sea: #087e8b;
+      --sea-dark: #075965;
+      --sun: #e9a23b;
+      --coral: #dc6958;
+      --line: rgba(10, 27, 38, .13);
+      --muted: #617078;
+      --shadow: 0 18px 50px rgba(4, 24, 34, .14);
+      --radius: 22px;
+      --font: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--sand);
+      font-family: var(--font);
+      line-height: 1.5;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; }
+
+    .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+    .site-header { background: var(--ink); color: #fff; }
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 900; letter-spacing: -.04em; font-size: 1.2rem; }
+    .brand-mark { width: 35px; height: 35px; display: grid; place-items: center; border-radius: 12px; background: var(--sun); color: var(--ink); }
+    .nav-note { color: rgba(255,255,255,.67); font-size: .84rem; }
+    .nav-links { display: flex; align-items: center; gap: 14px; }
+    .nav-links a, .nav-map-button { padding: 0; border: 0; background: none; color: rgba(255,255,255,.72); text-decoration: none; font-size: .8rem; font-weight: 800; }
+    .nav-links a:hover, .nav-map-button:hover { color: #fff; }
+
+    .hero { position: relative; isolation: isolate; color: #fff; overflow: hidden; min-height: 430px; display: grid; align-items: end; }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; z-index: -2;
+      background: linear-gradient(110deg, rgba(4,22,30,.95) 0%, rgba(4,22,30,.74) 48%, rgba(4,22,30,.28) 100%), url("https://upload.wikimedia.org/wikipedia/commons/6/6f/Geomundo_and_Baekdo_from_Bultanbong.jpg") center/cover;
+    }
+    .hero::after { content: ""; position: absolute; z-index: -1; width: 430px; height: 430px; border: 1px solid rgba(255,255,255,.15); border-radius: 50%; right: -120px; top: -220px; }
+    .hero-content { padding: 80px 0 48px; max-width: 740px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 18px; padding: 7px 11px; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; background: rgba(4,24,34,.28); font-size: .78rem; font-weight: 800; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 680px; margin-bottom: 16px; font-size: clamp(2.35rem, 6vw, 4.7rem); line-height: .98; letter-spacing: -.07em; }
+    .hero p { max-width: 600px; margin-bottom: 26px; color: rgba(255,255,255,.84); font-size: 1.05rem; }
+    .hero-meta { display: flex; gap: 10px; flex-wrap: wrap; }
+    .meta-badge { display: inline-flex; align-items: center; gap: 7px; padding: 9px 12px; border-radius: 999px; background: #fff; color: var(--ink); font-size: .8rem; font-weight: 800; }
+    .hero-credit { position: absolute; right: 20px; bottom: 14px; color: rgba(255,255,255,.7); font-size: .67rem; }
+    .hero-credit a { color: inherit; }
+
+    main { padding: 40px 0 66px; }
+    .safety { display: grid; grid-template-columns: auto 1fr; gap: 13px; align-items: start; margin-bottom: 36px; padding: 17px 18px; border: 1px solid #ebc77e; border-radius: 16px; background: #fff8e7; color: #5c4210; }
+    .safety svg { color: #b87916; }
+    .safety strong { display: block; margin-bottom: 2px; }
+    .safety p { margin: 0; font-size: .9rem; }
+    .safety a { font-weight: 800; }
+
+    .weather-map-section { margin-bottom: 42px; padding: 28px; border-radius: var(--radius); background: linear-gradient(145deg, #075965, #0b3445); color: #fff; box-shadow: var(--shadow); overflow: hidden; }
+    .weather-map-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 20px; }
+    .weather-map-head h2 { margin: 5px 0 4px; font-size: clamp(1.65rem, 4vw, 2.35rem); letter-spacing: -.055em; }
+    .weather-map-head p { max-width: 560px; margin: 0; color: rgba(255,255,255,.68); font-size: .84rem; }
+    .weather-update { flex: 0 0 auto; padding: 7px 10px; border: 1px solid rgba(255,255,255,.17); border-radius: 999px; color: #a9e8eb; font-size: .7rem; font-weight: 900; }
+    .weather-map-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(290px, .65fr); gap: 16px; }
+    .island-weather-map { position: relative; min-height: 540px; overflow: hidden; border: 1px solid rgba(255,255,255,.14); border-radius: 19px; background: #0f7180; }
+    #weatherRealMap { position: absolute; inset: 0; }
+    .weather-map-error { position: absolute; z-index: 5; inset: 0; display: grid; place-items: center; padding: 24px; background: linear-gradient(145deg,#e7f2ef,#cbded9); color: var(--ink); text-align: center; }
+    .weather-map-error[hidden] { display: none; }
+    .weather-map-error strong { display: block; margin-bottom: 5px; }
+    .weather-map-error span { color: var(--muted); font-size: .75rem; }
+    .map-caption { position: absolute; z-index: 2; left: 14px; bottom: 12px; margin: 0; color: rgba(255,255,255,.58); font-size: .65rem; }
+    .map-weather-marker { min-width: 66px; padding: 6px 8px; border: 1px solid rgba(255,255,255,.72); border-radius: 12px; background: rgba(6,43,54,.9); color: #fff; box-shadow: 0 5px 15px rgba(2,24,31,.3); text-align: center; transition: transform .16s ease, background .16s ease; backdrop-filter: blur(5px); }
+    .map-weather-marker:hover { transform: scale(1.06); background: #123f4c; }
+    .map-weather-marker[aria-pressed="true"] { border-color: var(--sun); background: var(--sun); color: var(--ink); box-shadow: 0 0 0 4px rgba(233,162,59,.22); }
+    .map-weather-marker span { display: block; font-size: 1.05rem; line-height: 1; }
+    .map-weather-marker strong { display: block; margin-top: 3px; font-size: .66rem; white-space: nowrap; }
+    .map-weather-marker small { display: block; font-size: .62rem; font-weight: 900; }
+    .weather-panel { min-width: 0; display: flex; flex-direction: column; padding: 20px; border: 1px solid rgba(255,255,255,.14); border-radius: 19px; background: rgba(255,255,255,.075); }
+    .weather-panel-empty { margin: auto; color: rgba(255,255,255,.65); text-align: center; font-size: .82rem; }
+    .weather-now-head { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+    .weather-now-head small { color: #9bdde0; font-size: .69rem; font-weight: 900; }
+    .weather-now-head h3 { margin: 3px 0 0; font-size: 1.55rem; letter-spacing: -.05em; }
+    .weather-now-main { display: flex; align-items: center; gap: 13px; margin: 18px 0; }
+    .weather-now-icon { font-size: 3.35rem; line-height: 1; }
+    .weather-now-temp { font-size: 3.1rem; font-weight: 950; letter-spacing: -.075em; line-height: 1; }
+    .weather-now-main p { margin: 4px 0 0; color: rgba(255,255,255,.69); font-size: .76rem; }
+    .travel-chip { display: inline-flex; align-items: center; align-self: start; padding: 6px 9px; border-radius: 999px; background: rgba(123,211,216,.16); color: #b9eff1; font-size: .68rem; font-weight: 950; }
+    .travel-chip.caution { background: rgba(233,162,59,.18); color: #ffd792; }
+    .travel-chip.alert { background: rgba(220,105,88,.22); color: #ffbbb1; }
+    .weather-metrics { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 7px; margin: 14px 0 17px; }
+    .weather-metric { padding: 10px; border-radius: 11px; background: rgba(255,255,255,.075); }
+    .weather-metric span { display: block; color: rgba(255,255,255,.5); font-size: .63rem; font-weight: 800; }
+    .weather-metric strong { font-size: .82rem; }
+    .hourly-title { margin-bottom: 8px; font-size: .75rem; font-weight: 900; }
+    .hourly-weather { display: grid; grid-auto-flow: column; grid-auto-columns: 62px; gap: 6px; overflow-x: auto; padding-bottom: 7px; scrollbar-color: rgba(255,255,255,.25) transparent; }
+    .hourly-item { padding: 8px 5px; border-radius: 10px; background: rgba(255,255,255,.07); text-align: center; }
+    .hourly-item time, .hourly-item small { display: block; color: rgba(255,255,255,.57); font-size: .6rem; font-weight: 800; }
+    .hourly-item span { display: block; margin: 3px 0; font-size: 1.15rem; }
+    .hourly-item strong { display: block; font-size: .72rem; }
+    .weather-detail-button { width: 100%; min-height: 40px; margin-top: auto; padding: 0 12px; border: 1px solid rgba(255,255,255,.2); border-radius: 10px; background: #fff; color: var(--ink); font-size: .75rem; font-weight: 900; }
+    .weather-disclaimer { margin: 12px 0 0; color: rgba(255,255,255,.48); font-size: .63rem; line-height: 1.45; }
+
+    .planner { margin-bottom: 42px; padding: 28px; border-radius: var(--radius); background: var(--ink); color: #fff; box-shadow: var(--shadow); }
+    .planner-head { display: flex; justify-content: space-between; gap: 18px; align-items: end; margin-bottom: 22px; }
+    .planner-head h2 { margin: 5px 0 0; font-size: clamp(1.5rem, 4vw, 2.2rem); letter-spacing: -.05em; }
+    .planner-head p { max-width: 460px; margin: 0; color: rgba(255,255,255,.66); font-size: .85rem; }
+    .planner-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    .calculator { padding: 20px; border: 1px solid rgba(255,255,255,.12); border-radius: 17px; background: rgba(255,255,255,.055); }
+    .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 13px; }
+    .field { display: grid; gap: 6px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { color: rgba(255,255,255,.67); font-size: .73rem; font-weight: 800; }
+    .field select, .field input { width: 100%; min-height: 43px; padding: 0 11px; border: 1px solid rgba(255,255,255,.17); border-radius: 10px; background: #102b37; color: #fff; }
+    .field input[type="range"] { min-height: 32px; padding: 0; accent-color: var(--sun); }
+    .calculator h3 { margin-bottom: 5px; }
+    .calculator > p { margin-bottom: 16px; color: rgba(255,255,255,.62); font-size: .78rem; }
+    .stay-result { display: grid; place-items: center; min-height: 118px; margin-top: 14px; border-radius: 14px; background: linear-gradient(135deg, rgba(8,126,139,.32), rgba(8,126,139,.1)); text-align: center; }
+    .stay-result strong { display: block; font-size: 2rem; letter-spacing: -.05em; }
+    .stay-result span { color: rgba(255,255,255,.66); font-size: .75rem; }
+    .stay-result.caution { background: rgba(220,105,88,.2); }
+
+    .browse-head { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin-bottom: 18px; }
+    .section-kicker { color: var(--sea-dark); font-size: .78rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+    .browse-head h2 { margin: 5px 0 0; font-size: clamp(1.65rem, 4vw, 2.35rem); line-height: 1.1; letter-spacing: -.055em; }
+    .browse-head p { max-width: 430px; margin: 0; color: var(--muted); font-size: .92rem; }
+    .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 22px; padding: 11px; border: 1px solid var(--line); border-radius: 16px; background: var(--cream); }
+    .filter-list { display: flex; gap: 7px; flex-wrap: wrap; }
+    .filter { padding: 8px 12px; border: 1px solid transparent; border-radius: 10px; background: transparent; color: var(--muted); font-size: .84rem; font-weight: 800; }
+    .filter[aria-pressed="true"] { border-color: rgba(8,126,139,.25); background: #e7f5f4; color: var(--sea-dark); }
+    .result-count { color: var(--muted); white-space: nowrap; font-size: .83rem; font-weight: 800; }
+
+    .island-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .island-card { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--cream); box-shadow: 0 5px 20px rgba(4,24,34,.035); transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+    .island-card:hover { transform: translateY(-4px); border-color: rgba(8,126,139,.32); box-shadow: var(--shadow); }
+    .card-button { display: block; width: 100%; padding: 0; border: 0; background: none; color: inherit; text-align: left; }
+    .photo { position: relative; aspect-ratio: 1.52; overflow: hidden; background: linear-gradient(135deg, #3d7580, #0e2c38); }
+    .photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+    .photo img.no-crop { object-fit: contain; background: #123642; }
+    .island-card:hover .photo img { transform: scale(1.045); }
+    .photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 46%, rgba(4,24,34,.52)); pointer-events: none; }
+    .photo-credit { position: absolute; z-index: 1; left: 10px; bottom: 9px; color: rgba(255,255,255,.92); font-size: .65rem; font-weight: 700; text-shadow: 0 1px 3px #000; }
+    .card-copy { padding: 17px 17px 14px; }
+    .card-top { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
+    .card-top h3 { margin-bottom: 5px; font-size: 1.32rem; letter-spacing: -.045em; }
+    .type { flex: 0 0 auto; padding: 5px 8px; border-radius: 999px; background: #e9f4f2; color: var(--sea-dark); font-size: .7rem; font-weight: 900; }
+    .card-copy p { min-height: 48px; margin-bottom: 13px; color: #495c64; font-size: .86rem; }
+    .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tag { padding: 5px 7px; border-radius: 7px; background: #f1ede5; color: #59666b; font-size: .7rem; font-weight: 800; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 17px 16px; color: var(--muted); font-size: .75rem; }
+    .detail-link { color: var(--sea-dark); font-weight: 900; }
+
+    .empty { display: none; padding: 50px 20px; border: 1px dashed var(--line); border-radius: var(--radius); color: var(--muted); text-align: center; }
+
+    .detail-wrap { margin-top: 44px; scroll-margin-top: 20px; }
+    .detail { display: grid; grid-template-columns: minmax(260px, .72fr) 1.28fr; align-items: start; overflow: hidden; border-radius: 23px; background: var(--ink); color: #fff; box-shadow: var(--shadow); }
+    .detail-image { height: 260px; min-height: 0; position: relative; overflow: hidden; margin: 20px 0 20px 20px; border-radius: 17px; background: #183b48; }
+    .detail-image img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; }
+    .detail-image img.no-crop { object-fit: contain; }
+    .detail-image::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent, rgba(3,16,23,.62)); }
+    .detail-image span { position: absolute; z-index: 1; left: 14px; right: 14px; bottom: 12px; font-size: .62rem; color: rgba(255,255,255,.9); }
+    .detail-copy { padding: 25px; }
+    .detail-copy h2 { margin: 6px 0 7px; font-size: clamp(1.8rem, 4vw, 2.55rem); line-height: 1; letter-spacing: -.06em; }
+    .detail-summary { margin-bottom: 15px; color: rgba(255,255,255,.78); font-size: .88rem; }
+    .detail-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-bottom: 16px; }
+    .fact { padding: 9px; border: 1px solid rgba(255,255,255,.13); border-radius: 10px; background: rgba(255,255,255,.05); }
+    .fact span { display: block; margin-bottom: 3px; color: rgba(255,255,255,.56); font-size: .68rem; font-weight: 800; }
+    .fact strong { font-size: .84rem; }
+    .detail-copy h3 { margin-bottom: 7px; font-size: .88rem; }
+    .highlights { display: grid; gap: 5px; margin: 0 0 16px; padding: 0; list-style: none; }
+    .highlights li { position: relative; padding-left: 16px; color: rgba(255,255,255,.82); font-size: .79rem; }
+    .highlights li::before { content: ""; position: absolute; left: 0; top: .62em; width: 7px; height: 7px; border-radius: 50%; background: var(--sun); }
+    .official-feed { margin: 0 0 9px; padding: 11px 13px; border: 1px solid rgba(255,255,255,.13); border-radius: 12px; background: rgba(255,255,255,.055); }
+    .official-feed > summary, .ferry-feed > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; font-size: .8rem; font-weight: 900; }
+    .official-feed > summary::-webkit-details-marker, .ferry-feed > summary::-webkit-details-marker { display: none; }
+    .official-feed summary::after, .ferry-feed > summary::after { content: "+"; flex: 0 0 auto; color: #9bdde0; font-size: 1rem; }
+    .official-feed[open] summary::after, .ferry-feed[open] > summary::after { content: "−"; }
+    .official-feed-status { color: rgba(255,255,255,.56); font-size: .68rem; font-weight: 800; }
+    .official-data-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; margin-top: 10px; }
+    .official-data-item { display: block; min-width: 0; padding: 10px; border-radius: 10px; background: rgba(255,255,255,.075); color: #fff; text-decoration: none; }
+    .official-data-item span { display: block; color: #7bd3d8; font-size: .65rem; font-weight: 900; }
+    .official-data-item strong { display: block; overflow: hidden; margin: 2px 0; font-size: .78rem; text-overflow: ellipsis; white-space: nowrap; }
+    .official-data-item small { display: block; overflow: hidden; color: rgba(255,255,255,.58); font-size: .66rem; text-overflow: ellipsis; white-space: nowrap; }
+    .official-data-empty { grid-column: 1 / -1; margin: 0; color: rgba(255,255,255,.64); font-size: .76rem; }
+    .ferry-feed { margin: 0 0 12px; padding: 11px 13px; border: 1px solid rgba(123,211,216,.24); border-radius: 12px; background: rgba(8,126,139,.13); }
+    .ferry-data-status { color: #9bdde0; font-size: .68rem; font-weight: 900; }
+    .ferry-list { display: grid; gap: 7px; margin-top: 10px; }
+    .ferry-trip { display: grid; grid-template-columns: 48px minmax(0,1fr) auto; gap: 9px; align-items: center; padding: 10px; border-radius: 10px; background: rgba(255,255,255,.075); }
+    .ferry-time { color: var(--sun); font-size: .82rem; font-weight: 950; }
+    .ferry-trip strong { display: block; overflow: hidden; font-size: .78rem; text-overflow: ellipsis; white-space: nowrap; }
+    .ferry-trip small { display: block; overflow: hidden; color: rgba(255,255,255,.58); font-size: .66rem; text-overflow: ellipsis; white-space: nowrap; }
+    .ferry-state { padding: 4px 7px; border-radius: 999px; background: rgba(123,211,216,.16); color: #a9e8eb; font-size: .64rem; font-weight: 950; }
+    .ferry-state.alert { background: rgba(220,105,88,.2); color: #ffb7ad; }
+    .ferry-details { margin-top: 9px; border-top: 1px solid rgba(255,255,255,.12); }
+    .ferry-details summary { padding: 10px 2px 3px; color: rgba(255,255,255,.75); cursor: pointer; font-size: .72rem; font-weight: 900; }
+    .ferry-note { margin: 10px 0 0; color: rgba(255,255,255,.57); font-size: .67rem; line-height: 1.5; }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .action { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 36px; padding: 0 10px; border: 1px solid rgba(255,255,255,.25); border-radius: 9px; color: #fff; text-decoration: none; font-size: .73rem; font-weight: 900; }
+    .action.primary { border-color: var(--sun); background: var(--sun); color: var(--ink); }
+    .action:hover { background: rgba(255,255,255,.1); }
+    .action.primary:hover { background: #f2b856; }
+    .action.button { background: transparent; }
+
+    .source-panel { margin-top: 40px; padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--cream); }
+    .source-panel h2 { margin-bottom: 7px; font-size: 1.25rem; letter-spacing: -.04em; }
+    .source-panel > p { color: var(--muted); font-size: .87rem; }
+    .source-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
+    .source-list a { display: flex; align-items: center; gap: 8px; padding: 12px; border: 1px solid var(--line); border-radius: 12px; color: var(--ink); text-decoration: none; font-size: .82rem; font-weight: 800; }
+    .source-list a:hover { border-color: var(--sea); color: var(--sea-dark); }
+    .license-note { margin: 20px 0 0; color: var(--muted); font-size: .75rem; }
+    .utility-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 40px; }
+    .utility-card { min-width: 0; padding: 25px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--cream); }
+    .utility-card h2 { margin: 6px 0 8px; font-size: 1.35rem; letter-spacing: -.045em; }
+    .utility-card > p { color: var(--muted); font-size: .82rem; }
+    .season-list { display: grid; gap: 8px; margin-top: 17px; }
+    .season-item { display: grid; grid-template-columns: 60px 1fr; gap: 10px; align-items: center; padding: 10px; border-radius: 11px; background: #f2eee6; }
+    .season-item strong { color: var(--sea-dark); font-size: .78rem; }
+    .season-item span { min-width: 0; overflow-wrap: anywhere; font-size: .8rem; }
+    .stamp-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 18px 0; }
+    .stamp { aspect-ratio: 1; display: grid; place-items: center; padding: 5px; border: 1px dashed #aab5b3; border-radius: 50%; color: #85908f; background: #f5f2eb; text-align: center; font-size: .65rem; font-weight: 900; }
+    .stamp.done { border-style: solid; border-color: var(--sea); background: #dff1ef; color: var(--sea-dark); }
+    .utility-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .light-button { min-height: 38px; padding: 0 11px; border: 1px solid var(--line); border-radius: 9px; background: #fff; color: var(--ink); font-size: .78rem; font-weight: 900; }
+    .light-button.primary { border-color: var(--sea); background: var(--sea); color: #fff; }
+    footer { padding: 26px 0 38px; color: #6a7578; font-size: .78rem; }
+    .toast { position: fixed; z-index: 10; right: 22px; bottom: 22px; max-width: min(360px, calc(100% - 44px)); padding: 13px 15px; border-radius: 13px; background: var(--ink); color: #fff; box-shadow: var(--shadow); font-size: .84rem; font-weight: 800; opacity: 0; transform: translateY(10px); pointer-events: none; transition: .18s ease; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .map-dialog { width: min(1180px, calc(100% - 28px)); height: min(850px, calc(100% - 28px)); max-width: none; max-height: none; padding: 0; border: 0; border-radius: 22px; background: var(--cream); box-shadow: 0 30px 90px rgba(0,0,0,.34); overflow: hidden; }
+    .map-dialog::backdrop { background: rgba(4,18,25,.72); backdrop-filter: blur(5px); }
+    .map-dialog-shell { height: 100%; display: grid; grid-template-rows: 62px minmax(0,1fr); }
+    .map-dialog-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 0 18px; background: var(--ink); color: #fff; }
+    .map-dialog-head strong { font-size: .95rem; }
+    .map-close { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.2); border-radius: 11px; background: rgba(255,255,255,.08); color: #fff; font-size: 1.25rem; }
+    .map-dialog iframe { width: 100%; height: 100%; border: 0; background: #dce8e5; }
+
+    @media print { .site-header, .hero, .safety, .weather-map-section, .planner, .toolbar, .island-grid, .source-panel, footer, .toast, .detail .actions, .utility-grid { display: none !important; } body, main { background: #fff; padding: 0; } .detail-wrap { margin: 0; } .detail { box-shadow: none; break-inside: avoid; } }
+    @media (max-width: 920px) { .island-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .detail { grid-template-columns: 1fr; } .detail-image { height: 220px; min-height: 0; margin: 16px 16px 0; } .planner-grid, .weather-map-grid { grid-template-columns: 1fr; } .island-weather-map { min-height: 500px; } }
+    @media (max-width: 650px) {
+      .shell { width: min(100% - 24px, 1180px); }
+      .nav { min-height: 62px; } .nav-note, .nav-links { display: none; }
+      .hero { min-height: 420px; } .hero-content { padding: 60px 0 35px; }
+      .browse-head { display: block; } .browse-head p { margin-top: 13px; }
+      .toolbar { align-items: start; flex-direction: column; } .result-count { padding-left: 3px; }
+      .island-grid, .source-list, .utility-grid, .field-grid { grid-template-columns: minmax(0, 1fr); }
+      .field.full { grid-column: auto; } .planner { padding: 22px 16px; } .planner-head { display: block; } .planner-head p { margin-top: 8px; }
+      .weather-map-section { padding: 22px 14px; } .weather-map-head { display: block; } .weather-update { display: inline-block; margin-top: 10px; } .island-weather-map { min-height: 520px; } .map-weather-marker { min-width: 55px; padding: 5px; } .map-weather-marker strong { font-size: .59rem; }
+      .detail-copy { padding: 26px 20px; } .detail-facts, .official-data-list { grid-template-columns: 1fr; }
+      .source-panel { padding: 22px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell nav">
+      <a class="brand" href="#top" aria-label="섬으로 처음으로"><span class="brand-mark"><i data-lucide="waves"></i></span>섬으로</a>
+      <nav class="nav-links" aria-label="주요 메뉴"><a href="#islandWeather">섬 날씨</a><a href="#planner">여행 계산</a><a href="#browse-title">섬 태그</a><a href="#season">시즌·스탬프</a><button class="nav-map-button" id="openMapNav" type="button">상세 지도</button></nav>
+      <span class="nav-note">여수 섬 여행 큐레이션</span>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="shell hero-content">
+      <div class="eyebrow"><i data-lucide="compass" width="15" height="15"></i> YEOSU ISLAND CURATION</div>
+      <h1>바다 건너,<br>여수의 섬을 만나는 방법</h1>
+      <p>금오도의 절벽길부터 거문도의 푸른 항구까지. 실제 섬의 성격과 공식 관광 정보를 바탕으로, 지금 떠오르는 여수 섬 여행을 골라보세요.</p>
+      <div class="hero-meta">
+        <span class="meta-badge"><i data-lucide="map-pin" width="15" height="15"></i> 여수 한정</span>
+        <span class="meta-badge"><i data-lucide="layers" width="15" height="15"></i> 관광·운항·날씨 통합</span>
+        <span class="meta-badge"><i data-lucide="map" width="15" height="15"></i> 실제 지도 기반</span>
+      </div>
+    </div>
+    <span class="hero-credit">배경 사진 © <a href="https://commons.wikimedia.org/wiki/File:Geomundo_and_Baekdo_from_Bultanbong.jpg" target="_blank" rel="noopener noreferrer">Gupdaal · CC BY-SA 4.0</a></span>
+  </section>
+
+  <main class="shell">
+    <section class="safety" aria-label="여객선 확인 안내">
+      <i data-lucide="triangle-alert" width="22" height="22"></i>
+      <div><strong>출발 전 반드시 운항 여부를 확인하세요.</strong><p>이 서비스는 실시간 결항·좌석·시간표를 보장하지 않습니다. 바다 날씨와 여객선 운항은 수시로 바뀌므로 <a href="https://www.yeosu.go.kr/tour/information/trafficinfo/traffic/ship" target="_blank" rel="noopener noreferrer">여수관광 여객선 안내</a> 또는 선사 예약 페이지에서 최종 확인해 주세요.</p></div>
+    </section>
+
+    <section class="weather-map-section" id="islandWeather" aria-labelledby="weatherMapTitle">
+      <div class="weather-map-head">
+        <div><span class="section-kicker" style="color:#7bd3d8">ISLAND WEATHER MAP</span><h2 id="weatherMapTitle">여수 섬 날씨 한눈에 보기</h2><p>실제 지도에서 섬을 선택하면 시간대별 날씨와 여행 정보를 함께 확인할 수 있습니다.</p></div>
+        <span class="weather-update" id="weatherUpdate">기상정보 불러오는 중</span>
+      </div>
+      <div class="weather-map-grid">
+        <div class="island-weather-map" id="islandWeatherMap" aria-label="여수 섬 실제 날씨 지도">
+          <div id="weatherRealMap"></div>
+          <div class="weather-map-error" id="weatherMapError" hidden><div><strong>실제 지도를 불러오지 못했습니다.</strong><span id="weatherMapErrorMessage">지도 설정을 확인해 주세요.</span></div></div>
+          <p class="map-caption">섬 마커를 눌러 날씨 보기</p>
+        </div>
+        <aside class="weather-panel" id="weatherPanel" aria-live="polite"><p class="weather-panel-empty">섬별 기상정보를 준비하고 있습니다.</p></aside>
+      </div>
+    </section>
+
+    <section class="planner" id="planner" aria-labelledby="planner-title">
+      <div class="planner-head">
+        <div><span class="section-kicker" style="color:#7bd3d8">TRIP TIMER</span><h2 id="planner-title">날짜와 섬 체류시간 계산</h2></div>
+        <p>여행 날짜를 바꾸면 지도 날씨와 섬별 배편이 함께 변경됩니다.</p>
+      </div>
+      <div class="planner-grid">
+        <div class="calculator">
+          <p>확인한 시간표의 섬 도착·출발 시간을 입력하세요. 입력값은 저장하지 않습니다.</p>
+          <div class="field-grid">
+            <div class="field full"><label for="travelDate">여행 날짜 · 오늘부터 3일 예보</label><input id="travelDate" type="date"></div>
+            <div class="field"><label for="arrivalTime">섬 도착</label><input id="arrivalTime" type="time" value="09:30"></div>
+            <div class="field"><label for="lastFerryTime">섬 출발(막배)</label><input id="lastFerryTime" type="time" value="17:00"></div>
+            <div class="field full"><label for="safetyBuffer">선착장 도착 여유 <strong id="bufferText">30분</strong></label><input id="safetyBuffer" type="range" min="20" max="90" step="10" value="30"></div>
+          </div>
+          <div class="stay-result" id="stayResult"><div><strong id="stayTime">7시간 00분</strong><span id="stayMessage">16:30까지 선착장 복귀 권장</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="browse-title">
+      <div class="browse-head">
+        <div><span class="section-kicker">ISLAND TAGS</span><h2 id="browse-title">태그로 둘러보는 여수 섬</h2></div>
+        <p>걷기·자연·휴식 태그로 가볍게 좁혀보고, 카드에서 섬의 특징을 바로 확인하세요.</p>
+      </div>
+      <div class="toolbar">
+        <div class="filter-list" aria-label="여행 테마 필터">
+          <button class="filter" type="button" data-filter="all" aria-pressed="true">전체</button>
+          <button class="filter" type="button" data-filter="walk" aria-pressed="false">걷기</button>
+          <button class="filter" type="button" data-filter="nature" aria-pressed="false">자연·지질</button>
+          <button class="filter" type="button" data-filter="rest" aria-pressed="false">고요한 휴식</button>
+        </div>
+        <span class="result-count" id="resultCount" aria-live="polite"></span>
+      </div>
+      <div class="island-grid" id="islandGrid"></div>
+      <div class="empty" id="emptyState">해당 테마의 섬을 찾지 못했습니다. 다른 테마를 선택해 보세요.</div>
+    </section>
+
+    <section class="detail-wrap" id="detail" aria-live="polite">
+      <article class="detail">
+        <div class="detail-image"><img id="detailImage" alt=""><span id="detailCredit"></span></div>
+        <div class="detail-copy">
+          <span class="section-kicker" style="color:#7bd3d8">ISLAND NOTE</span>
+          <h2 id="detailName"></h2>
+          <p class="detail-summary" id="detailSummary"></p>
+          <div class="detail-facts" id="detailFacts"></div>
+          <h3>이 섬에서 놓치지 말 것</h3>
+          <ul class="highlights" id="detailHighlights"></ul>
+          <details class="official-feed">
+            <summary><span>섬 주변 공식 관광정보</span><span class="official-feed-status" id="officialDataStatus">불러오는 중</span></summary>
+            <div class="official-data-list" id="officialDataList"></div>
+          </details>
+          <details class="ferry-feed">
+            <summary><span>여객선 운항정보</span><span class="ferry-data-status" id="ferryDataStatus">불러오는 중</span></summary>
+            <div id="ferryDataList"></div>
+          </details>
+          <div class="actions">
+            <a class="action primary" id="officialLink" target="_blank" rel="noopener noreferrer"><i data-lucide="book-open" width="16" height="16"></i> 공식 관광 정보</a>
+            <button class="action button" id="nearbyMap" type="button"><i data-lucide="map" width="16" height="16"></i> 주변 숙박·편의시설</button>
+            <a class="action" id="ferryLink" href="https://www.yeosu.go.kr/tour/information/trafficinfo/traffic/ship" target="_blank" rel="noopener noreferrer"><i data-lucide="ship" width="16" height="16"></i> 여객선 확인</a>
+            <a class="action" id="photoLink" target="_blank" rel="noopener noreferrer"><i data-lucide="copyright" width="16" height="16"></i> 사진 출처</a>
+            <button class="action button" id="downloadPlan" type="button"><i data-lucide="download" width="16" height="16"></i> 코스 메모</button>
+            <button class="action button" id="printPlan" type="button"><i data-lucide="printer" width="16" height="16"></i> PDF 저장</button>
+            <button class="action button" id="stampIsland" type="button"><i data-lucide="badge-check" width="16" height="16"></i> 방문 스탬프</button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="utility-grid" id="season">
+      <article class="utility-card">
+        <span class="section-kicker">SEASON CALENDAR</span><h2>섬의 좋은 때</h2>
+        <p>계절은 추천 시기이며 행사·자연현상은 매년 달라질 수 있습니다. 방문 전 공식 안내를 확인하세요.</p>
+        <div class="season-list" id="seasonList"></div>
+      </article>
+      <article class="utility-card">
+        <span class="section-kicker">ISLAND STAMPS</span><h2>나의 여수 섬 기록</h2>
+        <p>방문한 섬을 이 브라우저에만 기록합니다. 계정이나 서버로 전송하지 않습니다.</p>
+        <div class="stamp-grid" id="stampGrid"></div>
+        <div class="utility-actions"><button class="light-button primary" id="stampCurrent" type="button">선택한 섬 스탬프 찍기</button><button class="light-button" id="resetStamps" type="button">기록 초기화</button></div>
+      </article>
+    </section>
+
+    <section class="source-panel" aria-labelledby="source-title">
+      <h2 id="source-title">섬 정보와 사진</h2>
+      <p>섬별 핵심 정보는 공식 관광 안내를 기준으로 간결하게 편집했습니다. 모든 사진에는 원저작자와 이용조건을 표시합니다.</p>
+      <div class="source-list">
+        <a href="https://www.yeosu.go.kr/tour/leisure/island/geumodo_info" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" width="16" height="16"></i> 여수관광 · 금오도</a>
+        <a href="https://www.yeosu.go.kr/tour/leisure/island/geomundo_info" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" width="16" height="16"></i> 여수관광 · 거문도</a>
+        <a href="https://www.yeosu.go.kr/tour/travel/island/sado" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" width="16" height="16"></i> 여수관광 · 사도</a>
+        <a href="https://www.yeosu.go.kr/tour/leisure/island/nangdo_info" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" width="16" height="16"></i> 여수관광 · 낭도</a>
+        <a href="https://www.yeosu.go.kr/tour/leisure/island/gaedo_info" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" width="16" height="16"></i> 여수관광 · 개도</a>
+        <a href="https://www.yeosu.go.kr/tour/travel/10tour/odongdo" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" width="16" height="16"></i> 여수관광 · 오동도</a>
+        <a href="https://www.yeosu.go.kr/tour/travel/10tour/hyangilam" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" width="16" height="16"></i> 여수관광 · 돌산도(향일암)</a>
+        <a href="https://www.yeosu.go.kr/tour/travel/island_beach?idx=501&amp;mode=view" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" width="16" height="16"></i> 여수관광 · 장도</a>
+        <a href="https://www.yeosu.go.kr/tour/leisure/island/hahwado_info" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" width="16" height="16"></i> 여수관광 · 하화도</a>
+        <a href="https://www.yeosu.go.kr/tour/leisure/island/yeojado_info" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" width="16" height="16"></i> 여수관광 · 여자도</a>
+        <a href="https://www.yeosu.go.kr/tour/leisure/island/sonjukdo_info" target="_blank" rel="noopener noreferrer"><i data-lucide="external-link" width="16" height="16"></i> 여수관광 · 손죽도</a>
+        <a href="https://www.yeosu.go.kr/tour/information/trafficinfo/traffic/ship" target="_blank" rel="noopener noreferrer"><i data-lucide="ship" width="16" height="16"></i> 여수관광 · 여객선 안내</a>
+      </div>
+      <p class="license-note">하화도·여자도·손죽도 사진은 여수시(2026) 공공누리 제4유형 자료로, 출처표시·비영리·변경금지 조건에 따라 원본을 사용했습니다. 운항시간·요금·입도 가능 시간은 출발 전 다시 확인하세요.</p>
+    </section>
+  </main>
+
+  <footer class="shell">섬으로 · 여수 섬 여행 큐레이션 · 업데이트 기준: 2026년 8월 · 실시간 여객선 정보는 공식 채널 우선</footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog class="map-dialog" id="mapDialog" aria-labelledby="mapDialogTitle">
+    <div class="map-dialog-shell">
+      <div class="map-dialog-head"><strong id="mapDialogTitle">섬 주변 지도</strong><button class="map-close" id="closeMap" type="button" aria-label="지도 닫기">×</button></div>
+      <iframe id="mapFrame" title="선택한 섬 주변 카카오맵" loading="lazy"></iframe>
+    </div>
+  </dialog>
+
+  <script src="./kakao-map-config.js"></script>
+  <script type="module">
+    import { apiConfig } from "./api-config.js";
+
+    const ISLANDS = [
+      {
+        id: "geumodo", name: "금오도", type: "걷기", themes: ["walk", "nature"], season: "봄·가을", seasonNote: "비렁길 걷기",
+        summary: "해안 절벽과 다도해 풍경을 따라 걷는 여수 대표 트레킹 섬.",
+        access: "함구미항 중심", duration: "1.5–5시간", best: "해안 트레킹",
+        tags: ["비렁길", "절벽", "별밤"],
+        highlights: ["비렁길 1코스는 함구미에서 두포까지 약 5km·2시간입니다.", "여객선 승선 전 신분증과 최신 운항 정보를 확인하세요."],
+        officialUrl: "https://www.yeosu.go.kr/tour/leisure/island/geumodo_info",
+        image: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Korea_Geumodo_Bireong_trail_%287800583572%29.jpg",
+        photoUrl: "https://commons.wikimedia.org/wiki/File:Korea_Geumodo_Bireong_trail_(7800583572).jpg",
+        credit: "Korea.net / Korean Culture and Information Service", license: "CC BY-SA 2.0"
+      },
+      {
+        id: "geomundo", name: "거문도·백도", type: "풍경", themes: ["nature", "rest"], season: "봄·가을", seasonNote: "등대와 백도 해상 경관",
+        summary: "동도·서도·고도가 바다 위 병풍처럼 놓인, 먼 바다의 항구 섬.",
+        access: "거문도 여객선터미널", duration: "1박 권장", best: "등대·유람선",
+        tags: ["백도", "등대", "항구"],
+        highlights: ["거문도는 동도·서도·고도로 이뤄진 섬군입니다.", "백도는 거문도에서 유람선으로 둘러보며 기상에 따라 운항이 달라집니다."],
+        officialUrl: "https://www.yeosu.go.kr/tour/leisure/island/geomundo_info",
+        image: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Geomundo_and_Baekdo_from_Bultanbong.jpg",
+        photoUrl: "https://commons.wikimedia.org/wiki/File:Geomundo_and_Baekdo_from_Bultanbong.jpg",
+        credit: "Gupdaal", license: "CC BY-SA 4.0"
+      },
+      {
+        id: "sado", name: "사도", type: "자연·지질", themes: ["nature", "walk"], season: "봄·가을", seasonNote: "공룡화석·바닷길 물때 확인",
+        summary: "공룡 발자국과 바다가 갈라지는 풍경으로 기억되는 섬의 지질 여행.",
+        access: "낭도·사도 항로", duration: "반나절", best: "공룡 발자국",
+        tags: ["공룡화석", "바닷길", "섬마을"],
+        highlights: ["사도 일원에는 천연기념물 제434호 공룡발자국 화석산지가 있습니다.", "바닷길과 해안 탐방은 물때·날씨를 확인해야 합니다."],
+        officialUrl: "https://www.yeosu.go.kr/tour/travel/island/sado",
+        image: "https://upload.wikimedia.org/wikipedia/commons/d/df/Sado_islands.jpg",
+        photoUrl: "https://commons.wikimedia.org/wiki/File:Sado_islands.jpg",
+        credit: "Stephen Alexander-Larkin", license: "CC BY-SA 3.0"
+      },
+      {
+        id: "nangdo", name: "낭도", type: "고요한 휴식", themes: ["rest", "nature"], season: "봄·초여름", seasonNote: "둘레길과 해변",
+        summary: "주상절리, 공룡 발자국, 작은 해변을 하루에 느긋하게 잇는 섬.",
+        access: "연도교·낭도항", duration: "반나절–하루", best: "해안 산책",
+        tags: ["신선대", "해수욕장", "공룡화석"],
+        highlights: ["신선대·천선대에서 주상절리와 해안절벽을 볼 수 있습니다.", "연도교로 차량 접근이 가능해 여객선을 타지 않아도 됩니다."],
+        officialUrl: "https://www.yeosu.go.kr/tour/leisure/island/nangdo_info",
+        image: "https://upload.wikimedia.org/wikipedia/commons/f/f1/Nangdo_Fishing_Port_JUN2020.jpg",
+        photoUrl: "https://commons.wikimedia.org/wiki/File:Nangdo_Fishing_Port_JUN2020.jpg",
+        credit: "Gupdaal", license: "CC BY 4.0"
+      },
+      {
+        id: "gaedo", name: "개도", type: "고요한 휴식", themes: ["rest", "walk"], season: "봄·가을", seasonNote: "사람길·청석포 별밤",
+        summary: "몽돌해변과 사람길을 따라, 빛 공해 적은 밤까지 머무는 섬.",
+        access: "화산항·여석항", duration: "하루", best: "캠핑·산책",
+        tags: ["청석포", "몽돌해변", "별밤"],
+        highlights: ["개도 사람길에는 화산선착장–호령마을 4.5km 구간이 있습니다.", "야영은 시설과 허용 여부를 미리 확인하세요."],
+        officialUrl: "https://www.yeosu.go.kr/tour/leisure/island/gaedo_info",
+        image: "https://upload.wikimedia.org/wikipedia/commons/a/a3/Gaedo_islands.jpg",
+        photoUrl: "https://commons.wikimedia.org/wiki/File:Gaedo_islands.jpg",
+        credit: "Stephen Alexander-Larkin", license: "CC BY-SA 3.0"
+      },
+      {
+        id: "odongdo", name: "오동도", type: "도심 섬 산책", themes: ["walk", "nature", "rest"], season: "겨울·봄", seasonNote: "동백 개화와 숲길",
+        summary: "방파제를 걸어 들어가 동백숲·등대·기암 해안을 만나는 여수 대표 도심 섬.",
+        access: "방파제 도보 15분", duration: "1.5–3시간", best: "가벼운 동백숲 산책",
+        tags: ["동백", "등대", "무장애 여행"],
+        highlights: ["입구에서 방파제를 따라 약 15분 걸으면 섬에 도착합니다.", "약 2.5km 숲길에 등대와 해안 전망 지점이 이어집니다."],
+        officialUrl: "https://www.yeosu.go.kr/tour/travel/10tour/odongdo",
+        image: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Yeosu_Odongdo_20180929_002.jpg",
+        photoUrl: "https://commons.wikimedia.org/wiki/File:Yeosu_Odongdo_20180929_002.jpg",
+        credit: "Mobius6", license: "CC BY-SA 4.0"
+      },
+      {
+        id: "dolsando", name: "돌산도", type: "드라이브·일출", themes: ["nature", "walk", "rest"], season: "사계절", seasonNote: "향일암 일출·해안 드라이브",
+        summary: "돌산대교를 건너 향일암과 해안도로, 어촌 풍경을 한 번에 둘러보는 큰 섬.",
+        access: "돌산대교·차량/버스", duration: "반나절–하루", best: "향일암과 해안 드라이브",
+        tags: ["향일암", "일출", "해안도로"],
+        highlights: ["다리로 연결되어 차량과 시내버스로 접근할 수 있습니다.", "향일암에는 가파른 돌계단 구간이 있어 편한 신발이 필요합니다."],
+        officialUrl: "https://www.yeosu.go.kr/tour/travel/10tour/hyangilam",
+        image: "https://upload.wikimedia.org/wikipedia/commons/9/9e/Fishing_village_Yeosu.jpg",
+        photoUrl: "https://commons.wikimedia.org/wiki/File:Fishing_village_Yeosu.jpg",
+        credit: "Mikhail Kim", license: "CC BY-SA 2.0"
+      },
+      {
+        id: "jangdo", name: "장도", type: "예술·정원", themes: ["rest", "walk"], season: "사계절", seasonNote: "예술 전시와 다도해 정원",
+        summary: "웅천 앞바다의 잠수교를 건너 전시관·정원·전망데크를 산책하는 예술의 섬.",
+        access: "웅천 잠수교·물때 확인", duration: "1.5–2.5시간", best: "예술과 바다 산책",
+        tags: ["잠수교", "전시", "다도해 정원"],
+        highlights: ["보행교를 건너 전시관·정원·전망데크를 둘러봅니다.", "만조 때 출입이 통제될 수 있어 입도 가능 시간을 확인해야 합니다."],
+        officialUrl: "https://www.yeosu.go.kr/tour/travel/island_beach?idx=501&mode=view",
+        image: "https://upload.wikimedia.org/wikipedia/commons/b/bf/Jangdo_%28Yeosu%29_01.jpg",
+        photoUrl: "https://commons.wikimedia.org/wiki/File:Jangdo_(Yeosu)_01.jpg",
+        credit: "Seefooddiet", license: "CC BY-SA 4.0"
+      },
+      {
+        id: "hahwado", name: "하화도", type: "꽃길 걷기", themes: ["walk", "nature", "rest"], season: "봄·가을", seasonNote: "야생화와 꽃섬길",
+        summary: "완만한 해안길에서 야생화와 절벽 풍경을 함께 만나는 작은 섬.",
+        access: "여수항·백야항 여객선", duration: "3–4시간", best: "꽃섬길",
+        tags: ["꽃섬길", "야생화", "꽃섬다리"],
+        highlights: ["꽃섬길은 약 6km·3시간의 완만한 순환 코스입니다.", "100m 꽃섬다리와 야생화공원이 대표 지점입니다."],
+        officialUrl: "https://www.yeosu.go.kr/tour/leisure/island/hahwado_info",
+        image: "assets/hahwado-yeosu-city.jpg", photoUrl: "https://yscms.yeosu.go.kr/tour/leisure/island/hahwado_info",
+        credit: "여수시", license: "공공누리 제4유형"
+      },
+      {
+        id: "yeojado", name: "여자도", type: "섬마을 산책", themes: ["walk", "rest", "nature"], season: "봄·가을", seasonNote: "해안길과 붕장어다리",
+        summary: "대여자도와 소여자도를 잇는 다리와 조용한 해안길을 걷는 섬.",
+        access: "섬달천항 여객선", duration: "2–4시간", best: "해안 둘레길",
+        tags: ["붕장어다리", "해안데크", "낚시"],
+        highlights: ["공식 당일 코스는 약 6km·2시간으로 안내됩니다.", "두 섬을 잇는 붕장어다리는 길이 560m입니다."],
+        officialUrl: "https://www.yeosu.go.kr/tour/leisure/island/yeojado_info",
+        image: "assets/yeojado-yeosu-city.jpg", photoUrl: "https://yscms.yeosu.go.kr/tour/leisure/island/yeojado_info",
+        credit: "여수시", license: "공공누리 제4유형"
+      },
+      {
+        id: "sonjukdo", name: "손죽도", type: "역사·자연", themes: ["nature", "walk", "rest"], season: "봄·가을", seasonNote: "해변과 능선 걷기",
+        summary: "고운 모래해변과 능선, 이대원 장군의 역사를 함께 만나는 외딴 섬.",
+        access: "여수항 여객선", duration: "1박 2일 권장", best: "해변·역사 산책",
+        tags: ["손죽해수욕장", "삼각산", "이대원 장군"],
+        highlights: ["손죽해수욕장·마을 돌담길·이대원 장군 사당을 함께 둘러볼 수 있습니다.", "여수시는 삼산면 섬 여행에 2일 이상 일정을 권합니다."],
+        officialUrl: "https://www.yeosu.go.kr/tour/leisure/island/sonjukdo_info",
+        image: "assets/sonjukdo-yeosu-city.jpg", photoUrl: "https://yscms.yeosu.go.kr/tour/leisure/island/sonjukdo_info",
+        credit: "여수시", license: "공공누리 제4유형"
+      }
+    ];
+
+    const state = { filter: "all", selectedId: ISLANDS[0].id, travelDate: koreaInputDate(), stamps: loadStamps(), tourData: null, ferryData: null, weatherData: null, weatherMap: null, weatherMapOverlays: [] };
+    const els = {
+      grid: document.getElementById("islandGrid"), empty: document.getElementById("emptyState"), resultCount: document.getElementById("resultCount"),
+      detail: document.getElementById("detail"), detailImage: document.getElementById("detailImage"), detailCredit: document.getElementById("detailCredit"),
+      detailName: document.getElementById("detailName"), detailSummary: document.getElementById("detailSummary"), detailFacts: document.getElementById("detailFacts"),
+      detailHighlights: document.getElementById("detailHighlights"), officialLink: document.getElementById("officialLink"), nearbyMap: document.getElementById("nearbyMap"), ferryLink: document.getElementById("ferryLink"), photoLink: document.getElementById("photoLink"),
+      officialDataStatus: document.getElementById("officialDataStatus"), officialDataList: document.getElementById("officialDataList"), openMapNav: document.getElementById("openMapNav"), mapDialog: document.getElementById("mapDialog"), mapDialogTitle: document.getElementById("mapDialogTitle"), mapFrame: document.getElementById("mapFrame"), closeMap: document.getElementById("closeMap"),
+      ferryDataStatus: document.getElementById("ferryDataStatus"), ferryDataList: document.getElementById("ferryDataList"),
+      weatherUpdate: document.getElementById("weatherUpdate"), weatherPanel: document.getElementById("weatherPanel"), weatherRealMap: document.getElementById("weatherRealMap"), weatherMapError: document.getElementById("weatherMapError"), weatherMapErrorMessage: document.getElementById("weatherMapErrorMessage"),
+      downloadPlan: document.getElementById("downloadPlan"), printPlan: document.getElementById("printPlan"), stampIsland: document.getElementById("stampIsland"), toast: document.getElementById("toast"),
+      travelDate: document.getElementById("travelDate"), arrivalTime: document.getElementById("arrivalTime"), lastFerryTime: document.getElementById("lastFerryTime"), safetyBuffer: document.getElementById("safetyBuffer"), bufferText: document.getElementById("bufferText"), stayResult: document.getElementById("stayResult"), stayTime: document.getElementById("stayTime"), stayMessage: document.getElementById("stayMessage"),
+      seasonList: document.getElementById("seasonList"), stampGrid: document.getElementById("stampGrid"), stampCurrent: document.getElementById("stampCurrent"), resetStamps: document.getElementById("resetStamps")
+    };
+
+    const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[char]));
+    const contentTypeLabel = (value) => apiConfig.contentTypeLabels[String(value)] || "관광정보";
+    const selectedIsland = () => ISLANDS.find((island) => island.id === state.selectedId) || ISLANDS[0];
+    const filteredIslands = () => state.filter === "all" ? ISLANDS : ISLANDS.filter((island) => island.themes.includes(state.filter));
+    els.travelDate.value = state.travelDate;
+    els.travelDate.min = koreaInputDate();
+    els.travelDate.max = koreaInputDate(2);
+
+    function loadStamps() {
+      try {
+        const value = JSON.parse(localStorage.getItem("seomuro-stamps") || "[]");
+        return new Set(Array.isArray(value) ? value.filter((id) => ISLANDS.some((island) => island.id === id)) : []);
+      } catch { return new Set(); }
+    }
+
+    function renderCards() {
+      const islands = filteredIslands();
+      els.grid.innerHTML = islands.map((island) => `
+        <article class="island-card">
+          <button class="card-button" type="button" data-island-id="${escapeHtml(island.id)}" aria-label="${escapeHtml(island.name)} 상세 보기">
+            <div class="photo"><img class="${island.license.includes("제4유형") ? "no-crop" : ""}" src="${escapeHtml(island.image)}" alt="${escapeHtml(island.name)} 풍경" loading="lazy" referrerpolicy="no-referrer"><span class="photo-credit">© ${escapeHtml(island.credit)} · ${escapeHtml(island.license)}</span></div>
+            <div class="card-copy"><div class="card-top"><div><h3>${escapeHtml(island.name)}</h3><p>${escapeHtml(island.summary)}</p></div><span class="type">${escapeHtml(island.type)}</span></div><div class="tags">${island.tags.map((tag) => `<span class="tag">#${escapeHtml(tag)}</span>`).join("")}</div></div>
+            <div class="card-footer"><span>${escapeHtml(island.access)}</span><span class="detail-link">자세히 보기 →</span></div>
+          </button>
+        </article>
+      `).join("");
+      els.empty.style.display = islands.length ? "none" : "block";
+      els.resultCount.textContent = `${islands.length}개의 섬`;
+      els.grid.querySelectorAll(".photo img").forEach((image) => image.addEventListener("error", () => {
+        image.style.opacity = "0";
+        image.alt = "외부 사진을 불러오지 못했습니다";
+      }, { once: true }));
+      els.grid.querySelectorAll("[data-island-id]").forEach((button) => button.addEventListener("click", () => {
+        state.selectedId = button.dataset.islandId;
+        renderDetail();
+        els.detail.scrollIntoView({ behavior: "smooth", block: "start" });
+      }));
+      if (window.lucide) window.lucide.createIcons({ attrs: { "stroke-width": 2.25 } });
+    }
+
+    function renderDetail() {
+      const island = selectedIsland();
+      els.detailImage.src = island.image;
+      els.detailImage.alt = `${island.name} 풍경`;
+      els.detailImage.classList.toggle("no-crop", island.license.includes("제4유형"));
+      els.detailImage.onerror = () => { els.detailImage.style.display = "none"; };
+      els.detailImage.onload = () => { els.detailImage.style.display = "block"; };
+      els.detailCredit.textContent = `사진 © ${island.credit} · ${island.license}`;
+      els.detailName.textContent = island.name;
+      els.detailSummary.textContent = island.summary;
+      els.detailFacts.innerHTML = [["여행 성격", island.type], ["권장 시간", island.duration], ["대표 경험", island.best]].map(([label, value]) => `<div class="fact"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>`).join("");
+      els.detailHighlights.innerHTML = island.highlights.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+      els.officialLink.href = island.officialUrl;
+      els.ferryLink.href = apiConfig.publicSites.yeosuShipInfo;
+      els.photoLink.href = island.photoUrl;
+      renderOfficialData();
+      renderFerryData();
+      renderWeatherMap();
+      els.stampIsland.innerHTML = `<i data-lucide="badge-check" width="16" height="16"></i>${state.stamps.has(island.id) ? "방문 기록됨" : "방문 스탬프"}`;
+      if (window.lucide) window.lucide.createIcons({ attrs: { "stroke-width": 2.25 } });
+    }
+
+    async function loadTourData() {
+      try {
+        const response = await fetch(apiConfig.localData.tourSnapshot, { cache: "no-store" });
+        if (!response.ok) throw new Error("official_data_unavailable");
+        const payload = await response.json();
+        if (!payload?.islands) throw new Error("official_data_invalid");
+        state.tourData = payload;
+      } catch {
+        state.tourData = { error: true, islands: {} };
+      }
+      renderOfficialData();
+    }
+
+    async function loadFerryData() {
+      try {
+        const response = await fetch(apiConfig.localData.ferrySnapshot, { cache: "no-store" });
+        if (!response.ok) throw new Error("ferry_data_unavailable");
+        const payload = await response.json();
+        if (!payload?.islands) throw new Error("ferry_data_invalid");
+        state.ferryData = payload;
+        syncTravelDateRange();
+      } catch {
+        state.ferryData = { error: true, islands: {} };
+      }
+      renderFerryData();
+    }
+
+    async function loadWeatherData() {
+      try {
+        const response = await fetch(apiConfig.localData.weatherSnapshot, { cache: "no-store" });
+        if (!response.ok) throw new Error("weather_data_unavailable");
+        const payload = await response.json();
+        if (!payload?.islands) throw new Error("weather_data_invalid");
+        state.weatherData = payload;
+        syncTravelDateRange();
+      } catch {
+        state.weatherData = { error: true, islands: {} };
+      }
+      renderWeatherMap();
+    }
+
+    function renderWeatherMap() {
+      const island = selectedIsland();
+      const weatherRecord = state.weatherData?.islands?.[island.id];
+      const selectedDate = selectedDateKey();
+      renderActualWeatherMarkers();
+
+      if (!state.weatherData) {
+        els.weatherUpdate.textContent = "기상정보 불러오는 중";
+        els.weatherPanel.innerHTML = '<p class="weather-panel-empty">섬별 기상정보를 준비하고 있습니다.</p>';
+        return;
+      }
+      if (state.weatherData.error) {
+        els.weatherUpdate.textContent = "날씨 갱신 필요";
+        els.weatherPanel.innerHTML = '<p class="weather-panel-empty">refresh-tour-data.cmd를 실행해 날씨 데이터를 갱신해 주세요.</p>';
+        return;
+      }
+      els.weatherUpdate.textContent = `${formatApiDate(selectedDate)} 선택 · ${formatWeatherUpdated(state.weatherData.generatedAt)} 갱신`;
+      const hourly = Array.isArray(weatherRecord?.hourly) ? weatherRecord.hourly.filter((point) => point.date === selectedDate).slice(0, 12) : [];
+      const current = hourly[0];
+      if (!current) {
+        els.weatherPanel.innerHTML = `<p class="weather-panel-empty">${escapeHtml(formatApiDate(selectedDate))} ${escapeHtml(island.name)}의 예보가 없습니다.</p>`;
+        return;
+      }
+      const travel = current.travel || { level: "good", label: "기상 확인" };
+      const metrics = [
+        ["강수확률", `${valueOrDash(current.rainChance)}%`],
+        ["풍속", `${valueOrDash(current.wind, 1)} m/s`],
+        ["습도", `${valueOrDash(current.humidity)}%`],
+        ["파고", current.wave === null || current.wave === undefined ? "미제공" : `${valueOrDash(current.wave, 1)} m`]
+      ];
+      const hourlyHtml = hourly.map((point) => `<div class="hourly-item"><time>${escapeHtml(hourlyTimeLabel(point))}</time><span>${point.icon || "·"}</span><strong>${Number.isFinite(point.temperature) ? `${Math.round(point.temperature)}°` : "--"}</strong><small>비 ${valueOrDash(point.rainChance)}%</small></div>`).join("");
+      els.weatherPanel.innerHTML = `
+        <div class="weather-now-head"><div><small>${formatApiDate(current.date)} ${escapeHtml(current.time)} 예보</small><h3>${escapeHtml(island.name)}</h3></div><span class="travel-chip ${escapeHtml(travel.level)}">${escapeHtml(travel.label)}</span></div>
+        <div class="weather-now-main"><span class="weather-now-icon">${current.icon || "·"}</span><div><div class="weather-now-temp">${Number.isFinite(current.temperature) ? `${Math.round(current.temperature)}°` : "--"}</div><p>${escapeHtml(current.condition || "예보 확인")} · ${escapeHtml(current.precipitation || "강수없음")}</p></div></div>
+        <div class="weather-metrics">${metrics.map(([label, value]) => `<div class="weather-metric"><span>${label}</span><strong>${escapeHtml(value)}</strong></div>`).join("")}</div>
+        <div class="hourly-title">선택 날짜 시간별 예보</div><div class="hourly-weather">${hourlyHtml}</div>
+        <p class="weather-disclaimer">이동 주의도는 강수·풍속·파고를 단순 조합한 참고 지표이며 결항 예측이 아닙니다.</p>
+        <button class="weather-detail-button" id="weatherDetailButton" type="button">${escapeHtml(island.name)} 관광·여객선 정보 보기</button>`;
+      document.getElementById("weatherDetailButton")?.addEventListener("click", () => els.detail.scrollIntoView({ behavior: "smooth", block: "start" }));
+    }
+
+    function valueOrDash(value, digits = 0) {
+      return Number.isFinite(value) ? Number(value).toFixed(digits) : "--";
+    }
+
+    function hourlyTimeLabel(point) {
+      const date = String(point.date || "");
+      const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul" }).format(new Date()).replaceAll("-", "");
+      return `${date && date !== today ? `${date.slice(4, 6)}.${date.slice(6, 8)} ` : ""}${point.time || "--:--"}`;
+    }
+
+    function formatWeatherUpdated(value) {
+      if (!value) return "갱신일 미상";
+      return new Date(value).toLocaleString("ko-KR", { timeZone: "Asia/Seoul", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" });
+    }
+
+    function loadActualWeatherMap() {
+      if (location.protocol === "file:") return showWeatherMapError("VS Code Live Server로 실행해 주세요.");
+      const key = window.SEOMURO_MAP_CONFIG?.KAKAO_JAVASCRIPT_KEY?.trim();
+      if (!key || key.includes("PASTE_YOUR_")) return showWeatherMapError("지도 키 설정을 확인해 주세요.");
+      let settled = false;
+      const fail = () => {
+        if (settled) return;
+        settled = true;
+        showWeatherMapError("지도 키와 등록된 웹 도메인을 확인해 주세요.");
+      };
+      const initialize = () => {
+        if (!window.kakao?.maps) return fail();
+        kakao.maps.load(() => {
+          if (settled) return;
+          try { initActualWeatherMap(); settled = true; } catch { fail(); }
+        });
+      };
+      if (window.kakao?.maps) return initialize();
+      const script = document.createElement("script");
+      script.src = `${apiConfig.map.sdkUrl}?appkey=${encodeURIComponent(key)}&autoload=false`;
+      script.onload = initialize;
+      script.onerror = fail;
+      document.head.appendChild(script);
+      setTimeout(fail, 7000);
+    }
+
+    function initActualWeatherMap() {
+      const center = new kakao.maps.LatLng(34.46, 127.58);
+      state.weatherMap = new kakao.maps.Map(els.weatherRealMap, { center, level: 10 });
+      state.weatherMap.addControl(new kakao.maps.MapTypeControl(), kakao.maps.ControlPosition.TOPRIGHT);
+      state.weatherMap.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
+      const bounds = new kakao.maps.LatLngBounds();
+      for (const item of ISLANDS) {
+        const location = apiConfig.islands[item.id]?.location;
+        if (location) bounds.extend(new kakao.maps.LatLng(location.lat, location.lon));
+      }
+      state.weatherMap.setBounds(bounds, 70, 70, 70, 70);
+      renderActualWeatherMarkers();
+    }
+
+    function renderActualWeatherMarkers() {
+      if (!state.weatherMap || !window.kakao?.maps) return;
+      state.weatherMapOverlays.forEach((overlay) => overlay.setMap(null));
+      state.weatherMapOverlays = ISLANDS.flatMap((item) => {
+        const location = apiConfig.islands[item.id]?.location;
+        if (!location) return [];
+        const hourly = state.weatherData?.islands?.[item.id]?.hourly;
+        const current = Array.isArray(hourly) ? hourly.find((point) => point.date === selectedDateKey()) : null;
+        const button = document.createElement("button");
+        button.className = "map-weather-marker";
+        button.type = "button";
+        button.setAttribute("aria-label", `${item.name} 날씨 보기`);
+        button.setAttribute("aria-pressed", String(item.id === state.selectedId));
+        const icon = document.createElement("span");
+        icon.textContent = current?.icon || "·";
+        const name = document.createElement("strong");
+        name.textContent = item.name.replace("·백도", "");
+        const temperature = document.createElement("small");
+        temperature.textContent = Number.isFinite(current?.temperature) ? `${Math.round(current.temperature)}°` : "--";
+        button.append(icon, name, temperature);
+        button.addEventListener("click", () => {
+          state.selectedId = item.id;
+          state.weatherMap.panTo(new kakao.maps.LatLng(location.lat, location.lon));
+          renderDetail();
+        });
+        const overlay = new kakao.maps.CustomOverlay({
+          map: state.weatherMap,
+          position: new kakao.maps.LatLng(location.lat, location.lon),
+          content: button,
+          yAnchor: 1.12,
+          zIndex: item.id === state.selectedId ? 5 : 3
+        });
+        return [overlay];
+      });
+    }
+
+    function showWeatherMapError(message) {
+      els.weatherMapError.hidden = false;
+      els.weatherMapErrorMessage.textContent = message;
+    }
+
+    function renderOfficialData() {
+      const island = selectedIsland();
+      if (!state.tourData) {
+        els.officialDataStatus.textContent = "불러오는 중";
+        els.officialDataList.innerHTML = '<p class="official-data-empty">공식 관광정보를 준비하고 있습니다.</p>';
+        return;
+      }
+      const record = state.tourData.islands?.[island.id];
+      const items = Array.isArray(record?.items) ? record.items.slice(0, 4) : [];
+      if (state.tourData.error) {
+        els.officialDataStatus.textContent = "갱신 필요";
+        els.officialDataList.innerHTML = '<p class="official-data-empty">refresh-tour-data.cmd를 실행해 공식 데이터를 갱신해 주세요.</p>';
+        return;
+      }
+      const updated = state.tourData.generatedAt ? new Date(state.tourData.generatedAt).toLocaleDateString("ko-KR") : "갱신일 미상";
+      els.officialDataStatus.textContent = `${updated} 기준`;
+      if (!items.length) {
+        els.officialDataList.innerHTML = '<p class="official-data-empty">이 섬의 한국관광공사 검색 결과가 없습니다.</p>';
+        return;
+      }
+      const searchUrl = `${apiConfig.publicSites.visitKoreaSearch}?keyword=${encodeURIComponent(record.keyword || island.name)}`;
+      els.officialDataList.innerHTML = items.map((item) => `<a class="official-data-item" href="${escapeHtml(searchUrl)}" target="_blank" rel="noopener noreferrer"><span>${escapeHtml(contentTypeLabel(item.contentTypeId))}</span><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(item.address || "주소 정보 없음")}</small></a>`).join("");
+    }
+
+    function renderFerryData() {
+      const island = selectedIsland();
+      if (!state.ferryData) {
+        els.ferryDataStatus.textContent = "불러오는 중";
+        els.ferryDataList.innerHTML = '<p class="official-data-empty">공식 운항정보를 준비하고 있습니다.</p>';
+        return;
+      }
+      if (state.ferryData.error) {
+        els.ferryDataStatus.textContent = "갱신 필요";
+        els.ferryDataList.innerHTML = '<p class="official-data-empty">refresh-tour-data.cmd를 실행해 운항정보를 갱신해 주세요.</p>';
+        return;
+      }
+      const record = state.ferryData.islands?.[island.id];
+      if (record?.ferryRequired === false) {
+        els.ferryDataStatus.textContent = "육로·도보 접근";
+        els.ferryDataList.innerHTML = `<p class="official-data-empty">${escapeHtml(island.name)}는 여객선 없이 접근할 수 있습니다.</p>`;
+        return;
+      }
+      const selectedDate = selectedDateKey();
+      const forecasts = Array.isArray(record?.forecast) ? record.forecast.filter((trip) => (trip.date || state.ferryData.forecastDate) === selectedDate) : [];
+      const schedules = Array.isArray(record?.schedule) ? record.schedule.filter((trip) => (trip.date || state.ferryData.forecastDate) === selectedDate) : [];
+      const statuses = selectedDate === state.ferryData.statusDate && Array.isArray(record?.status) ? record.status : [];
+      els.ferryDataStatus.textContent = `${formatApiDate(selectedDate)} 배편`;
+      if (!forecasts.length && !schedules.length) {
+        els.ferryDataList.innerHTML = `<p class="official-data-empty">${escapeHtml(formatApiDate(selectedDate))} 운항정보를 찾지 못했습니다. 선사에 직접 확인해 주세요.</p>`;
+        return;
+      }
+      const forecastHtml = forecasts.slice(0, 5).map((trip) => {
+        const route = trip.relation === "via" ? `${trip.stops || trip.route}` : `${trip.departure} · ${trip.route}`;
+        const notice = trip.relation === "via" ? `${trip.targetStop || island.name} 경유 · 표시 시간은 항로 출발시각` : trip.note;
+        return ferryTripHtml(trip.time, trip.ship, route, trip.state || "예보", notice);
+      }).join("");
+      const scheduleHtml = schedules.slice(0, 8).map((trip) => {
+        const notice = trip.relation === "via" ? `${trip.targetStop || island.name} 경유 · 중간 기항시간 선사 확인` : trip.reason;
+        return ferryTripHtml(trip.time, trip.ship, `${trip.origin} → ${trip.destination}`, trip.state || "일정", notice);
+      }).join("");
+      const statusHtml = statuses.slice(0, 5).map((trip) => ferryTripHtml(trip.time, trip.ship, `${trip.port} · ${trip.route}`, trip.state || "이력", "")).join("");
+      els.ferryDataList.innerHTML = `<div class="ferry-list">${forecastHtml}</div>${scheduleHtml ? `<details class="ferry-details"><summary>출발·도착 시간표 ${schedules.length}건 보기</summary><div class="ferry-list">${scheduleHtml}</div></details>` : ""}${statusHtml ? `<details class="ferry-details"><summary>${formatApiDate(state.ferryData.statusDate)} 실제 운항이력 보기</summary><div class="ferry-list">${statusHtml}</div></details>` : ""}<p class="ferry-note">운항 정보는 기상·선사 사정에 따라 변경될 수 있습니다. 승선 전 선사와 터미널에서 최종 확인하세요.</p>`;
+    }
+
+    function ferryTripHtml(time, ship, route, stateText, reason) {
+      const alert = /비운|결항|통제|취소/.test(stateText);
+      const note = reason ? `${route} · ${reason}` : route;
+      return `<div class="ferry-trip"><span class="ferry-time">${escapeHtml(time || "--:--")}</span><span><strong>${escapeHtml(ship || "선박 정보 없음")}</strong><small>${escapeHtml(note || "항로 정보 없음")}</small></span><span class="ferry-state${alert ? " alert" : ""}">${escapeHtml(stateText || "확인")}</span></div>`;
+    }
+
+    function formatApiDate(value) {
+      const text = String(value || "");
+      return /^\d{8}$/.test(text) ? `${text.slice(4, 6)}.${text.slice(6, 8)}` : "날짜 미상";
+    }
+
+    function selectedDateKey() {
+      return String(state.travelDate || "").replaceAll("-", "");
+    }
+
+    function koreaInputDate(offsetDays = 0) {
+      return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(Date.now() + offsetDays * 86_400_000));
+    }
+
+    function syncTravelDateRange() {
+      const ferryDates = Array.isArray(state.ferryData?.availableDates) ? state.ferryData.availableDates : [];
+      const weatherDates = [...new Set(Object.values(state.weatherData?.islands || {}).flatMap((record) => Array.isArray(record?.hourly) ? record.hourly.map((point) => point.date) : []))];
+      const available = ferryDates.length && weatherDates.length ? ferryDates.filter((date) => weatherDates.includes(date)) : ferryDates.length ? ferryDates : weatherDates;
+      if (!available.length) return;
+      els.travelDate.min = apiDateToInput(available[0]);
+      els.travelDate.max = apiDateToInput(available.at(-1));
+      if (!available.includes(selectedDateKey())) {
+        state.travelDate = apiDateToInput(available[0]);
+        els.travelDate.value = state.travelDate;
+      }
+    }
+
+    function apiDateToInput(value) {
+      const text = String(value || "");
+      return /^\d{8}$/.test(text) ? `${text.slice(0, 4)}-${text.slice(4, 6)}-${text.slice(6, 8)}` : "";
+    }
+
+    function openMap() {
+      const island = selectedIsland();
+      els.mapDialogTitle.textContent = `${island.name} 주변 지도`;
+      els.mapFrame.src = `${apiConfig.localData.mapPage}?island=${encodeURIComponent(island.id)}`;
+      if (typeof els.mapDialog.showModal === "function") els.mapDialog.showModal();
+      else els.mapDialog.setAttribute("open", "");
+    }
+
+    function closeMap() {
+      if (els.mapDialog.open) els.mapDialog.close();
+      els.mapFrame.src = "about:blank";
+    }
+
+    function calculateStay() {
+      const [arrivalHour, arrivalMinute] = els.arrivalTime.value.split(":").map(Number);
+      const [returnHour, returnMinute] = els.lastFerryTime.value.split(":").map(Number);
+      const buffer = Number(els.safetyBuffer.value);
+      let arrival = arrivalHour * 60 + arrivalMinute;
+      let departure = returnHour * 60 + returnMinute;
+      if (!Number.isFinite(arrival) || !Number.isFinite(departure)) return;
+      if (departure < arrival) departure += 24 * 60;
+      const usable = departure - arrival - buffer;
+      els.bufferText.textContent = `${buffer}분`;
+      els.stayResult.classList.toggle("caution", usable < 120);
+      if (usable <= 0) {
+        els.stayTime.textContent = "시간 부족";
+        els.stayMessage.textContent = "입력한 시간과 복귀 여유를 다시 확인하세요";
+        return;
+      }
+      const returnBy = (departure - buffer) % (24 * 60);
+      els.stayTime.textContent = `${Math.floor(usable / 60)}시간 ${String(usable % 60).padStart(2, "0")}분`;
+      els.stayMessage.textContent = `${String(Math.floor(returnBy / 60)).padStart(2, "0")}:${String(returnBy % 60).padStart(2, "0")}까지 선착장 복귀 권장`;
+    }
+
+    function renderSeason() {
+      els.seasonList.innerHTML = ISLANDS.map((island) => `<div class="season-item"><strong>${escapeHtml(island.season)}</strong><span>${escapeHtml(island.name)} · ${escapeHtml(island.seasonNote)}</span></div>`).join("");
+    }
+
+    function renderStamps() {
+      els.stampGrid.innerHTML = ISLANDS.map((island) => `<div class="stamp ${state.stamps.has(island.id) ? "done" : ""}" title="${escapeHtml(island.name)} 방문 ${state.stamps.has(island.id) ? "완료" : "미기록"}">${escapeHtml(island.name)}</div>`).join("");
+      renderDetail();
+    }
+
+    function stampCurrentIsland() {
+      const island = selectedIsland();
+      state.stamps.add(island.id);
+      try { localStorage.setItem("seomuro-stamps", JSON.stringify([...state.stamps])); } catch {}
+      renderStamps();
+      showToast(`${island.name} 방문 스탬프를 기록했습니다.`);
+    }
+
+    function downloadPlan() {
+      const island = selectedIsland();
+      const content = [
+        `${island.name} 여행 메모`, "", `여행 날짜: ${state.travelDate}`, `여행 성격: ${island.type}`, `태그: ${island.tags.map((tag) => `#${tag}`).join(" ")}`, `권장 시간: ${island.duration}`, `대표 경험: ${island.best}`, `접근: ${island.access}`, `입력한 도착/출발: ${els.arrivalTime.value} / ${els.lastFerryTime.value}`, `선착장 복귀 여유: ${els.safetyBuffer.value}분`, "", "놓치지 말 것", ...island.highlights.map((text, index) => `${index + 1}. ${text}`), "", "중요: 이 메모는 실시간 운항 정보가 아닙니다. 출발 전 여수관광 여객선 안내와 선사 예약 페이지에서 운항·좌석·기상을 확인하세요.", "", `정보 출처: ${island.officialUrl}`
+      ].join("\n");
+      const url = URL.createObjectURL(new Blob([content], { type: "text/plain;charset=utf-8" }));
+      const link = document.createElement("a");
+      link.href = url; link.download = `${island.name}-여행-메모.txt`; document.body.append(link); link.click(); link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 0);
+      showToast(`${island.name} 여행 메모를 내려받았습니다.`);
+    }
+
+    function showToast(message) {
+      els.toast.textContent = message;
+      els.toast.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => els.toast.classList.remove("show"), 2400);
+    }
+
+    document.querySelectorAll(".filter").forEach((button) => button.addEventListener("click", () => {
+      state.filter = button.dataset.filter;
+      document.querySelectorAll(".filter").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+      renderCards();
+    }));
+    [els.arrivalTime, els.lastFerryTime, els.safetyBuffer].forEach((control) => {
+      control.addEventListener("input", calculateStay);
+      control.addEventListener("change", calculateStay);
+    });
+    els.travelDate.addEventListener("change", () => {
+      state.travelDate = els.travelDate.value;
+      renderWeatherMap();
+      renderFerryData();
+      showToast(`${formatApiDate(selectedDateKey())} 날씨와 배편으로 변경했습니다.`);
+    });
+    els.downloadPlan.addEventListener("click", downloadPlan);
+    els.printPlan.addEventListener("click", () => window.print());
+    els.nearbyMap.addEventListener("click", openMap);
+    els.openMapNav.addEventListener("click", openMap);
+    els.closeMap.addEventListener("click", closeMap);
+    els.mapDialog.addEventListener("click", (event) => { if (event.target === els.mapDialog) closeMap(); });
+    els.mapDialog.addEventListener("cancel", (event) => { event.preventDefault(); closeMap(); });
+    els.stampIsland.addEventListener("click", stampCurrentIsland);
+    els.stampCurrent.addEventListener("click", stampCurrentIsland);
+    els.resetStamps.addEventListener("click", () => {
+      state.stamps.clear();
+      try { localStorage.removeItem("seomuro-stamps"); } catch {}
+      renderStamps();
+      showToast("이 브라우저의 스탬프 기록을 초기화했습니다.");
+    });
+    renderCards();
+    renderDetail();
+    calculateStay();
+    renderSeason();
+    renderStamps();
+    loadActualWeatherMap();
+    loadTourData();
+    loadFerryData();
+    loadWeatherData();
+    if (window.lucide) window.lucide.createIcons({ attrs: { "stroke-width": 2.25 } });
+  </script>
+</body>
+</html>

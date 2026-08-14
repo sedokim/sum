@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="여수 섬 주변 숙박, 편의점, 화장실을 찾는 섬으로 지도">
+  <title>여수 섬 주변 지도 | 섬으로</title>
+  <style>
+    :root { --ink:#0a1b26; --sea:#087e8b; --sea-dark:#075965; --sand:#f6f2e9; --cream:#fffdf9; --sun:#e9a23b; --coral:#dc6958; --line:rgba(10,27,38,.13); --muted:#617078; --shadow:0 18px 50px rgba(4,24,34,.14); --font:"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Segoe UI",sans-serif; }
+    * { box-sizing:border-box; }
+    html, body { height:100%; }
+    body { margin:0; color:var(--ink); background:var(--sand); font-family:var(--font); }
+    button, select { font:inherit; }
+    button, a { -webkit-tap-highlight-color:transparent; }
+    :focus-visible { outline:3px solid var(--sun); outline-offset:3px; }
+    .topbar { min-height:70px; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:0 24px; background:var(--ink); color:#fff; }
+    .brand { display:inline-flex; align-items:center; gap:10px; color:#fff; text-decoration:none; font-weight:950; letter-spacing:-.04em; }
+    .brand-mark { width:36px; height:36px; display:grid; place-items:center; border-radius:12px; background:var(--sun); color:var(--ink); font-size:1.15rem; }
+    .back { color:rgba(255,255,255,.75); text-decoration:none; font-size:.83rem; font-weight:800; }
+    .app { height:calc(100% - 70px); min-height:620px; display:grid; grid-template-columns:360px minmax(0,1fr); }
+    .panel { position:relative; z-index:2; overflow:auto; padding:26px 22px 32px; background:var(--cream); border-right:1px solid var(--line); box-shadow:8px 0 28px rgba(4,24,34,.07); }
+    .kicker { color:var(--sea-dark); font-size:.72rem; font-weight:950; letter-spacing:.09em; }
+    h1 { margin:6px 0 8px; font-size:1.75rem; line-height:1.1; letter-spacing:-.055em; }
+    .lead { margin:0 0 22px; color:var(--muted); font-size:.84rem; line-height:1.55; }
+    .field { display:grid; gap:7px; margin-bottom:18px; }
+    .field label { color:#3e5058; font-size:.75rem; font-weight:900; }
+    select { width:100%; min-height:45px; padding:0 12px; border:1px solid var(--line); border-radius:11px; background:#fff; color:var(--ink); font-weight:800; }
+    .category-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; margin-bottom:14px; }
+    .category { min-height:68px; padding:9px 5px; border:1px solid var(--line); border-radius:12px; background:#fff; color:#526269; font-size:.75rem; font-weight:900; }
+    .category span { display:block; margin-bottom:4px; font-size:1.15rem; }
+    .category[aria-pressed="true"] { border-color:rgba(8,126,139,.45); background:#e7f5f4; color:var(--sea-dark); }
+    .search-row { display:grid; grid-template-columns:1fr auto; gap:8px; margin-bottom:18px; }
+    .search-button { min-width:94px; border:0; border-radius:11px; background:var(--sea); color:#fff; font-weight:900; }
+    .status { min-height:20px; margin:0 0 10px; color:var(--muted); font-size:.77rem; }
+    .results { display:grid; gap:9px; }
+    .place { width:100%; padding:13px; border:1px solid var(--line); border-radius:13px; background:#fff; color:inherit; text-align:left; cursor:pointer; }
+    .place:hover { border-color:rgba(8,126,139,.35); box-shadow:0 8px 22px rgba(4,24,34,.07); }
+    .place-top { display:flex; align-items:start; justify-content:space-between; gap:10px; }
+    .place strong { font-size:.9rem; }
+    .distance { flex:0 0 auto; color:var(--sea-dark); font-size:.68rem; font-weight:900; }
+    .address { margin:5px 0 0; color:var(--muted); font-size:.72rem; line-height:1.4; }
+    .place-link { display:inline-block; margin-top:7px; color:var(--sea-dark); font-size:.7rem; font-weight:900; text-decoration:none; }
+    .map-wrap { position:relative; min-width:0; background:#dce8e5; }
+    #map { position:absolute; inset:0; }
+    .map-error { position:absolute; inset:0; display:grid; place-items:center; padding:24px; background:linear-gradient(145deg,#e7f2ef,#cbded9); }
+    .map-error[hidden] { display:none; }
+    .map-error-card { max-width:460px; padding:24px; border:1px solid var(--line); border-radius:18px; background:rgba(255,253,249,.96); box-shadow:var(--shadow); text-align:center; }
+    .map-error-card strong { display:block; margin-bottom:8px; font-size:1.05rem; }
+    .map-error-card p { margin:0; color:var(--muted); font-size:.82rem; line-height:1.6; }
+    .island-badge { position:absolute; z-index:2; top:16px; left:16px; max-width:calc(100% - 32px); padding:10px 13px; border-radius:999px; background:rgba(10,27,38,.9); color:#fff; box-shadow:0 7px 20px rgba(4,24,34,.18); font-size:.78rem; font-weight:900; pointer-events:none; }
+    .empty { padding:18px 12px; border:1px dashed var(--line); border-radius:12px; color:var(--muted); font-size:.8rem; text-align:center; }
+    @media (max-width:760px) {
+      .topbar { padding:0 16px; }
+      .app { height:auto; min-height:calc(100% - 70px); grid-template-columns:1fr; }
+      .map-wrap { height:53vh; min-height:390px; grid-row:1; }
+      .panel { grid-row:2; overflow:visible; border-right:0; border-top:1px solid var(--line); padding:23px 16px 34px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./index.html"><span class="brand-mark">≈</span>섬으로 지도</a>
+    <a class="back" href="./index.html">← 추천 섬으로 돌아가기</a>
+  </header>
+  <main class="app">
+    <aside class="panel" aria-label="주변 장소 검색">
+      <span class="kicker">NEARBY ISLAND MAP</span>
+      <h1>섬 주변에서<br>필요한 곳 찾기</h1>
+      <p class="lead">선택한 섬의 중심 좌표를 기준으로 검색합니다. 영업 여부와 실제 이용 가능 여부는 장소에 직접 확인해 주세요.</p>
+      <div class="field">
+        <label for="islandSelect">여행할 섬</label>
+        <select id="islandSelect"></select>
+      </div>
+      <div class="category-grid" aria-label="시설 종류">
+        <button class="category" type="button" data-category="lodging" aria-pressed="true"><span>▰</span>숙박</button>
+        <button class="category" type="button" data-category="store" aria-pressed="false"><span>▣</span>편의점</button>
+        <button class="category" type="button" data-category="toilet" aria-pressed="false"><span>●</span>화장실</button>
+      </div>
+      <div class="search-row">
+        <select id="radiusSelect" aria-label="검색 반경"><option value="2000">반경 2km</option><option value="5000" selected>반경 5km</option><option value="10000">반경 10km</option></select>
+        <button class="search-button" id="searchButton" type="button">다시 검색</button>
+      </div>
+      <p class="status" id="status" role="status" aria-live="polite">주변 장소를 검색하고 있습니다.</p>
+      <div class="results" id="results"></div>
+    </aside>
+    <section class="map-wrap" aria-label="카카오맵 기반 지도">
+      <div id="map"></div>
+      <div class="map-error" id="mapError" hidden>
+        <div class="map-error-card"><strong>카카오맵을 불러오지 못했습니다.</strong><p id="mapErrorMessage"></p></div>
+      </div>
+      <div class="island-badge" id="islandBadge">여수 섬 위치</div>
+    </section>
+  </main>
+
+  <script src="./kakao-map-config.js"></script>
+  <script type="module">
+    import { apiConfig } from "./api-config.js";
+
+    const ISLANDS = [
+      { id:"geumodo", name:"금오도", lat:34.5198793, lng:127.7542297, note:"비렁길·함구미항" },
+      { id:"geomundo", name:"거문도·백도", lat:34.0267908, lng:127.3168075, note:"거문항 중심" },
+      { id:"sado", name:"사도", lat:34.5908162, lng:127.5549649, note:"사도항·공룡화석지" },
+      { id:"nangdo", name:"낭도", lat:34.6066244, lng:127.5519718, note:"낭도항·둘레길" },
+      { id:"gaedo", name:"개도", lat:34.5690942, lng:127.6628778, note:"화산항 중심" },
+      { id:"odongdo", name:"오동도", lat:34.7450350, lng:127.7670926, note:"오동도 입구·등대" },
+      { id:"dolsando", name:"돌산도", lat:34.5915967, lng:127.8038089, note:"향일암 중심" },
+      { id:"jangdo", name:"장도", lat:34.7432389, lng:127.6641889, note:"웅천 장도교" },
+      { id:"hahwado", name:"하화도", lat:34.5926160, lng:127.6208782, note:"꽃섬길·하화항" },
+      { id:"yeojado", name:"여자도", lat:34.7596176, lng:127.4977551, note:"붕장어다리·대여자도" },
+      { id:"sonjukdo", name:"손죽도", lat:34.2816719, lng:127.3553260, note:"손죽항·해수욕장" }
+    ];
+    const CATEGORY = {
+      lodging: { label:"숙박", kakaoCode:"AD5" },
+      store: { label:"편의점", kakaoCode:"CS2" },
+      toilet: { label:"화장실", kakaoKeyword:"공중화장실" }
+    };
+    const state = { islandId:new URLSearchParams(location.search).get("island") || ISLANDS[0].id, category:"lodging", provider:null, map:null, islandMarker:null, markers:[], kakaoPlaces:null, infoWindow:null };
+    const els = { islandSelect:document.getElementById("islandSelect"), radius:document.getElementById("radiusSelect"), search:document.getElementById("searchButton"), status:document.getElementById("status"), results:document.getElementById("results"), badge:document.getElementById("islandBadge"), mapError:document.getElementById("mapError"), mapErrorMessage:document.getElementById("mapErrorMessage") };
+    if (!ISLANDS.some(({id}) => id === state.islandId)) state.islandId = ISLANDS[0].id;
+    const island = () => ISLANDS.find(({id}) => id === state.islandId) || ISLANDS[0];
+    const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (char) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[char]));
+
+    els.islandSelect.innerHTML = ISLANDS.map(({id,name}) => `<option value="${id}">${name}</option>`).join("");
+    els.islandSelect.value = state.islandId;
+    updateIslandBadge();
+
+    document.querySelectorAll("[data-category]").forEach((button) => button.addEventListener("click", () => {
+      state.category = button.dataset.category;
+      document.querySelectorAll("[data-category]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+      searchNearby();
+    }));
+    els.islandSelect.addEventListener("change", () => { state.islandId = els.islandSelect.value; history.replaceState(null,"",`?island=${encodeURIComponent(state.islandId)}`); moveToIsland(); });
+    els.radius.addEventListener("change", searchNearby);
+    els.search.addEventListener("click", searchNearby);
+
+    function updateIslandBadge() {
+      const item = island();
+      const provider = state.provider === "kakao" ? "카카오맵" : state.provider === "error" ? "카카오맵 연결 오류" : "카카오맵 준비 중";
+      els.badge.textContent = `${provider} · ${item.name} · ${item.note}`;
+    }
+    function hasKakaoKey() {
+      const key = window.SEOMURO_MAP_CONFIG?.KAKAO_JAVASCRIPT_KEY?.trim();
+      return Boolean(key && !key.includes("PASTE_YOUR_"));
+    }
+    function loadKakaoMap() {
+      if (location.protocol === "file:") return showMapError("파일을 직접 열 수 없습니다. VS Code에서 index.html을 Live Server로 실행해 주세요.");
+      if (!hasKakaoKey()) return showMapError("kakao-map-config.js에 카카오 JavaScript 키를 입력해 주세요.");
+      let settled = false;
+      const fail = () => { if (!settled) { settled = true; showMapError("JavaScript 키와 카카오 개발자 콘솔의 웹 도메인 등록을 확인해 주세요."); } };
+      const script = document.createElement("script");
+      script.src = `${apiConfig.map.sdkUrl}?appkey=${encodeURIComponent(window.SEOMURO_MAP_CONFIG.KAKAO_JAVASCRIPT_KEY.trim())}&autoload=false&libraries=services`;
+      script.onerror = fail;
+      script.onload = () => {
+        if (!window.kakao?.maps) return fail();
+        kakao.maps.load(() => {
+          if (settled) return;
+          try { initKakaoMap(); settled = true; } catch { fail(); }
+        });
+      };
+      document.head.appendChild(script);
+      setTimeout(fail, 6000);
+    }
+    function showMapError(message) {
+      state.provider = "error";
+      els.mapError.hidden = false;
+      els.mapErrorMessage.textContent = message;
+      els.status.textContent = "카카오맵 연결 설정이 필요합니다.";
+      els.results.innerHTML = '<div class="empty">무료 지도 모드는 사용하지 않습니다.</div>';
+      els.search.disabled = true;
+      els.radius.disabled = true;
+      updateIslandBadge();
+    }
+    function initKakaoMap() {
+      const item = island();
+      state.provider = "kakao";
+      const center = new kakao.maps.LatLng(item.lat,item.lng);
+      state.map = new kakao.maps.Map(document.getElementById("map"), { center, level:7 });
+      state.kakaoPlaces = new kakao.maps.services.Places(state.map);
+      state.infoWindow = new kakao.maps.InfoWindow({ zIndex:4 });
+      state.islandMarker = new kakao.maps.Marker({ map:state.map, position:center, title:item.name });
+      state.map.addControl(new kakao.maps.ZoomControl(),kakao.maps.ControlPosition.RIGHT);
+      updateIslandBadge();
+      searchNearby();
+    }
+    function moveToIsland() {
+      updateIslandBadge();
+      const item = island();
+      if (state.provider !== "kakao") return;
+      const center = new kakao.maps.LatLng(item.lat,item.lng);
+      state.map.setCenter(center); state.map.setLevel(7);
+      state.islandMarker.setPosition(center); state.islandMarker.setTitle(item.name);
+      searchNearby();
+    }
+    function clearPlaces() {
+      state.markers.forEach((marker) => marker.setMap(null)); state.markers=[]; state.infoWindow?.close();
+      els.results.innerHTML="";
+    }
+    function searchNearby() {
+      if (state.provider !== "kakao") return;
+      const item = island();
+      const category = CATEGORY[state.category];
+      clearPlaces();
+      els.status.textContent = `${item.name} 주변 ${category.label} 검색 중…`;
+      searchKakao(item,category);
+    }
+    function searchKakao(item,category) {
+      const options = { location:new kakao.maps.LatLng(item.lat,item.lng), radius:Number(els.radius.value), size:15, sort:kakao.maps.services.SortBy.DISTANCE };
+      const callback = (data,status) => renderKakaoPlaces(data,status,category.label);
+      if (category.kakaoCode) state.kakaoPlaces.categorySearch(category.kakaoCode,callback,options);
+      else state.kakaoPlaces.keywordSearch(category.kakaoKeyword,callback,options);
+    }
+    function renderKakaoPlaces(data,status,label) {
+      if (status === kakao.maps.services.Status.ZERO_RESULT) { els.status.textContent = `${island().name} 주변에서 ${label} 검색 결과가 없습니다.`; els.results.innerHTML='<div class="empty">검색 반경을 넓히거나 다른 시설을 선택해 보세요.</div>'; return; }
+      if (status !== kakao.maps.services.Status.OK) { els.status.textContent = "카카오 장소 검색 중 오류가 발생했습니다."; return; }
+      els.status.textContent = `${island().name} 주변 ${label} ${data.length}곳 · 카카오맵 가까운 순`;
+      const bounds = new kakao.maps.LatLngBounds();
+      bounds.extend(new kakao.maps.LatLng(island().lat,island().lng));
+      data.forEach((place) => {
+        const position = new kakao.maps.LatLng(Number(place.y),Number(place.x)); bounds.extend(position);
+        const marker = new kakao.maps.Marker({map:state.map,position,title:place.place_name}); state.markers.push(marker);
+        kakao.maps.event.addListener(marker,"click",() => openKakaoPlace(place,marker));
+        const card = document.createElement("div"); card.className="place"; card.tabIndex=0; card.setAttribute("role","button");
+        card.innerHTML = `<span class="place-top"><strong>${escapeHtml(place.place_name)}</strong><span class="distance">${formatDistance(place.distance)}</span></span><p class="address">${escapeHtml(place.road_address_name || place.address_name || "주소 정보 없음")}</p><a class="place-link" href="${escapeHtml(place.place_url)}" target="_blank" rel="noopener noreferrer">카카오맵에서 보기 ↗</a>`;
+        card.addEventListener("click",(event) => {if(!event.target.closest("a")) openKakaoPlace(place,marker);});
+        card.addEventListener("keydown",(event) => {if(event.key==="Enter"||event.key===" "){event.preventDefault();openKakaoPlace(place,marker);}});
+        els.results.appendChild(card);
+      });
+      state.map.setBounds(bounds,50,50,50,50);
+    }
+    function openKakaoPlace(place,marker) {
+      state.map.panTo(marker.getPosition());
+      state.infoWindow.setContent(`<div style="min-width:150px;padding:10px 12px;font-size:12px;line-height:1.45"><strong>${escapeHtml(place.place_name)}</strong><br><span style="color:#607078">${escapeHtml(place.road_address_name || place.address_name || "")}</span></div>`);
+      state.infoWindow.open(state.map,marker);
+    }
+    function formatDistance(value) { const meters=Number(value); if (!Number.isFinite(meters)) return "거리 정보 없음"; return meters>=1000 ? `${(meters/1000).toFixed(1)}km` : `${meters}m`; }
+    loadKakaoMap();
+  </script>
+</body>
+</html>

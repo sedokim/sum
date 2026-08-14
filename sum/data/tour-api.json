@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-14T15:16:09.689Z",
+  "source": "한국관광공사 국문 관광정보 서비스",
+  "sourceUrl": "https://www.data.go.kr/data/15101578/openapi.do",
+  "islands": {
+    "geumodo": {
+      "keyword": "금오도",
+      "items": [
+        {
+          "contentId": "129414",
+          "contentTypeId": "12",
+          "title": "금오도",
+          "address": "전남광주통합특별시 여수시 남면",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/74/3572074_image2_1.jpg",
+          "mapX": "127.7494836083",
+          "mapY": "34.5225925094"
+        },
+        {
+          "contentId": "2483594",
+          "contentTypeId": "28",
+          "title": "금오도 비렁길",
+          "address": "전남광주통합특별시 여수시 남면 용머리길",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/62/3015562_image2_1.jpg",
+          "mapX": "127.7111643607",
+          "mapY": "34.5371985513"
+        },
+        {
+          "contentId": "2743206",
+          "contentTypeId": "28",
+          "title": "금오도보금자리펜션",
+          "address": "전남광주통합특별시 여수시 남면 금오로 1139",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/13/2743513_image2_1.jpg",
+          "mapX": "127.7815868132",
+          "mapY": "34.5047839401"
+        }
+      ]
+    },
+    "geomundo": {
+      "keyword": "거문도",
+      "items": [
+        {
+          "contentId": "126283",
+          "contentTypeId": "12",
+          "title": "거문도",
+          "address": "전남광주통합특별시 여수시 삼산면 거문길 103",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/49/3027249_image2_1.jpg",
+          "mapX": "127.3089480580",
+          "mapY": "34.0274901869"
+        },
+        {
+          "contentId": "129151",
+          "contentTypeId": "12",
+          "title": "거문도 등대",
+          "address": "전남광주통합특별시 여수시 거문도등대길 299 항로표지관리소",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/71/3548971_image2_1.JPG",
+          "mapX": "127.3219612742",
+          "mapY": "34.0084314114"
+        },
+        {
+          "contentId": "988129",
+          "contentTypeId": "12",
+          "title": "거문도 신선바위",
+          "address": "전남광주통합특별시 여수시 삼산면 거문리",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/38/3549238_image2_1.JPG",
+          "mapX": "127.3072485707",
+          "mapY": "34.0123585069"
+        },
+        {
+          "contentId": "2723663",
+          "contentTypeId": "12",
+          "title": "거문도해수욕장",
+          "address": "전남광주통합특별시 여수시 삼산면 덕촌리 322",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/03/3549303_image2_1.JPG",
+          "mapX": "127.3043097534",
+          "mapY": "34.0199742783"
+        }
+      ]
+    },
+    "sado": {
+      "keyword": "사도",
+      "items": [
+        {
+          "contentId": "126968",
+          "contentTypeId": "12",
+          "title": "사도",
+          "address": "전남광주통합특별시 여수시 화정면 사도길 8-1",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/90/3580290_image2_1.jpg",
+          "mapX": "127.5556321046",
+          "mapY": "34.5927341170"
+        }
+      ]
+    },
+    "nangdo": {
+      "keyword": "낭도",
+      "items": [
+        {
+          "contentId": "2714239",
+          "contentTypeId": "28",
+          "title": "여수 낭도 백리섬섬길",
+          "address": "전남광주통합특별시 여수시 화정면 적금뒷등길 45-21",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/38/2680038_image2_1.jpg",
+          "mapX": "127.5115128241",
+          "mapY": "34.6293014925"
+        },
+        {
+          "contentId": "319704",
+          "contentTypeId": "12",
+          "title": "여수 낭도리 공룡발자국화석 산지",
+          "address": "전남광주통합특별시 여수시 화정면 사도길 32",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/18/3018718_image2_1.jpg",
+          "mapX": "127.5556571518",
+          "mapY": "34.5907648935"
+        },
+        {
+          "contentId": "2657135",
+          "contentTypeId": "12",
+          "title": "낭도대교(여수)",
+          "address": "전남광주통합특별시 여수시 화정면",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/47/3372847_image2_1.JPG",
+          "mapX": "127.5441822888",
+          "mapY": "34.6253580492"
+        },
+        {
+          "contentId": "2752382",
+          "contentTypeId": "12",
+          "title": "낭도항",
+          "address": "전남광주통합특별시 여수시 화정면 여산길 88",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/23/3373423_image2_1.JPG",
+          "mapX": "127.5387971543",
+          "mapY": "34.6051602167"
+        },
+        {
+          "contentId": "2909143",
+          "contentTypeId": "28",
+          "title": "낭도야영장",
+          "address": "전남광주통합특별시 여수시 화정면 여산길 150",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/33/2909133_image2_1.JPG",
+          "mapX": "127.5415470290",
+          "mapY": "34.6005580012"
+        }
+      ]
+    },
+    "gaedo": {
+      "keyword": "개도",
+      "items": []
+    },
+    "odongdo": {
+      "keyword": "오동도",
+      "items": [
+        {
+          "contentId": "129152",
+          "contentTypeId": "12",
+          "title": "오동도 등대",
+          "address": "전남광주통합특별시 여수시 오동도로 238-32 (수정동)",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/34/3019934_image2_1.jpg",
+          "mapX": "127.7678097276",
+          "mapY": "34.7444013572"
+        },
+        {
+          "contentId": "2752381",
+          "contentTypeId": "12",
+          "title": "오동도 유람선터미널",
+          "address": "전남광주통합특별시 여수시 수정동 332-23",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/88/3346488_image2_1.JPG",
+          "mapX": "127.7558803038",
+          "mapY": "34.7409126522"
+        },
+        {
+          "contentId": "2790514",
+          "contentTypeId": "28",
+          "title": "오동도-여자만자전거길",
+          "address": "전남광주통합특별시 여수시 소호동",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/91/2792391_image2_1.jpg",
+          "mapX": "127.6424181039",
+          "mapY": "34.7370361237"
+        }
+      ]
+    },
+    "dolsando": {
+      "keyword": "향일암",
+      "items": [
+        {
+          "contentId": "2704646",
+          "contentTypeId": "28",
+          "title": "향일암 해안길",
+          "address": "전남광주통합특별시 여수시 돌산읍 향일암로 60",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/07/2642807_image2_1.jpg",
+          "mapX": "127.8030243630",
+          "mapY": "34.5938215889"
+        }
+      ]
+    },
+    "jangdo": {
+      "keyword": "장도",
+      "items": [
+        {
+          "contentId": "3351485",
+          "contentTypeId": "12",
+          "title": "여수 장도근린공원 / 장도전시관",
+          "address": "전남광주통합특별시 여수시 예울마루로 83-67 (웅천동)",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/35/3381035_image2_1.jpg",
+          "mapX": "127.6639160892",
+          "mapY": "34.7422914618"
+        }
+      ]
+    },
+    "hahwado": {
+      "keyword": "하화도",
+      "items": [
+        {
+          "contentId": "2381140",
+          "contentTypeId": "28",
+          "title": "하화도 꽃섬길",
+          "address": "전남광주통합특별시 여수시 화정면 아랫꽃섬1길 1",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/35/3018735_image2_1.jpg",
+          "mapX": "127.6192931613",
+          "mapY": "34.5946183318"
+        },
+        {
+          "contentId": "2497099",
+          "contentTypeId": "12",
+          "title": "하화도(여수)",
+          "address": "전남광주통합특별시 여수시 화정면 아래꽃섬1길",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/45/3345945_image2_1.jpg",
+          "mapX": "127.6238927933",
+          "mapY": "34.5932880043"
+        }
+      ]
+    },
+    "yeojado": {
+      "keyword": "여자도",
+      "items": []
+    },
+    "sonjukdo": {
+      "keyword": "손죽도",
+      "items": [
+        {
+          "contentId": "2024407",
+          "contentTypeId": "12",
+          "title": "손죽도",
+          "address": "전남광주통합특별시 여수시 삼산면 손죽길 7",
+          "image": "http://tong.visitkorea.or.kr/cms/resource/15/3549115_image2_1.JPG",
+          "mapX": "127.3612482313",
+          "mapY": "34.2902784788"
+        }
+      ]
+    }
+  }
+}
