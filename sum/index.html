@@ -111,9 +111,15 @@
     .weather-metric { padding: 10px; border-radius: 11px; background: rgba(255,255,255,.075); }
     .weather-metric span { display: block; color: rgba(255,255,255,.5); font-size: .63rem; font-weight: 800; }
     .weather-metric strong { font-size: .82rem; }
+    .daypart-weather { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 7px; margin: 0 0 16px; }
+    .daypart-item { display: grid; grid-template-columns: auto 1fr; gap: 4px 8px; align-items: center; padding: 9px; border: 1px solid rgba(255,255,255,.08); border-radius: 11px; background: rgba(255,255,255,.055); }
+    .daypart-item > span { grid-row: 1 / 3; font-size: 1.3rem; }
+    .daypart-item strong { font-size: .72rem; }
+    .daypart-item small { color: rgba(255,255,255,.56); font-size: .58rem; white-space: nowrap; }
     .hourly-title { margin-bottom: 8px; font-size: .75rem; font-weight: 900; }
     .hourly-weather { display: grid; grid-auto-flow: column; grid-auto-columns: 62px; gap: 6px; overflow-x: auto; padding-bottom: 7px; scrollbar-color: rgba(255,255,255,.25) transparent; }
     .hourly-item { padding: 8px 5px; border-radius: 10px; background: rgba(255,255,255,.07); text-align: center; }
+    .hourly-item.current { outline: 2px solid var(--sun); background: rgba(233,162,59,.16); }
     .hourly-item time, .hourly-item small { display: block; color: rgba(255,255,255,.57); font-size: .6rem; font-weight: 800; }
     .hourly-item span { display: block; margin: 3px 0; font-size: 1.15rem; }
     .hourly-item strong { display: block; font-size: .72rem; }
@@ -126,6 +132,27 @@
     .planner-head p { max-width: 460px; margin: 0; color: rgba(255,255,255,.66); font-size: .85rem; }
     .planner-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
     .calculator { padding: 20px; border: 1px solid rgba(255,255,255,.12); border-radius: 17px; background: rgba(255,255,255,.055); }
+    .trip-calendar { margin-bottom: 14px; padding: 14px; border: 1px solid rgba(255,255,255,.12); border-radius: 14px; background: rgba(255,255,255,.045); }
+    .trip-calendar-head { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 11px; }
+    .trip-calendar-head strong { font-size: .9rem; }
+    .trip-calendar-head span { color: rgba(255,255,255,.55); font-size: .67rem; font-weight: 800; }
+    .calendar-days { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; }
+    .calendar-day { min-height: 78px; padding: 8px; border: 1px solid rgba(255,255,255,.14); border-radius: 12px; background: #102b37; color: #fff; text-align: center; }
+    .calendar-day span, .calendar-day small { display: block; color: rgba(255,255,255,.55); font-size: .62rem; font-weight: 800; }
+    .calendar-day strong { display: block; margin: 3px 0; font-size: 1.35rem; }
+    .calendar-day[aria-pressed="true"] { border-color: var(--sun); background: var(--sun); color: var(--ink); box-shadow: 0 0 0 3px rgba(233,162,59,.18); }
+    .calendar-day[aria-pressed="true"] span, .calendar-day[aria-pressed="true"] small { color: rgba(4,24,34,.62); }
+    .calendar-native { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-top: 9px; color: rgba(255,255,255,.55); font-size: .65rem; font-weight: 800; }
+    .calendar-native input { width: auto; min-height: 34px; padding: 0 8px; border: 1px solid rgba(255,255,255,.17); border-radius: 9px; background: #102b37; color: #fff; }
+    .time-calendar { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; margin-bottom: 13px; }
+    .time-picker-card { padding: 13px; border: 1px solid rgba(255,255,255,.12); border-radius: 14px; background: rgba(255,255,255,.045); }
+    .time-picker-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 9px; }
+    .time-picker-head span { color: rgba(255,255,255,.58); font-size: .68rem; font-weight: 850; }
+    .time-picker-head strong { color: var(--sun); font-size: 1.05rem; }
+    .time-picker-card input { width: 100%; min-height: 43px; padding: 0 11px; border: 1px solid rgba(255,255,255,.17); border-radius: 10px; background: #102b37; color: #fff; }
+    .time-quick { display: flex; gap: 6px; margin-top: 8px; overflow-x: auto; padding-bottom: 2px; }
+    .time-quick button { flex: 0 0 auto; padding: 6px 8px; border: 1px solid rgba(255,255,255,.12); border-radius: 8px; background: rgba(255,255,255,.06); color: rgba(255,255,255,.72); font-size: .65rem; font-weight: 850; }
+    .time-quick button[aria-pressed="true"] { border-color: rgba(233,162,59,.6); background: rgba(233,162,59,.18); color: #ffd792; }
     .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 13px; }
     .field { display: grid; gap: 6px; }
     .field.full { grid-column: 1 / -1; }
@@ -260,9 +287,10 @@
       .hero { min-height: 420px; } .hero-content { padding: 60px 0 35px; }
       .browse-head { display: block; } .browse-head p { margin-top: 13px; }
       .toolbar { align-items: start; flex-direction: column; } .result-count { padding-left: 3px; }
-      .island-grid, .source-list, .utility-grid, .field-grid { grid-template-columns: minmax(0, 1fr); }
+      .island-grid, .source-list, .utility-grid, .field-grid, .time-calendar { grid-template-columns: minmax(0, 1fr); }
       .field.full { grid-column: auto; } .planner { padding: 22px 16px; } .planner-head { display: block; } .planner-head p { margin-top: 8px; }
       .weather-map-section { padding: 22px 14px; } .weather-map-head { display: block; } .weather-update { display: inline-block; margin-top: 10px; } .island-weather-map { min-height: 520px; } .map-weather-marker { min-width: 55px; padding: 5px; } .map-weather-marker strong { font-size: .59rem; }
+      .daypart-weather { grid-template-columns: 1fr; }
       .detail-copy { padding: 26px 20px; } .detail-facts, .official-data-list { grid-template-columns: 1fr; }
       .source-panel { padding: 22px 18px; }
     }
@@ -319,11 +347,25 @@
       </div>
       <div class="planner-grid">
         <div class="calculator">
-          <p>확인한 시간표의 섬 도착·출발 시간을 입력하세요. 입력값은 저장하지 않습니다.</p>
+          <p>달력에서 날짜를 고르고, 확인한 배편의 섬 도착·출발 시간을 선택하세요. 입력값은 저장하지 않습니다.</p>
+          <div class="trip-calendar" aria-label="여행 날짜 달력">
+            <div class="trip-calendar-head"><strong id="calendarMonth">여행 날짜</strong><span>날씨·배편 제공 날짜</span></div>
+            <div class="calendar-days" id="calendarDays"></div>
+            <label class="calendar-native" for="travelDate">날짜 직접 선택 <input id="travelDate" type="date"></label>
+          </div>
+          <div class="time-calendar">
+            <div class="time-picker-card">
+              <div class="time-picker-head"><span>섬 도착</span><strong id="arrivalTimePreview">09:30</strong></div>
+              <input id="arrivalTime" type="time" value="09:30" aria-label="섬 도착 시간">
+              <div class="time-quick" data-time-target="arrivalTime" aria-label="섬 도착 빠른 시간 선택"><button type="button" data-time="08:00">08:00</button><button type="button" data-time="09:30">09:30</button><button type="button" data-time="11:00">11:00</button><button type="button" data-time="13:00">13:00</button></div>
+            </div>
+            <div class="time-picker-card">
+              <div class="time-picker-head"><span>섬 출발(막배)</span><strong id="lastFerryTimePreview">17:00</strong></div>
+              <input id="lastFerryTime" type="time" value="17:00" aria-label="섬 출발 막배 시간">
+              <div class="time-quick" data-time-target="lastFerryTime" aria-label="섬 출발 빠른 시간 선택"><button type="button" data-time="15:00">15:00</button><button type="button" data-time="17:00">17:00</button><button type="button" data-time="18:30">18:30</button><button type="button" data-time="20:00">20:00</button></div>
+            </div>
+          </div>
           <div class="field-grid">
-            <div class="field full"><label for="travelDate">여행 날짜 · 오늘부터 3일 예보</label><input id="travelDate" type="date"></div>
-            <div class="field"><label for="arrivalTime">섬 도착</label><input id="arrivalTime" type="time" value="09:30"></div>
-            <div class="field"><label for="lastFerryTime">섬 출발(막배)</label><input id="lastFerryTime" type="time" value="17:00"></div>
             <div class="field full"><label for="safetyBuffer">선착장 도착 여유 <strong id="bufferText">30분</strong></label><input id="safetyBuffer" type="range" min="20" max="90" step="10" value="30"></div>
           </div>
           <div class="stay-result" id="stayResult"><div><strong id="stayTime">7시간 00분</strong><span id="stayMessage">16:30까지 선착장 복귀 권장</span></div></div>
@@ -549,7 +591,7 @@
       }
     ];
 
-    const state = { filter: "all", selectedId: ISLANDS[0].id, travelDate: koreaInputDate(), stamps: loadStamps(), tourData: null, ferryData: null, weatherData: null, weatherMap: null, weatherMapOverlays: [] };
+    const state = { filter: "all", selectedId: ISLANDS[0].id, travelDate: koreaInputDate(), availableTravelDates: [koreaInputDate(), koreaInputDate(1), koreaInputDate(2)], stamps: loadStamps(), tourData: null, ferryData: null, weatherData: null, weatherMap: null, weatherMapOverlays: [] };
     const els = {
       grid: document.getElementById("islandGrid"), empty: document.getElementById("emptyState"), resultCount: document.getElementById("resultCount"),
       detail: document.getElementById("detail"), detailImage: document.getElementById("detailImage"), detailCredit: document.getElementById("detailCredit"),
@@ -559,7 +601,7 @@
       ferryDataStatus: document.getElementById("ferryDataStatus"), ferryDataList: document.getElementById("ferryDataList"),
       weatherUpdate: document.getElementById("weatherUpdate"), weatherPanel: document.getElementById("weatherPanel"), weatherRealMap: document.getElementById("weatherRealMap"), weatherMapError: document.getElementById("weatherMapError"), weatherMapErrorMessage: document.getElementById("weatherMapErrorMessage"),
       downloadPlan: document.getElementById("downloadPlan"), printPlan: document.getElementById("printPlan"), stampIsland: document.getElementById("stampIsland"), toast: document.getElementById("toast"),
-      travelDate: document.getElementById("travelDate"), arrivalTime: document.getElementById("arrivalTime"), lastFerryTime: document.getElementById("lastFerryTime"), safetyBuffer: document.getElementById("safetyBuffer"), bufferText: document.getElementById("bufferText"), stayResult: document.getElementById("stayResult"), stayTime: document.getElementById("stayTime"), stayMessage: document.getElementById("stayMessage"),
+      travelDate: document.getElementById("travelDate"), calendarMonth: document.getElementById("calendarMonth"), calendarDays: document.getElementById("calendarDays"), arrivalTime: document.getElementById("arrivalTime"), arrivalTimePreview: document.getElementById("arrivalTimePreview"), lastFerryTime: document.getElementById("lastFerryTime"), lastFerryTimePreview: document.getElementById("lastFerryTimePreview"), safetyBuffer: document.getElementById("safetyBuffer"), bufferText: document.getElementById("bufferText"), stayResult: document.getElementById("stayResult"), stayTime: document.getElementById("stayTime"), stayMessage: document.getElementById("stayMessage"),
       seasonList: document.getElementById("seasonList"), stampGrid: document.getElementById("stampGrid"), stampCurrent: document.getElementById("stampCurrent"), resetStamps: document.getElementById("resetStamps")
     };
 
@@ -683,28 +725,65 @@
         return;
       }
       els.weatherUpdate.textContent = `${formatApiDate(selectedDate)} 선택 · ${formatWeatherUpdated(state.weatherData.generatedAt)} 갱신`;
-      const hourly = Array.isArray(weatherRecord?.hourly) ? weatherRecord.hourly.filter((point) => point.date === selectedDate).slice(0, 12) : [];
-      const current = hourly[0];
+      const hourly = Array.isArray(weatherRecord?.hourly) ? weatherRecord.hourly.filter((point) => point.date === selectedDate).slice(0, 24) : [];
+      const current = weatherPointForDate(hourly, selectedDate);
       if (!current) {
         els.weatherPanel.innerHTML = `<p class="weather-panel-empty">${escapeHtml(formatApiDate(selectedDate))} ${escapeHtml(island.name)}의 예보가 없습니다.</p>`;
         return;
       }
-      const travel = current.travel || { level: "good", label: "기상 확인" };
+      const travel = worstWeatherTravel(hourly) || current.travel || { level: "good", label: "기상 확인" };
+      const temperatures = hourly.map((point) => point.temperature).filter(Number.isFinite);
+      const rainChances = hourly.map((point) => point.rainChance).filter(Number.isFinite);
+      const winds = hourly.map((point) => point.wind).filter(Number.isFinite);
+      const waves = hourly.map((point) => point.wave).filter(Number.isFinite);
       const metrics = [
-        ["강수확률", `${valueOrDash(current.rainChance)}%`],
-        ["풍속", `${valueOrDash(current.wind, 1)} m/s`],
-        ["습도", `${valueOrDash(current.humidity)}%`],
-        ["파고", current.wave === null || current.wave === undefined ? "미제공" : `${valueOrDash(current.wave, 1)} m`]
+        ["최저 / 최고", temperatures.length ? `${Math.round(Math.min(...temperatures))}° / ${Math.round(Math.max(...temperatures))}°` : "--"],
+        ["최대 강수확률", rainChances.length ? `${Math.round(Math.max(...rainChances))}%` : "--"],
+        ["최대 풍속", winds.length ? `${Math.max(...winds).toFixed(1)} m/s` : "--"],
+        ["최고 파고", waves.length ? `${Math.max(...waves).toFixed(1)} m` : "미제공"]
       ];
-      const hourlyHtml = hourly.map((point) => `<div class="hourly-item"><time>${escapeHtml(hourlyTimeLabel(point))}</time><span>${point.icon || "·"}</span><strong>${Number.isFinite(point.temperature) ? `${Math.round(point.temperature)}°` : "--"}</strong><small>비 ${valueOrDash(point.rainChance)}%</small></div>`).join("");
+      const dayparts = [["오전", 9], ["오후", 15], ["저녁", 19]].map(([label, hour]) => [label, closestWeatherHour(hourly, hour)]);
+      const daypartHtml = dayparts.map(([label, point]) => point ? `<div class="daypart-item"><span>${point.icon || "·"}</span><strong>${label} ${escapeHtml(point.time)} · ${Number.isFinite(point.temperature) ? `${Math.round(point.temperature)}°` : "--"}</strong><small>${escapeHtml(point.condition || "예보 확인")} · 비 ${valueOrDash(point.rainChance)}%</small></div>` : "").join("");
+      const hourlyHtml = hourly.map((point) => `<div class="hourly-item${point === current ? " current" : ""}"><time>${escapeHtml(hourlyTimeLabel(point))}</time><span>${point.icon || "·"}</span><strong>${Number.isFinite(point.temperature) ? `${Math.round(point.temperature)}°` : "--"}</strong><small>비 ${valueOrDash(point.rainChance)}%</small></div>`).join("");
       els.weatherPanel.innerHTML = `
-        <div class="weather-now-head"><div><small>${formatApiDate(current.date)} ${escapeHtml(current.time)} 예보</small><h3>${escapeHtml(island.name)}</h3></div><span class="travel-chip ${escapeHtml(travel.level)}">${escapeHtml(travel.label)}</span></div>
+        <div class="weather-now-head"><div><small>${formatApiDate(current.date)} ${escapeHtml(current.time)} ${selectedDate === koreaDateKey() ? "현재 시각 기준 예보" : "낮 대표 예보"}</small><h3>${escapeHtml(island.name)}</h3></div><span class="travel-chip ${escapeHtml(travel.level)}">하루 중 ${escapeHtml(travel.label)}</span></div>
         <div class="weather-now-main"><span class="weather-now-icon">${current.icon || "·"}</span><div><div class="weather-now-temp">${Number.isFinite(current.temperature) ? `${Math.round(current.temperature)}°` : "--"}</div><p>${escapeHtml(current.condition || "예보 확인")} · ${escapeHtml(current.precipitation || "강수없음")}</p></div></div>
         <div class="weather-metrics">${metrics.map(([label, value]) => `<div class="weather-metric"><span>${label}</span><strong>${escapeHtml(value)}</strong></div>`).join("")}</div>
-        <div class="hourly-title">선택 날짜 시간별 예보</div><div class="hourly-weather">${hourlyHtml}</div>
-        <p class="weather-disclaimer">이동 주의도는 강수·풍속·파고를 단순 조합한 참고 지표이며 결항 예측이 아닙니다.</p>
+        <div class="daypart-weather">${daypartHtml}</div>
+        <div class="hourly-title">선택 날짜 24시간 예보 · 좌우로 넘겨 보기</div><div class="hourly-weather">${hourlyHtml}</div>
+        <p class="weather-disclaimer">기상청 단기예보를 섬 위치 격자별로 표시합니다. 다른 앱은 관측값·민간 보정값을 함께 써 차이가 날 수 있으며, 이동 주의도는 결항 예측이 아닙니다.</p>
         <button class="weather-detail-button" id="weatherDetailButton" type="button">${escapeHtml(island.name)} 관광·여객선 정보 보기</button>`;
+      const currentIndex = hourly.indexOf(current);
+      const hourlyStrip = els.weatherPanel.querySelector(".hourly-weather");
+      if (hourlyStrip && currentIndex > 2) hourlyStrip.scrollLeft = (currentIndex - 2) * 68;
       document.getElementById("weatherDetailButton")?.addEventListener("click", () => els.detail.scrollIntoView({ behavior: "smooth", block: "start" }));
+    }
+
+    function weatherPointForDate(hourly, date) {
+      if (!hourly.length) return null;
+      const targetHour = date === koreaDateKey() ? koreaHour() : 12;
+      return closestWeatherHour(hourly, targetHour);
+    }
+
+    function closestWeatherHour(hourly, targetHour) {
+      return hourly.reduce((closest, point) => {
+        const hour = Number(String(point.time || "00:00").slice(0, 2));
+        const closestHour = Number(String(closest?.time || "00:00").slice(0, 2));
+        return !closest || Math.abs(hour - targetHour) < Math.abs(closestHour - targetHour) ? point : closest;
+      }, null);
+    }
+
+    function worstWeatherTravel(hourly) {
+      const severity = { good: 0, caution: 1, alert: 2 };
+      return hourly.reduce((worst, point) => (severity[point.travel?.level] ?? -1) > (severity[worst?.level] ?? -1) ? point.travel : worst, null);
+    }
+
+    function koreaDateKey() {
+      return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul" }).format(new Date()).replaceAll("-", "");
+    }
+
+    function koreaHour() {
+      return Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Seoul", hour: "2-digit", hourCycle: "h23" }).format(new Date()));
     }
 
     function valueOrDash(value, digits = 0) {
@@ -769,7 +848,8 @@
         const location = apiConfig.islands[item.id]?.location;
         if (!location) return [];
         const hourly = state.weatherData?.islands?.[item.id]?.hourly;
-        const current = Array.isArray(hourly) ? hourly.find((point) => point.date === selectedDateKey()) : null;
+        const selectedHourly = Array.isArray(hourly) ? hourly.filter((point) => point.date === selectedDateKey()).slice(0, 24) : [];
+        const current = weatherPointForDate(selectedHourly, selectedDateKey());
         const button = document.createElement("button");
         button.className = "map-weather-marker";
         button.type = "button";
@@ -855,16 +935,47 @@
         return;
       }
       const forecastHtml = forecasts.slice(0, 5).map((trip) => {
-        const route = trip.relation === "via" ? `${trip.stops || trip.route}` : `${trip.departure} · ${trip.route}`;
-        const notice = trip.relation === "via" ? `${trip.targetStop || island.name} 경유 · 표시 시간은 항로 출발시각` : trip.note;
+        const stops = parseFerryStops(trip.stops);
+        const route = formatIslandFerryRoute(trip, island);
+        const notice = trip.relation === "via"
+          ? "표시 시간은 항로 출발시각"
+          : stops.length > 2 ? ["중간 기항 있음", trip.note].filter(Boolean).join(" · ") : trip.note;
         return ferryTripHtml(trip.time, trip.ship, route, trip.state || "예보", notice);
       }).join("");
       const scheduleHtml = schedules.slice(0, 8).map((trip) => {
         const notice = trip.relation === "via" ? `${trip.targetStop || island.name} 경유 · 중간 기항시간 선사 확인` : trip.reason;
         return ferryTripHtml(trip.time, trip.ship, `${trip.origin} → ${trip.destination}`, trip.state || "일정", notice);
       }).join("");
-      const statusHtml = statuses.slice(0, 5).map((trip) => ferryTripHtml(trip.time, trip.ship, `${trip.port} · ${trip.route}`, trip.state || "이력", "")).join("");
+      const statusHtml = statuses.slice(0, 5).map((trip) => ferryTripHtml(trip.time, trip.ship, trip.port ? `${trip.port} 선착장` : `${island.name} 관련 항로`, trip.state || "이력", "")).join("");
       els.ferryDataList.innerHTML = `<div class="ferry-list">${forecastHtml}</div>${scheduleHtml ? `<details class="ferry-details"><summary>출발·도착 시간표 ${schedules.length}건 보기</summary><div class="ferry-list">${scheduleHtml}</div></details>` : ""}${statusHtml ? `<details class="ferry-details"><summary>${formatApiDate(state.ferryData.statusDate)} 실제 운항이력 보기</summary><div class="ferry-list">${statusHtml}</div></details>` : ""}<p class="ferry-note">운항 정보는 기상·선사 사정에 따라 변경될 수 있습니다. 승선 전 선사와 터미널에서 최종 확인하세요.</p>`;
+    }
+
+    function formatIslandFerryRoute(trip, island) {
+      const stops = parseFerryStops(trip.stops);
+      if (stops.length < 2) {
+        const fallback = [trip.departure, trip.targetStop].filter(Boolean).join(" → ");
+        return trip.relation === "via" ? `${fallback || island.name} · ${trip.targetStop || island.name} 경유` : fallback || island.name;
+      }
+      let origin = stops[0];
+      let destination = stops.at(-1);
+      if (sameFerryStop(origin, destination)) {
+        const loopOrigin = trip.departure || origin;
+        const loop = `${loopOrigin} 출발 순환항로`;
+        return trip.relation === "via" ? `${loop} · ${trip.targetStop || island.name} 경유` : loop;
+      }
+      if (sameFerryStop(trip.departure, destination)) [origin, destination] = [destination, origin];
+      const endpoints = `${origin} → ${destination}`;
+      return trip.relation === "via" ? `${endpoints} · ${trip.targetStop || island.name} 경유` : endpoints;
+    }
+
+    function parseFerryStops(value) {
+      return String(value || "").split(/[,>→]/).map((stop) => stop.trim()).filter(Boolean);
+    }
+
+    function sameFerryStop(left, right) {
+      const a = String(left || "").replace(/\s+/g, "");
+      const b = String(right || "").replace(/\s+/g, "");
+      return Boolean(a && b && (a === b || a.startsWith(`${b}(`) || b.startsWith(`${a}(`)));
     }
 
     function ferryTripHtml(time, ship, route, stateText, reason) {
@@ -890,18 +1001,62 @@
       const ferryDates = Array.isArray(state.ferryData?.availableDates) ? state.ferryData.availableDates : [];
       const weatherDates = [...new Set(Object.values(state.weatherData?.islands || {}).flatMap((record) => Array.isArray(record?.hourly) ? record.hourly.map((point) => point.date) : []))];
       const available = ferryDates.length && weatherDates.length ? ferryDates.filter((date) => weatherDates.includes(date)) : ferryDates.length ? ferryDates : weatherDates;
-      if (!available.length) return;
-      els.travelDate.min = apiDateToInput(available[0]);
-      els.travelDate.max = apiDateToInput(available.at(-1));
-      if (!available.includes(selectedDateKey())) {
-        state.travelDate = apiDateToInput(available[0]);
-        els.travelDate.value = state.travelDate;
+      if (available.length) {
+        state.availableTravelDates = available.slice(0, 3).map(apiDateToInput);
+        els.travelDate.min = state.availableTravelDates[0];
+        els.travelDate.max = state.availableTravelDates.at(-1);
+        if (!state.availableTravelDates.includes(state.travelDate)) {
+          state.travelDate = state.availableTravelDates[0];
+          els.travelDate.value = state.travelDate;
+        }
       }
+      renderTravelCalendar();
     }
 
     function apiDateToInput(value) {
       const text = String(value || "");
       return /^\d{8}$/.test(text) ? `${text.slice(0, 4)}-${text.slice(4, 6)}-${text.slice(6, 8)}` : "";
+    }
+
+    function renderTravelCalendar() {
+      const dates = state.availableTravelDates.length ? state.availableTravelDates : [koreaInputDate(), koreaInputDate(1), koreaInputDate(2)];
+      const first = dateParts(dates[0]);
+      els.calendarMonth.textContent = first ? `${first.year}년 ${first.month}월` : "여행 날짜";
+      els.calendarDays.innerHTML = dates.map((value) => {
+        const parts = dateParts(value);
+        if (!parts) return "";
+        const weekday = new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", weekday: "short" }).format(parts.date);
+        const relative = value === koreaInputDate() ? "오늘" : value === koreaInputDate(1) ? "내일" : `${parts.month}월`;
+        return `<button class="calendar-day" type="button" data-travel-date="${escapeHtml(value)}" aria-pressed="${value === state.travelDate}"><span>${escapeHtml(weekday)}</span><strong>${parts.day}</strong><small>${relative}</small></button>`;
+      }).join("");
+    }
+
+    function dateParts(value) {
+      const match = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if (!match) return null;
+      return { year: Number(match[1]), month: Number(match[2]), day: Number(match[3]), date: new Date(`${value}T12:00:00+09:00`) };
+    }
+
+    function selectTravelDate(value, announce = true) {
+      if (!value || !state.availableTravelDates.includes(value)) {
+        els.travelDate.value = state.travelDate;
+        return;
+      }
+      state.travelDate = value;
+      els.travelDate.value = value;
+      renderTravelCalendar();
+      renderWeatherMap();
+      renderFerryData();
+      if (announce) showToast(`${formatApiDate(selectedDateKey())} 날씨와 배편으로 변경했습니다.`);
+    }
+
+    function renderTimePickerState() {
+      els.arrivalTimePreview.textContent = els.arrivalTime.value || "--:--";
+      els.lastFerryTimePreview.textContent = els.lastFerryTime.value || "--:--";
+      document.querySelectorAll(".time-quick button").forEach((button) => {
+        const input = document.getElementById(button.closest(".time-quick")?.dataset.timeTarget || "");
+        button.setAttribute("aria-pressed", String(input?.value === button.dataset.time));
+      });
     }
 
     function openMap() {
@@ -980,15 +1135,24 @@
       renderCards();
     }));
     [els.arrivalTime, els.lastFerryTime, els.safetyBuffer].forEach((control) => {
-      control.addEventListener("input", calculateStay);
-      control.addEventListener("change", calculateStay);
+      control.addEventListener("input", () => { renderTimePickerState(); calculateStay(); });
+      control.addEventListener("change", () => { renderTimePickerState(); calculateStay(); });
     });
     els.travelDate.addEventListener("change", () => {
-      state.travelDate = els.travelDate.value;
-      renderWeatherMap();
-      renderFerryData();
-      showToast(`${formatApiDate(selectedDateKey())} 날씨와 배편으로 변경했습니다.`);
+      selectTravelDate(els.travelDate.value);
     });
+    els.calendarDays.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-travel-date]");
+      if (button) selectTravelDate(button.dataset.travelDate);
+    });
+    document.querySelectorAll(".time-quick").forEach((group) => group.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-time]");
+      const input = document.getElementById(group.dataset.timeTarget || "");
+      if (!button || !input) return;
+      input.value = button.dataset.time;
+      renderTimePickerState();
+      calculateStay();
+    }));
     els.downloadPlan.addEventListener("click", downloadPlan);
     els.printPlan.addEventListener("click", () => window.print());
     els.nearbyMap.addEventListener("click", openMap);
@@ -1006,6 +1170,8 @@
     });
     renderCards();
     renderDetail();
+    renderTravelCalendar();
+    renderTimePickerState();
     calculateStay();
     renderSeason();
     renderStamps();
