@@ -13,7 +13,8 @@
 
 const PUBLIC_DATA_KEY_NAMES = Object.freeze([
   "PUBLIC_DATA_SERVICE_KEY",
-  "SERVICE_KEY"
+  "SERVICE_KEY",
+  "TOUR_API_KEY"
 ]);
 
 export const apiConfig = Object.freeze({
@@ -28,7 +29,7 @@ export const apiConfig = Object.freeze({
       label: "한국관광공사 국문 관광정보 서비스",
       baseUrl: "https://apis.data.go.kr/B551011/KorService2",
       docsUrl: "https://www.data.go.kr/data/15101578/openapi.do",
-      envKeys: ["TeIPTl70ecN3JGgfLtlT1H2zF7X4B9xvkRQBrOKxsilCafyKkNuSqO4t0JhUHiJXnhu%2BgGIru1obBhwJSN9vCQ%3D%3D", ...PUBLIC_DATA_KEY_NAMES],
+      envKeys: ["TOUR_API_KEY", ...PUBLIC_DATA_KEY_NAMES],
       endpoints: {
         areaCode: "/areaCode2",
         categoryCode: "/categoryCode2",
@@ -58,7 +59,7 @@ export const apiConfig = Object.freeze({
       label: "한국해양교통안전공단 운항 스케줄 정보",
       baseUrl: "https://apis.data.go.kr/B554035/oprt-schd-info-v2",
       docsUrl: "https://www.data.go.kr/data/15142302/openapi.do",
-      envKeys: ["TeIPTl70ecN3JGgfLtlT1H2zF7X4B9xvkRQBrOKxsilCafyKkNuSqO4t0JhUHiJXnhu%2BgGIru1obBhwJSN9vCQ%3D%3D", ...PUBLIC_DATA_KEY_NAMES],
+      envKeys: ["FERRY_SCHEDULE_API_KEY", ...PUBLIC_DATA_KEY_NAMES],
       endpoints: {
         schedules: "/get-oprt-schd-info-v2"
       },
@@ -73,7 +74,7 @@ export const apiConfig = Object.freeze({
       label: "한국해양교통안전공단 여객선 운항상태 정보",
       baseUrl: "https://apis.data.go.kr/B554035/ferry-route-info-v4",
       docsUrl: "https://www.data.go.kr/data/15142304/openapi.do",
-      envKeys: ["TeIPTl70ecN3JGgfLtlT1H2zF7X4B9xvkRQBrOKxsilCafyKkNuSqO4t0JhUHiJXnhu%2BgGIru1obBhwJSN9vCQ%3D%3D ", ...PUBLIC_DATA_KEY_NAMES],
+      envKeys: ["FERRY_STATUS_API_KEY", ...PUBLIC_DATA_KEY_NAMES],
       endpoints: {
         statuses: "/get-ferry-route-info-v4"
       },
@@ -88,7 +89,7 @@ export const apiConfig = Object.freeze({
       label: "한국해양교통안전공단 내일의 운항예보(상세)",
       baseUrl: "https://apis.data.go.kr/B554035/tmr-forecastnew",
       docsUrl: "https://www.data.go.kr/data/15144520/openapi.do",
-      envKeys: ["TeIPTl70ecN3JGgfLtlT1H2zF7X4B9xvkRQBrOKxsilCafyKkNuSqO4t0JhUHiJXnhu%2BgGIru1obBhwJSN9vCQ%3D%3D", ...PUBLIC_DATA_KEY_NAMES],
+      envKeys: ["FERRY_FORECAST_API_KEY", ...PUBLIC_DATA_KEY_NAMES],
       endpoints: {
         tomorrow: "/get_tmr_forecastnew"
       },
@@ -102,7 +103,7 @@ export const apiConfig = Object.freeze({
       label: "기상청 단기예보 조회서비스(JSON/XML)",
       baseUrl: "https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0",
       docsUrl: "https://www.data.go.kr/data/15084084/openapi.do",
-      envKeys: ["TeIPTl70ecN3JGgfLtlT1H2zF7X4B9xvkRQBrOKxsilCafyKkNuSqO4t0JhUHiJXnhu%2BgGIru1obBhwJSN9vCQ%3D%3D", ...PUBLIC_DATA_KEY_NAMES],
+      envKeys: ["WEATHER_API_KEY", ...PUBLIC_DATA_KEY_NAMES],
       endpoints: {
         ultraShortNow: "/getUltraSrtNcst",
         ultraShortForecast: "/getUltraSrtFcst",
@@ -114,26 +115,6 @@ export const apiConfig = Object.freeze({
         numOfRows: "1000",
         pageNo: "1"
       }
-    }),
-
-    oceanBuoy: provider({
-      label: "국립해양조사원 해양관측부이 최신 관측데이터",
-      baseUrl: "https://apis.data.go.kr/1192136/twRecent",
-      docsUrl: "https://www.data.go.kr/data/15155516/openapi.do",
-      envKeys: ["TeIPTl70ecN3JGgfLtlT1H2zF7X4B9xvkRQBrOKxsilCafyKkNuSqO4t0JhUHiJXnhu%2BgGIru1obBhwJSN9vCQ%3D%3D", ...PUBLIC_DATA_KEY_NAMES],
-      endpoints: {
-        recent: "/GetTWRecentApiService"
-      }
-    }),
-
-    hourlyTide: provider({
-      label: "국립해양조사원 1시간 조위(관측값)",
-      baseUrl: "https://apis.data.go.kr/1192136/hourlyTide",
-      docsUrl: "https://www.data.go.kr/data/15156017/openapi.do",
-      envKeys: ["TeIPTl70ecN3JGgfLtlT1H2zF7X4B9xvkRQBrOKxsilCafyKkNuSqO4t0JhUHiJXnhu%2BgGIru1obBhwJSN9vCQ%3D%3D", ...PUBLIC_DATA_KEY_NAMES],
-      endpoints: {
-        observations: "/GetHourlyTideApiService"
-      }
     })
   }),
 
@@ -144,7 +125,7 @@ export const apiConfig = Object.freeze({
     nangdo: island("낭도", ["낭도"], ["낭도"], { lat: 34.629301, lon: 127.511513 }),
     gaedo: island("개도", ["개도", "사람길"], ["개도(화산)", "개도", "여석"], { lat: 34.617500, lon: 127.635800 }),
     odongdo: island("오동도", ["오동도"], [], { lat: 34.744401, lon: 127.767810 }, false),
-    dolsando: island("향일암", ["돌산도", "향일암"], [], { lat: 34.593822, lon: 127.803024 }, false),
+    dolsando: island("돌산도", ["돌산도", "향일암"], [], { lat: 34.593822, lon: 127.803024 }, false),
     jangdo: island("장도", ["장도", "예울마루"], [], { lat: 34.728200, lon: 127.671700 }, false),
     hahwado: island("하화도", ["하화도", "꽃섬길"], ["하화"], { lat: 34.594618, lon: 127.619293 }),
     yeojado: island("여자도", ["여자도", "붕장어다리"], ["여자"], { lat: 34.755600, lon: 127.507900 }),
@@ -164,14 +145,14 @@ export const apiConfig = Object.freeze({
 
   publicSites: Object.freeze({
     visitKoreaSearch: "https://korean.visitkorea.or.kr/search/search_list.do",
-    ferryBooking: "https://island.theksa.co.kr/",
+    ferryBooking: "https://island.theksa.co.kr/page/booking?lang=",
     yeosuShipInfo: "https://www.yeosu.go.kr/tour/information/trafficinfo/traffic/ship",
     marineWeather: "https://www.weather.go.kr/w/ocean/today.do",
     geumodoFerry: "https://www.geumodoferry.com/"
   }),
 
   localData: Object.freeze({
-    tourSnapshot: "./data/tour-api.json",
+    islandSnapshot: "./data/islands-api.json",
     ferrySnapshot: "./data/ferry-api.json",
     weatherSnapshot: "./data/weather-api.json",
     mapPage: "./map.html"

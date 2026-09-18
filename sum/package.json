@@ -1,3 +1,12 @@
 {
-  "type": "module"
+  "name": "seomuro",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24.0.0" },
+  "scripts": {
+    "start": "node server.js",
+    "refresh": "node refresh-tour-data.mjs",
+    "submission:check": "node submission-check.mjs",
+    "test": "node --test"
+  }
 }

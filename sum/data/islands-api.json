@@ -1,0 +1,1019 @@
+{
+  "ok": true,
+  "generatedAt": "2026-09-12T05:51:45.752Z",
+  "source": "한국관광공사 국문 관광정보 서비스",
+  "sourceUrl": "https://www.data.go.kr/data/15101578/openapi.do",
+  "islands": [
+    {
+      "id": "geumodo",
+      "contentId": "129414",
+      "name": "금오도",
+      "type": "자연 여행",
+      "themes": [
+        "nature",
+        "rest"
+      ],
+      "season": "봄·가을",
+      "seasonNote": "야외 탐방에 비교적 좋은 계절 · 당일 기상 확인",
+      "summary": "다도해해상국립공원 지역으로 마치 큰 자라를 닮았다고 하여 금오도라 부르며, 설화와 전설, 민요와 민속놀이 등이 다양하게 전해져 오고 있다. 숲이 울창하고 특히 국할나무와 산삼이 많이 분포…",
+      "access": "남면",
+      "duration": "반나절 이상",
+      "best": "낚시",
+      "tags": [
+        "낚시"
+      ],
+      "highlights": [
+        "다도해해상국립공원 지역으로 마치 큰 자라를 닮았다고 하여 금오도라 부르며, 설화와 전설, 민요와 민속놀이 등이 다양하게 전해져 오고 있다.",
+        "숲이 울창하고 특히 국할나무와 산삼이 많이 분포되어 있으며, 조선시대에는 왕실에서 민간인의 입주를 금지시키고 사슴을 수렵하기도 했던 곳이다."
+      ],
+      "officialUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EA%B8%88%EC%98%A4%EB%8F%84",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/74/3572074_image2_1.jpg",
+      "photoUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EA%B8%88%EC%98%A4%EB%8F%84",
+      "credit": "한국관광공사 TourAPI",
+      "license": "공공누리 제1유형(출처표시)",
+      "imageRightsCode": "Type1",
+      "noDerivatives": false,
+      "location": {
+        "lat": 34.5225925094,
+        "lon": 127.7494836083
+      },
+      "note": "낚시",
+      "difficultyLevel": "challenge",
+      "difficultyLabel": "활동적",
+      "audiences": [
+        "active"
+      ],
+      "facilities": [
+        "주변지도 확인"
+      ],
+      "relatedItems": [
+        {
+          "contentTypeId": "12",
+          "title": "금오도",
+          "address": "전남광주통합특별시 여수시 남면"
+        },
+        {
+          "contentTypeId": "28",
+          "title": "금오도 비렁길",
+          "address": "전남광주통합특별시 여수시 남면 용머리길"
+        },
+        {
+          "contentTypeId": "28",
+          "title": "금오도보금자리펜션",
+          "address": "전남광주통합특별시 여수시 남면 금오로 1139"
+        }
+      ]
+    },
+    {
+      "id": "geomundo",
+      "contentId": "126283",
+      "name": "거문도",
+      "type": "섬길 걷기",
+      "themes": [
+        "walk",
+        "nature",
+        "rest"
+      ],
+      "season": "봄",
+      "seasonNote": "TourAPI 꽃·경관 콘텐츠 기반 추천 · 개화 시기 공식 확인",
+      "summary": "거문도는 고도, 동도, 서도의 3개 섬으로 이루어져 있어 예전에는 삼도라고도 불리웠다. 고도만을 거문도라 부르기도 한다. 동도와 서도는 거문대교로 연결되어 있다.일찍부터 문장과 학문이 탁…",
+      "access": "삼산면",
+      "duration": "2~4시간",
+      "best": "등대",
+      "tags": [
+        "등대",
+        "꽃",
+        "낚시"
+      ],
+      "highlights": [
+        "거문도는 고도, 동도, 서도의 3개 섬으로 이루어져 있어 예전에는 삼도라고도 불리웠다.",
+        "고도만을 거문도라 부르기도 한다."
+      ],
+      "officialUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EA%B1%B0%EB%AC%B8%EB%8F%84",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/49/3027249_image2_1.jpg",
+      "photoUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EA%B1%B0%EB%AC%B8%EB%8F%84",
+      "credit": "한국관광공사 TourAPI",
+      "license": "공공누리 제3유형(출처표시·변경금지)",
+      "imageRightsCode": "Type3",
+      "noDerivatives": true,
+      "location": {
+        "lat": 34.0274901869,
+        "lon": 127.308948058
+      },
+      "note": "등대·꽃",
+      "difficultyLevel": "easy",
+      "difficultyLabel": "가벼움",
+      "audiences": [
+        "family",
+        "senior",
+        "relaxed"
+      ],
+      "facilities": [
+        "주변지도 확인"
+      ],
+      "relatedItems": [
+        {
+          "contentTypeId": "12",
+          "title": "거문도",
+          "address": "전남광주통합특별시 여수시 삼산면 거문길 103"
+        },
+        {
+          "contentTypeId": "12",
+          "title": "여수 백도",
+          "address": "전남광주통합특별시 여수시 삼산면 거문리"
+        },
+        {
+          "contentTypeId": "12",
+          "title": "거문도 등대",
+          "address": "전남광주통합특별시 여수시 거문도등대길 299 항로표지관리소"
+        },
+        {
+          "contentTypeId": "12",
+          "title": "거문도 신선바위",
+          "address": "전남광주통합특별시 여수시 삼산면 거문리"
+        },
+        {
+          "contentTypeId": "12",
+          "title": "거문도해수욕장",
+          "address": "전남광주통합특별시 여수시 삼산면 덕촌리 322"
+        }
+      ]
+    },
+    {
+      "id": "sado",
+      "contentId": "126968",
+      "name": "사도",
+      "type": "자연 여행",
+      "themes": [
+        "nature",
+        "rest"
+      ],
+      "season": "여름",
+      "seasonNote": "TourAPI 해변 콘텐츠 기반 추천 · 개장 여부 공식 확인",
+      "summary": "사도는 바다 한가운데 모래로 쌓은 것 같은 섬, 모래 사(沙)와 호수 호(湖)를 써 사호라 부르다가 행정구역 개편 때 사도라 하였다. 모래가 아름다운 사도는 한때 공룡들의 천국이었다. 사…",
+      "access": "화정면",
+      "duration": "3~5시간",
+      "best": "해수욕장",
+      "tags": [
+        "해수욕장",
+        "공룡",
+        "화석"
+      ],
+      "highlights": [
+        "사도는 바다 한가운데 모래로 쌓은 것 같은 섬, 모래 사(沙)와 호수 호(湖)를 써 사호라 부르다가 행정구역 개편 때 사도라 하였다.",
+        "모래가 아름다운 사도는 한때 공룡들의 천국이었다."
+      ],
+      "officialUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%82%AC%EB%8F%84",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/90/3580290_image2_1.jpg",
+      "photoUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%82%AC%EB%8F%84",
+      "credit": "한국관광공사 TourAPI",
+      "license": "공공누리 제1유형(출처표시)",
+      "imageRightsCode": "Type1",
+      "noDerivatives": false,
+      "location": {
+        "lat": 34.592734117,
+        "lon": 127.5556321046
+      },
+      "note": "해수욕장·공룡",
+      "difficultyLevel": "normal",
+      "difficultyLabel": "보통",
+      "audiences": [
+        "family",
+        "active"
+      ],
+      "facilities": [
+        "주변지도 확인"
+      ],
+      "relatedItems": [
+        {
+          "contentTypeId": "12",
+          "title": "사도",
+          "address": "전남광주통합특별시 여수시 화정면 사도길 8-1"
+        },
+        {
+          "contentTypeId": "12",
+          "title": "여수 낭도리 공룡발자국화석 산지",
+          "address": "전남광주통합특별시 여수시 화정면 사도길 32"
+        }
+      ]
+    },
+    {
+      "id": "nangdo",
+      "contentId": "319704",
+      "name": "낭도",
+      "type": "자연 여행",
+      "themes": [
+        "nature",
+        "rest"
+      ],
+      "season": "봄·가을",
+      "seasonNote": "야외 탐방에 비교적 좋은 계절 · 당일 기상 확인",
+      "summary": "낭도리 공룡화석지는 여수시 화정면에 속하는 사도, 추도, 낭도, 목도, 적금도 등 5개 섬 지역의 백악기 퇴적층에 광범위하게 분포되어 있다. 조사결과 발견된 공룡발자국화석은 총 3,546…",
+      "access": "화정면",
+      "duration": "2~4시간",
+      "best": "공룡",
+      "tags": [
+        "공룡",
+        "화석",
+        "낚시"
+      ],
+      "highlights": [
+        "낭도리 공룡화석지는 여수시 화정면에 속하는 사도, 추도, 낭도, 목도, 적금도 등 5개 섬 지역의 백악기 퇴적층에 광범위하게 분포되어 있다.",
+        "조사결과 발견된 공룡발자국화석은 총 3,546점으로 사도에서 755점, 추도에서 1,759점, 낭도에서 962점, 목도에서 50점, 적금도에서 20점이 각각 발견되었다."
+      ],
+      "officialUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EB%82%AD%EB%8F%84",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/18/3018718_image2_1.jpg",
+      "photoUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EB%82%AD%EB%8F%84",
+      "credit": "한국관광공사 TourAPI",
+      "license": "공공누리 제3유형(출처표시·변경금지)",
+      "imageRightsCode": "Type3",
+      "noDerivatives": true,
+      "location": {
+        "lat": 34.5907648935,
+        "lon": 127.5556571518
+      },
+      "note": "공룡·화석",
+      "difficultyLevel": "easy",
+      "difficultyLabel": "가벼움",
+      "audiences": [
+        "family",
+        "senior",
+        "relaxed"
+      ],
+      "facilities": [
+        "주변지도 확인"
+      ],
+      "relatedItems": [
+        {
+          "contentTypeId": "28",
+          "title": "여수 낭도 백리섬섬길",
+          "address": "전남광주통합특별시 여수시 화정면 적금뒷등길 45-21"
+        },
+        {
+          "contentTypeId": "12",
+          "title": "여수 낭도리 공룡발자국화석 산지",
+          "address": "전남광주통합특별시 여수시 화정면 사도길 32"
+        },
+        {
+          "contentTypeId": "12",
+          "title": "낭도항",
+          "address": "전남광주통합특별시 여수시 화정면 여산길 88"
+        },
+        {
+          "contentTypeId": "28",
+          "title": "낭도야영장",
+          "address": "전남광주통합특별시 여수시 화정면 여산길 150"
+        }
+      ]
+    },
+    {
+      "id": "odongdo",
+      "contentId": "129152",
+      "name": "오동도",
+      "type": "섬길 걷기",
+      "themes": [
+        "walk",
+        "nature",
+        "rest"
+      ],
+      "season": "봄",
+      "seasonNote": "TourAPI 꽃·경관 콘텐츠 기반 추천 · 개화 시기 공식 확인",
+      "summary": "고려 공민왕때 요승 신돈은 전라도라는 전(全)자가 사람인(人)자 밑에 임금 왕(王)자를 쓰고 있는데다 남쪽 땅 오동도라는 곳에 서조인 봉황새가 드나들어 고려왕조를 맡을 인물이 전라도에서…",
+      "access": "오동도로",
+      "duration": "2~4시간",
+      "best": "등대",
+      "tags": [
+        "등대",
+        "꽃"
+      ],
+      "highlights": [
+        "고려 공민왕때 요승 신돈은 전라도라는 전(全)자가 사람인(人)자 밑에 임금 왕(王)자를 쓰고 있는데다 남쪽 땅 오동도라는 곳에 서조인 봉황새가 드나들어 고려왕조를 맡을 인물이 전라도에서 나올 불길한 예감이 들어 봉황새의 출입을 막기…",
+        "오동도(梧桐島)는 한려해상 국립공원의 명물이자, 미항 여수의 얼굴과 같은 곳이다."
+      ],
+      "officialUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%98%A4%EB%8F%99%EB%8F%84",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/34/3019934_image2_1.jpg",
+      "photoUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%98%A4%EB%8F%99%EB%8F%84",
+      "credit": "한국관광공사 TourAPI",
+      "license": "공공누리 제3유형(출처표시·변경금지)",
+      "imageRightsCode": "Type3",
+      "noDerivatives": true,
+      "location": {
+        "lat": 34.7444013572,
+        "lon": 127.7678097276
+      },
+      "note": "등대·꽃",
+      "difficultyLevel": "easy",
+      "difficultyLabel": "가벼움",
+      "audiences": [
+        "family",
+        "senior",
+        "relaxed"
+      ],
+      "facilities": [
+        "숙박정보",
+        "쇼핑·매점정보",
+        "육로접근",
+        "주변지도 확인"
+      ],
+      "relatedItems": [
+        {
+          "contentTypeId": "12",
+          "title": "오동도 등대",
+          "address": "전남광주통합특별시 여수시 오동도로 238-32 (수정동)"
+        },
+        {
+          "contentTypeId": "32",
+          "title": "호텔 마띠유",
+          "address": "전남광주통합특별시 여수시 오동도로 20"
+        },
+        {
+          "contentTypeId": "32",
+          "title": "여수 베네치아 호텔앤리조트",
+          "address": "전남광주통합특별시 여수시 오동도로 61-13"
+        },
+        {
+          "contentTypeId": "12",
+          "title": "오동도 유람선터미널",
+          "address": "전남광주통합특별시 여수시 수정동 332-23"
+        },
+        {
+          "contentTypeId": "32",
+          "title": "여수 유탑 마리나 호텔&리조트",
+          "address": "전남광주통합특별시 여수시 오동도로 61-15"
+        },
+        {
+          "contentTypeId": "38",
+          "title": "동박새꿈정원",
+          "address": "전남광주통합특별시 여수시 오동도로 238-32 오동도 등대"
+        },
+        {
+          "contentTypeId": "32",
+          "title": "포유호스텔",
+          "address": "전남광주통합특별시 여수시 오동도로 46 (수정동)"
+        }
+      ]
+    },
+    {
+      "id": "dolsando",
+      "contentId": "128313",
+      "name": "돌산도",
+      "type": "섬길 걷기",
+      "themes": [
+        "walk",
+        "nature",
+        "rest"
+      ],
+      "season": "여름",
+      "seasonNote": "TourAPI 해변 콘텐츠 기반 추천 · 개장 여부 공식 확인",
+      "summary": "돌산갓 장터마을(대율마을)은 방죽포해수욕장과 일출 감상 명소로 이름난 향일암 중간에 들어서 있다. 마을 앞바다에 떠있는 섬이 잘 깎아놓은 밤처럼 생겼다 해서 행정지명은 율림리라고 한다.…",
+      "access": "돌산읍",
+      "duration": "2~4시간",
+      "best": "해수욕장",
+      "tags": [
+        "해수욕장",
+        "일출"
+      ],
+      "highlights": [
+        "돌산갓 장터마을(대율마을)은 방죽포해수욕장과 일출 감상 명소로 이름난 향일암 중간에 들어서 있다.",
+        "마을 앞바다에 떠있는 섬이 잘 깎아놓은 밤처럼 생겼다 해서 행정지명은 율림리라고 한다."
+      ],
+      "officialUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EB%8F%8C%EC%82%B0%EB%8F%84",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/37/3027337_image2_1.jpg",
+      "photoUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EB%8F%8C%EC%82%B0%EB%8F%84",
+      "credit": "한국관광공사 TourAPI",
+      "license": "공공누리 제3유형(출처표시·변경금지)",
+      "imageRightsCode": "Type3",
+      "noDerivatives": true,
+      "location": {
+        "lat": 34.6049811875,
+        "lon": 127.7876948625
+      },
+      "note": "해수욕장·일출",
+      "difficultyLevel": "easy",
+      "difficultyLabel": "가벼움",
+      "audiences": [
+        "family",
+        "senior",
+        "relaxed"
+      ],
+      "facilities": [
+        "쇼핑·매점정보",
+        "육로접근",
+        "주변지도 확인"
+      ],
+      "relatedItems": [
+        {
+          "contentTypeId": "28",
+          "title": "향일암 해안길",
+          "address": "전남광주통합특별시 여수시 돌산읍 향일암로 60"
+        },
+        {
+          "contentTypeId": "12",
+          "title": "돌산갓 장터마을",
+          "address": "전남광주통합특별시 여수시 돌산읍 향일암로 359 (돌산읍)"
+        },
+        {
+          "contentTypeId": "38",
+          "title": "김미영 돌산갓김치",
+          "address": "전남광주통합특별시 여수시 돌산읍 향일암로 57"
+        }
+      ]
+    },
+    {
+      "id": "jangdo",
+      "contentId": "3351485",
+      "name": "장도",
+      "type": "섬 휴식",
+      "themes": [
+        "rest"
+      ],
+      "season": "사계절",
+      "seasonNote": "공식 관광정보와 당일 날씨 확인",
+      "summary": "여수 장도근린공원은 2017년 GS칼텍스가 지역사회 공헌사업으로 착공하고 2019년 개방한 섬이다. 섬에는 하루에 두번 물에 잠기는 진섬다리, 창의적 작품활동이 이루어지는 창작스튜디오,…",
+      "access": "예울마루로",
+      "duration": "2~4시간",
+      "best": "섬여행",
+      "tags": [
+        "섬여행",
+        "다도해",
+        "공식정보"
+      ],
+      "highlights": [
+        "여수 장도근린공원은 2017년 GS칼텍스가 지역사회 공헌사업으로 착공하고 2019년 개방한 섬이다.",
+        "섬에는 하루에 두번 물에 잠기는 진섬다리, 창의적 작품활동이 이루어지는 창작스튜디오, 그리고 장도도서관이 있다."
+      ],
+      "officialUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%9E%A5%EB%8F%84",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/35/3381035_image2_1.jpg",
+      "photoUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%9E%A5%EB%8F%84",
+      "credit": "한국관광공사 TourAPI",
+      "license": "공공누리 제1유형(출처표시)",
+      "imageRightsCode": "Type1",
+      "noDerivatives": false,
+      "location": {
+        "lat": 34.7422914618,
+        "lon": 127.6639160892
+      },
+      "note": "섬여행·다도해",
+      "difficultyLevel": "easy",
+      "difficultyLabel": "가벼움",
+      "audiences": [
+        "family",
+        "senior",
+        "relaxed"
+      ],
+      "facilities": [
+        "육로접근",
+        "주변지도 확인"
+      ],
+      "relatedItems": [
+        {
+          "contentTypeId": "12",
+          "title": "웅천친수공원",
+          "address": "전남광주통합특별시 여수시 예울마루로 37-40 (웅천동)"
+        },
+        {
+          "contentTypeId": "28",
+          "title": "웅천친수공원 야영장",
+          "address": "전남광주통합특별시 여수시 예울마루로 37-40 (웅천동)"
+        },
+        {
+          "contentTypeId": "12",
+          "title": "여수 장도근린공원 / 장도전시관",
+          "address": "전남광주통합특별시 여수시 예울마루로 83-67 (웅천동)"
+        }
+      ]
+    },
+    {
+      "id": "hahwado",
+      "contentId": "2497099",
+      "name": "하화도",
+      "type": "섬 휴식",
+      "themes": [
+        "rest"
+      ],
+      "season": "봄",
+      "seasonNote": "TourAPI 꽃·경관 콘텐츠 기반 추천 · 개화 시기 공식 확인",
+      "summary": "아래쪽에 위치한 섬을‘하화도’라 하였으며 지형이 소의 머리 같다고 하여 한때는‘소섬’이라 부르기도 했다. 하화도는 임진왜란 당시에 인동 장씨(성명 미상)가 처음 입도하였고 동백꽃과 섬모초…",
+      "access": "화정면",
+      "duration": "3~5시간",
+      "best": "꽃",
+      "tags": [
+        "꽃"
+      ],
+      "highlights": [
+        "아래쪽에 위치한 섬을‘하화도’라 하였으며 지형이 소의 머리 같다고 하여 한때는‘소섬’이라 부르기도 했다.",
+        "하화도는 임진왜란 당시에 인동 장씨(성명 미상)가 처음 입도하였고 동백꽃과 섬모초, 진달래꽃이 섬 전체에 만발하여 ‘꽃섬’이라 불렀으며 마을 앞 서북쪽 1km 지점에 똑같은 꽃섬이 하나 있는데 그 섬을 상화도‘웃꽃섬’, 하화도는‘아…"
+      ],
+      "officialUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%ED%95%98%ED%99%94%EB%8F%84",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/45/3345945_image2_1.jpg",
+      "photoUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%ED%95%98%ED%99%94%EB%8F%84",
+      "credit": "한국관광공사 TourAPI",
+      "license": "공공누리 제1유형(출처표시)",
+      "imageRightsCode": "Type1",
+      "noDerivatives": false,
+      "location": {
+        "lat": 34.5932880043,
+        "lon": 127.6238927933
+      },
+      "note": "꽃",
+      "difficultyLevel": "normal",
+      "difficultyLabel": "보통",
+      "audiences": [
+        "family",
+        "active"
+      ],
+      "facilities": [
+        "주변지도 확인"
+      ],
+      "relatedItems": [
+        {
+          "contentTypeId": "28",
+          "title": "하화도 꽃섬길",
+          "address": "전남광주통합특별시 여수시 화정면 아랫꽃섬1길 1"
+        },
+        {
+          "contentTypeId": "12",
+          "title": "하화도(여수)",
+          "address": "전남광주통합특별시 여수시 화정면 아래꽃섬1길"
+        }
+      ]
+    },
+    {
+      "id": "sonjukdo",
+      "contentId": "2024407",
+      "name": "손죽도",
+      "type": "섬 휴식",
+      "themes": [
+        "rest"
+      ],
+      "season": "사계절",
+      "seasonNote": "공식 관광정보와 당일 날씨 확인",
+      "summary": "손죽도는 1587년 조선시대 수정실록 21권 선조 20년 2월에 이대원 장군 사망기록에 당초 손죽도(損竹島)라 칭하였다가, 1591년 이순신 장군이 전라좌수사로 부임하면서 이대원 장군이라…",
+      "access": "삼산면",
+      "duration": "3~5시간",
+      "best": "섬여행",
+      "tags": [
+        "섬여행",
+        "다도해",
+        "공식정보"
+      ],
+      "highlights": [
+        "손죽도는 1587년 조선시대 수정실록 21권 선조 20년 2월에 이대원 장군 사망기록에 당초 손죽도(損竹島)라 칭하였다가, 1591년 이순신 장군이 전라좌수사로 부임하면서 이대원 장군이라는 큰 인물을 잃은 곳이라 하여 손대도(잃을…",
+        "이후 1914년 3월 1일 일제의 지방행정구역 개편에 따라 돌산군에서 여수군으로 편입되면서 손죽도(巽竹島)로 개칭되어 지금의 ‘손죽도’로 불리고 있다."
+      ],
+      "officialUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%86%90%EC%A3%BD%EB%8F%84",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/15/3549115_image2_1.JPG",
+      "photoUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%86%90%EC%A3%BD%EB%8F%84",
+      "credit": "한국관광공사 TourAPI",
+      "license": "공공누리 제1유형(출처표시)",
+      "imageRightsCode": "Type1",
+      "noDerivatives": false,
+      "location": {
+        "lat": 34.2902784788,
+        "lon": 127.3612482313
+      },
+      "note": "섬여행·다도해",
+      "difficultyLevel": "normal",
+      "difficultyLabel": "보통",
+      "audiences": [
+        "family",
+        "active"
+      ],
+      "facilities": [
+        "주변지도 확인"
+      ],
+      "relatedItems": [
+        {
+          "contentTypeId": "12",
+          "title": "손죽도",
+          "address": "전남광주통합특별시 여수시 삼산면 손죽길 7"
+        }
+      ]
+    },
+    {
+      "id": "tour-1351484",
+      "contentId": "1351484",
+      "name": "안도",
+      "type": "섬길 걷기",
+      "themes": [
+        "walk",
+        "nature",
+        "rest"
+      ],
+      "season": "봄",
+      "seasonNote": "TourAPI 꽃·경관 콘텐츠 기반 추천 · 개화 시기 공식 확인",
+      "summary": "안도는 여수에서 서남쪽으로 34㎞ 떨어진 안도리 다도해해상국립공원지구 내에 있는 섬으로 면적 3.96㎢, 해안선 길이 29㎞로서 섬과 섬사이에 있는 섬이라 하여 ‘안섬’이라 불리다가 섬의…",
+      "access": "남면",
+      "duration": "2~4시간",
+      "best": "해수욕장",
+      "tags": [
+        "해수욕장",
+        "낚시"
+      ],
+      "highlights": [
+        "안도는 여수에서 서남쪽으로 34㎞ 떨어진 안도리 다도해해상국립공원지구 내에 있는 섬으로 면적 3.96㎢, 해안선 길이 29㎞로서 섬과 섬사이에 있는 섬이라 하여 ‘안섬’이라 불리다가 섬의 형태가 기러기 형상이라 하여 기러기 안(雁)…",
+        "안도어촌체험마을의 특징은 각종 상록수(동백, 구실잣밤, 소나무)군락지, 백금포 모래해수욕장, 이야포, 몽돌해수욕장, 전국 낚시인들이 모여드는 갯바위낚시터(2003년 세계낚시월드컵 중심지), 신석기유적지, 바다의 호수 안도 항(두멍안…"
+      ],
+      "officialUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%95%88%EB%8F%84",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/97/3549297_image2_1.JPG",
+      "photoUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%95%88%EB%8F%84",
+      "credit": "한국관광공사 TourAPI",
+      "license": "공공누리 제1유형(출처표시)",
+      "imageRightsCode": "Type1",
+      "noDerivatives": false,
+      "location": {
+        "lat": 34.4878528811,
+        "lon": 127.8038797409
+      },
+      "note": "해수욕장·낚시",
+      "difficultyLevel": "easy",
+      "difficultyLabel": "가벼움",
+      "audiences": [
+        "family",
+        "senior",
+        "relaxed"
+      ],
+      "facilities": [
+        "주변지도 확인"
+      ],
+      "relatedItems": [
+        {
+          "contentTypeId": "12",
+          "title": "여수 안도어촌체험마을",
+          "address": "전남광주통합특별시 여수시 남면 안도안길 21-7"
+        },
+        {
+          "contentTypeId": "12",
+          "title": "안도해수욕장",
+          "address": "전남광주통합특별시 여수시 남면 안도해수욕장길 105"
+        }
+      ]
+    },
+    {
+      "id": "tour-126967",
+      "contentId": "126967",
+      "name": "장군도",
+      "type": "섬 휴식",
+      "themes": [
+        "rest"
+      ],
+      "season": "사계절",
+      "seasonNote": "공식 관광정보와 당일 날씨 확인",
+      "summary": "여수시 중앙동 1번지인 장군도는 여수에서 돌산 방향으로 돌산대교를 건너다 보면 왼쪽으로 보이는 섬이다. 이 장군도는 연산군때의 이량 장군이 축성한 수중성과 관련이 있다. 이량 장군은 14…",
+      "access": "남산동",
+      "duration": "2~4시간",
+      "best": "섬여행",
+      "tags": [
+        "섬여행",
+        "다도해",
+        "공식정보"
+      ],
+      "highlights": [
+        "여수시 중앙동 1번지인 장군도는 여수에서 돌산 방향으로 돌산대교를 건너다 보면 왼쪽으로 보이는 섬이다.",
+        "이 장군도는 연산군때의 이량 장군이 축성한 수중성과 관련이 있다."
+      ],
+      "officialUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%9E%A5%EA%B5%B0%EB%8F%84",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/53/3580353_image2_1.jpg",
+      "photoUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%9E%A5%EA%B5%B0%EB%8F%84",
+      "credit": "한국관광공사 TourAPI",
+      "license": "공공누리 제1유형(출처표시)",
+      "imageRightsCode": "Type1",
+      "noDerivatives": false,
+      "location": {
+        "lat": 34.7332714952,
+        "lon": 127.7359461298
+      },
+      "note": "섬여행·다도해",
+      "difficultyLevel": "easy",
+      "difficultyLabel": "가벼움",
+      "audiences": [
+        "family",
+        "senior",
+        "relaxed"
+      ],
+      "facilities": [
+        "주변지도 확인"
+      ],
+      "relatedItems": [
+        {
+          "contentTypeId": "12",
+          "title": "장군도",
+          "address": "전남광주통합특별시 여수시 남산동"
+        }
+      ]
+    },
+    {
+      "id": "tour-128163",
+      "contentId": "128163",
+      "name": "백도",
+      "type": "섬 휴식",
+      "themes": [
+        "rest"
+      ],
+      "season": "봄",
+      "seasonNote": "TourAPI 꽃·경관 콘텐츠 기반 추천 · 개화 시기 공식 확인",
+      "summary": "여수 백도는 거문도에서 동쪽으로 28㎞ 떨어진 해상에 39개의 무인군도로 형성된 상백도와 하백도로 구분된다. 높고 낮은 기암괴석들과 깎아지른 절벽, 그 모습들이 천태만상으로 변화무쌍하여…",
+      "access": "삼산면",
+      "duration": "반나절 이상",
+      "best": "꽃",
+      "tags": [
+        "꽃"
+      ],
+      "highlights": [
+        "여수 백도는 거문도에서 동쪽으로 28㎞ 떨어진 해상에 39개의 무인군도로 형성된 상백도와 하백도로 구분된다.",
+        "높고 낮은 기암괴석들과 깎아지른 절벽, 그 모습들이 천태만상으로 변화무쌍하여 장관을 이루고 있으며 매바위, 서방바위 각시바위, 형제바위, 석불바위 등에 얽힌 갖가지 전설이 가득한 곳이다."
+      ],
+      "officialUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EB%B0%B1%EB%8F%84",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/43/3548943_image2_1.JPG",
+      "photoUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EB%B0%B1%EB%8F%84",
+      "credit": "한국관광공사 TourAPI",
+      "license": "공공누리 제1유형(출처표시)",
+      "imageRightsCode": "Type1",
+      "noDerivatives": false,
+      "location": {
+        "lat": 34.0555333413,
+        "lon": 127.5827180307
+      },
+      "note": "꽃",
+      "difficultyLevel": "challenge",
+      "difficultyLabel": "활동적",
+      "audiences": [
+        "active"
+      ],
+      "facilities": [
+        "주변지도 확인"
+      ],
+      "relatedItems": [
+        {
+          "contentTypeId": "12",
+          "title": "여수 백도",
+          "address": "전남광주통합특별시 여수시 삼산면 거문리"
+        }
+      ]
+    },
+    {
+      "id": "tour-129149",
+      "contentId": "129149",
+      "name": "백야도",
+      "type": "섬길 걷기",
+      "themes": [
+        "walk",
+        "nature",
+        "rest"
+      ],
+      "season": "가을·겨울",
+      "seasonNote": "해안 경관 콘텐츠 기반 추천 · 강풍·운항 확인",
+      "summary": "2005년 4월 14일 백야대교가 설치되어 차량운행이 가능해지면서 관광객과 낚시객들이 늘어나고 있다. 여수오션리조트 등 화양지구의 개발이 예정되어 있어 앞으로도 많은 관광객들이 방문할 것…",
+      "access": "화정면",
+      "duration": "2~4시간",
+      "best": "등대",
+      "tags": [
+        "등대",
+        "낚시"
+      ],
+      "highlights": [
+        "2005년 4월 14일 백야대교가 설치되어 차량운행이 가능해지면서 관광객과 낚시객들이 늘어나고 있다.",
+        "여수오션리조트 등 화양지구의 개발이 예정되어 있어 앞으로도 많은 관광객들이 방문할 것으로 예상된다."
+      ],
+      "officialUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EB%B0%B1%EC%95%BC%EB%8F%84",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/94/3549594_image2_1.JPG",
+      "photoUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EB%B0%B1%EC%95%BC%EB%8F%84",
+      "credit": "한국관광공사 TourAPI",
+      "license": "공공누리 제1유형(출처표시)",
+      "imageRightsCode": "Type1",
+      "noDerivatives": false,
+      "location": {
+        "lat": 34.609381165,
+        "lon": 127.6539175431
+      },
+      "note": "등대·낚시",
+      "difficultyLevel": "easy",
+      "difficultyLabel": "가벼움",
+      "audiences": [
+        "family",
+        "senior",
+        "relaxed"
+      ],
+      "facilities": [
+        "주변지도 확인"
+      ],
+      "relatedItems": [
+        {
+          "contentTypeId": "12",
+          "title": "백야도 등대",
+          "address": "전남광주통합특별시 여수시 화정면 백야등대길 48"
+        }
+      ]
+    },
+    {
+      "id": "tour-129150",
+      "contentId": "129150",
+      "name": "소리도",
+      "type": "섬길 걷기",
+      "themes": [
+        "walk",
+        "nature",
+        "rest"
+      ],
+      "season": "가을·겨울",
+      "seasonNote": "해안 경관 콘텐츠 기반 추천 · 강풍·운항 확인",
+      "summary": "남해 바다의 길잡이인 소리도 등대는 1910년 10월 4일에 처음으로 불을 밝혔다. 여수, 광양 인근으로 출입하는 선박이나, 서해안에서 부산 쪽으로 운항하는 선박들에게 주요 길잡이 역할을…",
+      "access": "남면",
+      "duration": "3~5시간",
+      "best": "등대",
+      "tags": [
+        "등대"
+      ],
+      "highlights": [
+        "남해 바다의 길잡이인 소리도 등대는 1910년 10월 4일에 처음으로 불을 밝혔다.",
+        "여수, 광양 인근으로 출입하는 선박이나, 서해안에서 부산 쪽으로 운항하는 선박들에게 주요 길잡이 역할을 하기 위해 설치되었다."
+      ],
+      "officialUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%86%8C%EB%A6%AC%EB%8F%84",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/46/3580346_image2_1.jpg",
+      "photoUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%86%8C%EB%A6%AC%EB%8F%84",
+      "credit": "한국관광공사 TourAPI",
+      "license": "공공누리 제1유형(출처표시)",
+      "imageRightsCode": "Type1",
+      "noDerivatives": false,
+      "location": {
+        "lat": 34.4113446936,
+        "lon": 127.8007486027
+      },
+      "note": "등대",
+      "difficultyLevel": "normal",
+      "difficultyLabel": "보통",
+      "audiences": [
+        "family",
+        "active"
+      ],
+      "facilities": [
+        "주변지도 확인"
+      ],
+      "relatedItems": [
+        {
+          "contentTypeId": "12",
+          "title": "소리도 등대",
+          "address": "전남광주통합특별시 여수시 남면 덕포길 135"
+        }
+      ]
+    },
+    {
+      "id": "tour-1528652",
+      "contentId": "1528652",
+      "name": "초도",
+      "type": "자연 여행",
+      "themes": [
+        "nature",
+        "rest"
+      ],
+      "season": "여름",
+      "seasonNote": "TourAPI 해변 콘텐츠 기반 추천 · 개장 여부 공식 확인",
+      "summary": "초도는 풀이 많아 풀 초(草) 자를 써 초도(草島)라 하며, 바닷새가 많다 하여 새 조(鳥) 자를 써 조도(鳥島)라고도 한다. 여수에서 남서쪽으로 77㎞, 거문도에서 북쪽으로 18㎞ 해상…",
+      "access": "삼산면",
+      "duration": "3~5시간",
+      "best": "해수욕장",
+      "tags": [
+        "해수욕장",
+        "일출"
+      ],
+      "highlights": [
+        "초도는 풀이 많아 풀 초(草) 자를 써 초도(草島)라 하며, 바닷새가 많다 하여 새 조(鳥) 자를 써 조도(鳥島)라고도 한다.",
+        "여수에서 남서쪽으로 77㎞, 거문도에서 북쪽으로 18㎞ 해상에 위치하며 주변에는 크고 작은 섬들이 잔재해 있다."
+      ],
+      "officialUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%B4%88%EB%8F%84",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/82/3548982_image2_1.JPG",
+      "photoUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%B4%88%EB%8F%84",
+      "credit": "한국관광공사 TourAPI",
+      "license": "공공누리 제1유형(출처표시)",
+      "imageRightsCode": "Type1",
+      "noDerivatives": false,
+      "location": {
+        "lat": 34.2285833657,
+        "lon": 127.2428045102
+      },
+      "note": "해수욕장·일출",
+      "difficultyLevel": "normal",
+      "difficultyLabel": "보통",
+      "audiences": [
+        "family",
+        "active"
+      ],
+      "facilities": [
+        "주변지도 확인"
+      ],
+      "relatedItems": [
+        {
+          "contentTypeId": "12",
+          "title": "초도(여수)",
+          "address": "전남광주통합특별시 여수시 삼산면 초도리"
+        }
+      ]
+    },
+    {
+      "id": "tour-2387053",
+      "contentId": "2387053",
+      "name": "연도",
+      "type": "섬길 걷기",
+      "themes": [
+        "walk",
+        "nature",
+        "rest"
+      ],
+      "season": "봄",
+      "seasonNote": "TourAPI 꽃·경관 콘텐츠 기반 추천 · 개화 시기 공식 확인",
+      "summary": "금오도 아래 위치한 섬으로 해안선이 천혜의 절경을 이루고 있으며 106년 역사의 소리도 등대를 비롯해 코끼리 코바위, 솔팽이굴, 물개바위, 콧구멍 바위 등 다양한 볼거리가 산재해 있어 해…",
+      "access": "남면",
+      "duration": "반나절 이상",
+      "best": "등대",
+      "tags": [
+        "등대",
+        "낚시"
+      ],
+      "highlights": [
+        "금오도 아래 위치한 섬으로 해안선이 천혜의 절경을 이루고 있으며 106년 역사의 소리도 등대를 비롯해 코끼리 코바위, 솔팽이굴, 물개바위, 콧구멍 바위 등 다양한 볼거리가 산재해 있어 해양관광지로 주목받고 있으며 각종 전설 등이 살…",
+        "섬 명칭은 솔개(소리개)가 하늘로 날아오른 듯한 모양을 닮았다 하여 소리도로 부르다가 조선 태조 5년(1396년)에 솔개 연자를 써서 연도(鳶島)라고 하였으며, 주민들은 여전히 소리도, 소리섬이라고 부르고 있다."
+      ],
+      "officialUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%97%B0%EB%8F%84",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/27/3580327_image2_1.jpg",
+      "photoUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%97%B0%EB%8F%84",
+      "credit": "한국관광공사 TourAPI",
+      "license": "공공누리 제1유형(출처표시)",
+      "imageRightsCode": "Type1",
+      "noDerivatives": false,
+      "location": {
+        "lat": 34.4367446659,
+        "lon": 127.8022783877
+      },
+      "note": "등대·낚시",
+      "difficultyLevel": "challenge",
+      "difficultyLabel": "활동적",
+      "audiences": [
+        "active"
+      ],
+      "facilities": [
+        "주변지도 확인"
+      ],
+      "relatedItems": [
+        {
+          "contentTypeId": "12",
+          "title": "연도(여수)",
+          "address": "전남광주통합특별시 여수시 남면 연도리"
+        }
+      ]
+    },
+    {
+      "id": "tour-2607009",
+      "contentId": "2607009",
+      "name": "추도",
+      "type": "섬길 걷기",
+      "themes": [
+        "walk",
+        "nature",
+        "rest"
+      ],
+      "season": "봄·가을",
+      "seasonNote": "야외 탐방에 비교적 좋은 계절 · 당일 기상 확인",
+      "summary": "추도는 공룡발자국 1,800여 개가 남겨져 있는 섬으로 유명하다. 사도 일대 5개 섬은 아시아에서 가장 젊은(7,000만 년 전 무렵) 공룡발자국 3,546점이 발견되었으며, 천연기념물로…",
+      "access": "화정면",
+      "duration": "3~5시간",
+      "best": "공룡",
+      "tags": [
+        "공룡",
+        "화석",
+        "자연"
+      ],
+      "highlights": [
+        "추도는 공룡발자국 1,800여 개가 남겨져 있는 섬으로 유명하다.",
+        "사도 일대 5개 섬은 아시아에서 가장 젊은(7,000만 년 전 무렵) 공룡발자국 3,546점이 발견되었으며, 천연기념물로 지정되었다."
+      ],
+      "officialUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%B6%94%EB%8F%84",
+      "image": "https://tong.visitkorea.or.kr/cms/resource/95/3580995_image2_1.jpg",
+      "photoUrl": "https://korean.visitkorea.or.kr/search/search_list.do?keyword=%EC%B6%94%EB%8F%84",
+      "credit": "한국관광공사 TourAPI",
+      "license": "공공누리 제1유형(출처표시)",
+      "imageRightsCode": "Type1",
+      "noDerivatives": false,
+      "location": {
+        "lat": 34.593456466,
+        "lon": 127.567739362
+      },
+      "note": "공룡·화석",
+      "difficultyLevel": "normal",
+      "difficultyLabel": "보통",
+      "audiences": [
+        "family",
+        "active"
+      ],
+      "facilities": [
+        "주변지도 확인"
+      ],
+      "relatedItems": [
+        {
+          "contentTypeId": "12",
+          "title": "추도(여수)",
+          "address": "전남광주통합특별시 여수시 화정면 추도길 1"
+        }
+      ]
+    }
+  ]
+}

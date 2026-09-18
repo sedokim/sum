@@ -82,6 +82,7 @@
       </div>
       <p class="status" id="status" role="status" aria-live="polite">주변 장소를 검색하고 있습니다.</p>
       <div class="results" id="results"></div>
+      <p class="status">출처: ⓒ한국관광공사<br>사용자의 GPS 위치를 수집하지 않습니다.</p>
     </aside>
     <section class="map-wrap" aria-label="카카오맵 기반 지도">
       <div id="map"></div>
@@ -93,36 +94,40 @@
   </main>
 
   <script src="./kakao-map-config.js"></script>
-  <script type="module">
-    import { apiConfig } from "./api-config.js";
+    <script type="module">
+    import { publicConfig } from "./public-config.js";
 
-    const ISLANDS = [
-      { id:"geumodo", name:"금오도", lat:34.5198793, lng:127.7542297, note:"비렁길·함구미항" },
-      { id:"geomundo", name:"거문도·백도", lat:34.0267908, lng:127.3168075, note:"거문항 중심" },
-      { id:"sado", name:"사도", lat:34.5908162, lng:127.5549649, note:"사도항·공룡화석지" },
-      { id:"nangdo", name:"낭도", lat:34.6066244, lng:127.5519718, note:"낭도항·둘레길" },
-      { id:"gaedo", name:"개도", lat:34.5690942, lng:127.6628778, note:"화산항 중심" },
-      { id:"odongdo", name:"오동도", lat:34.7450350, lng:127.7670926, note:"오동도 입구·등대" },
-      { id:"dolsando", name:"돌산도", lat:34.5915967, lng:127.8038089, note:"향일암 중심" },
-      { id:"jangdo", name:"장도", lat:34.7432389, lng:127.6641889, note:"웅천 장도교" },
-      { id:"hahwado", name:"하화도", lat:34.5926160, lng:127.6208782, note:"꽃섬길·하화항" },
-      { id:"yeojado", name:"여자도", lat:34.7596176, lng:127.4977551, note:"붕장어다리·대여자도" },
-      { id:"sonjukdo", name:"손죽도", lat:34.2816719, lng:127.3553260, note:"손죽항·해수욕장" }
-    ];
+    let ISLANDS = [];
     const CATEGORY = {
       lodging: { label:"숙박", kakaoCode:"AD5" },
       store: { label:"편의점", kakaoCode:"CS2" },
       toilet: { label:"화장실", kakaoKeyword:"공중화장실" }
     };
-    const state = { islandId:new URLSearchParams(location.search).get("island") || ISLANDS[0].id, category:"lodging", provider:null, map:null, islandMarker:null, markers:[], kakaoPlaces:null, infoWindow:null };
+    const state = { islandId:new URLSearchParams(location.search).get("island") || "", category:"lodging", provider:null, map:null, islandMarker:null, markers:[], kakaoPlaces:null, infoWindow:null };
     const els = { islandSelect:document.getElementById("islandSelect"), radius:document.getElementById("radiusSelect"), search:document.getElementById("searchButton"), status:document.getElementById("status"), results:document.getElementById("results"), badge:document.getElementById("islandBadge"), mapError:document.getElementById("mapError"), mapErrorMessage:document.getElementById("mapErrorMessage") };
-    if (!ISLANDS.some(({id}) => id === state.islandId)) state.islandId = ISLANDS[0].id;
-    const island = () => ISLANDS.find(({id}) => id === state.islandId) || ISLANDS[0];
+    const island = () => ISLANDS.find(({id}) => id === state.islandId) || ISLANDS[0] || null;
     const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (char) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[char]));
 
-    els.islandSelect.innerHTML = ISLANDS.map(({id,name}) => `<option value="${id}">${name}</option>`).join("");
-    els.islandSelect.value = state.islandId;
-    updateIslandBadge();
+    async function loadIslands() {
+      let payload = null;
+      const backendOrigin = `${location.protocol}//${location.hostname}:${publicConfig.localApiPort || 4173}`;
+      const backend = new URL(publicConfig.endpoints.islands.replace(/^\.\//, "/"), backendOrigin).href;
+      const endpoints = ["5500", "5501"].includes(location.port)
+        ? [backend, publicConfig.endpoints.islands] : [publicConfig.endpoints.islands];
+      for (const endpoint of [...new Set(endpoints)]) {
+        try {
+          const response = await fetch(endpoint, { cache:"no-store", signal: AbortSignal.timeout(55_000) });
+          if (response.ok) { payload = await response.json(); break; }
+        } catch {}
+      }
+      if (!Array.isArray(payload?.islands) || !payload.islands.length) throw new Error("tour_api_empty");
+      ISLANDS = payload.islands.map((item) => ({ id:item.id, name:item.name, lat:item.location?.lat, lng:item.location?.lon, note:item.note || "공식 관광정보" })).filter((item) => Number.isFinite(item.lat) && Number.isFinite(item.lng));
+      if (!ISLANDS.length) throw new Error("tour_api_location_empty");
+      if (!ISLANDS.some(({id}) => id === state.islandId)) state.islandId = ISLANDS[0].id;
+      els.islandSelect.innerHTML = ISLANDS.map(({id,name}) => `<option value="${id}">${name}</option>`).join("");
+      els.islandSelect.value = state.islandId;
+      updateIslandBadge();
+    }
 
     document.querySelectorAll("[data-category]").forEach((button) => button.addEventListener("click", () => {
       state.category = button.dataset.category;
@@ -135,6 +140,7 @@
 
     function updateIslandBadge() {
       const item = island();
+      if (!item) return;
       const provider = state.provider === "kakao" ? "카카오맵" : state.provider === "error" ? "카카오맵 연결 오류" : "카카오맵 준비 중";
       els.badge.textContent = `${provider} · ${item.name} · ${item.note}`;
     }
@@ -143,12 +149,12 @@
       return Boolean(key && !key.includes("PASTE_YOUR_"));
     }
     function loadKakaoMap() {
-      if (location.protocol === "file:") return showMapError("파일을 직접 열 수 없습니다. VS Code에서 index.html을 Live Server로 실행해 주세요.");
+      if (location.protocol === "file:") return showMapError("파일을 직접 열 수 없습니다. 프로젝트의 Node 서버로 실행해 주세요.");
       if (!hasKakaoKey()) return showMapError("kakao-map-config.js에 카카오 JavaScript 키를 입력해 주세요.");
       let settled = false;
-      const fail = () => { if (!settled) { settled = true; showMapError("JavaScript 키와 카카오 개발자 콘솔의 웹 도메인 등록을 확인해 주세요."); } };
+      const fail = () => { if (!settled) { settled = true; showMapError(`지도 연결을 확인해 주세요. 카카오 개발자 콘솔에 ${location.origin} 주소 등록이 필요합니다.`); } };
       const script = document.createElement("script");
-      script.src = `${apiConfig.map.sdkUrl}?appkey=${encodeURIComponent(window.SEOMURO_MAP_CONFIG.KAKAO_JAVASCRIPT_KEY.trim())}&autoload=false&libraries=services`;
+      script.src = `${publicConfig.map.sdkUrl}?appkey=${encodeURIComponent(window.SEOMURO_MAP_CONFIG.KAKAO_JAVASCRIPT_KEY.trim())}&autoload=false&libraries=services`;
       script.onerror = fail;
       script.onload = () => {
         if (!window.kakao?.maps) return fail();
@@ -158,14 +164,14 @@
         });
       };
       document.head.appendChild(script);
-      setTimeout(fail, 6000);
+      setTimeout(fail, 12000);
     }
     function showMapError(message) {
       state.provider = "error";
       els.mapError.hidden = false;
       els.mapErrorMessage.textContent = message;
       els.status.textContent = "카카오맵 연결 설정이 필요합니다.";
-      els.results.innerHTML = '<div class="empty">무료 지도 모드는 사용하지 않습니다.</div>';
+      els.results.innerHTML = '<div class="empty">지도 연결이 복구되면 주변 시설을 검색할 수 있습니다. <a href="https://map.kakao.com/" target="_blank" rel="noopener noreferrer">카카오맵 직접 열기 ↗</a></div>';
       els.search.disabled = true;
       els.radius.disabled = true;
       updateIslandBadge();
@@ -203,9 +209,14 @@
       els.status.textContent = `${item.name} 주변 ${category.label} 검색 중…`;
       searchKakao(item,category);
     }
+    let placeSearchVersion = 0;
     function searchKakao(item,category) {
+      const version = ++placeSearchVersion;
       const options = { location:new kakao.maps.LatLng(item.lat,item.lng), radius:Number(els.radius.value), size:15, sort:kakao.maps.services.SortBy.DISTANCE };
-      const callback = (data,status) => renderKakaoPlaces(data,status,category.label);
+      const callback = (data,status) => {
+        if (version !== placeSearchVersion) return;
+        renderKakaoPlaces(data,status,category.label);
+      };
       if (category.kakaoCode) state.kakaoPlaces.categorySearch(category.kakaoCode,callback,options);
       else state.kakaoPlaces.keywordSearch(category.kakaoKeyword,callback,options);
     }
@@ -233,7 +244,7 @@
       state.infoWindow.open(state.map,marker);
     }
     function formatDistance(value) { const meters=Number(value); if (!Number.isFinite(meters)) return "거리 정보 없음"; return meters>=1000 ? `${(meters/1000).toFixed(1)}km` : `${meters}m`; }
-    loadKakaoMap();
+    loadIslands().then(loadKakaoMap).catch(() => showMapError("섬 TourAPI를 불러오지 못했습니다. Node 서버와 API 키를 확인해 주세요."));
   </script>
 </body>
 </html>

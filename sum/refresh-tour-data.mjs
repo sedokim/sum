@@ -2,66 +2,31 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { apiConfig, buildApiUrl } from "./api-config.js";
+import { getTourIslands } from "./tour-island-service.js";
+import { loadApiEnv } from "./api-env.js";
 
 const projectRoot = path.dirname(fileURLToPath(import.meta.url));
-const env = parseEnv(await fs.readFile(path.join(projectRoot, ".env"), "utf8"));
-env.PUBLIC_DATA_SERVICE_KEY ||= env.TOUR_API_KEY;
-const result = {
-  schemaVersion: 1,
-  generatedAt: new Date().toISOString(),
-  source: apiConfig.providers.tourApi.label,
-  sourceUrl: apiConfig.providers.tourApi.docsUrl,
-  islands: {}
-};
-
-for (const [id, island] of Object.entries(apiConfig.islands)) {
-  console.log(`TourAPI: ${id}`);
-  const url = buildApiUrl("tourApi", "keywordSearch", {
-    keyword: island.keyword,
-    numOfRows: 20,
-    pageNo: 1
-  }, env);
-  const response = await fetch(url, { signal: AbortSignal.timeout(25_000) });
-  if (!response.ok) throw new Error(`TourAPI HTTP ${response.status}: ${id}`);
-  const payload = await response.json();
-  if (payload?.response?.header?.resultCode !== "0000") {
-    throw new Error(`TourAPI ${payload?.response?.header?.resultMsg || "unknown error"}: ${id}`);
-  }
-  const rawItems = payload?.response?.body?.items?.item;
-  const items = (Array.isArray(rawItems) ? rawItems : rawItems ? [rawItems] : [])
-    .slice(0, 6)
-    .map((item) => ({
-      contentId: String(item.contentid || ""),
-      contentTypeId: String(item.contenttypeid || ""),
-      title: String(item.title || ""),
-      address: `${item.addr1 || ""} ${item.addr2 || ""}`.trim(),
-      image: String(item.firstimage || ""),
-      mapX: String(item.mapx || ""),
-      mapY: String(item.mapy || "")
-    }));
-  result.islands[id] = { keyword: island.keyword, items };
-  await new Promise((resolve) => setTimeout(resolve, 150));
-}
-
-const outputPath = path.resolve(projectRoot, apiConfig.localData.tourSnapshot);
-await fs.mkdir(path.dirname(outputPath), { recursive: true });
-await fs.writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, "utf8");
-console.log(`Done: ${outputPath}`);
+const env = await loadApiEnv();
+console.log("TourAPI island catalogue");
+const islandResult = await getTourIslands();
 
 const today = toKoreaDate(new Date());
 const yesterday = toKoreaDate(new Date(Date.now() - 86_400_000));
 const travelDates = koreaDateRange(3);
 const allForecasts = [];
+let successfulForecastDates = 0;
 for (const date of travelDates) {
   console.log(`Ferry forecast: ${date}`);
   const forecastPayload = await fetchJson(buildApiUrl("ferryForecast", "tomorrow", { ilja: date }, env));
   if (forecastPayload?.header?.resultCode === "SC000") {
+    successfulForecastDates += 1;
     allForecasts.push(...asArray(forecastPayload?.body?.dataList).map((item) => ({ ...item, _date: date })));
   } else {
     console.warn(`Ferry forecast unavailable: ${date} · ${forecastPayload?.header?.resultMsg || "no data"}`);
   }
   await wait(120);
 }
+if (!successfulForecastDates) throw new Error("All ferry forecast requests failed; preserving previous data");
 const relevantForecasts = allForecasts.filter((item) => item.jbnm === "여수" && matchesAnyIsland(item));
 const shipNames = [...new Set(relevantForecasts.map((item) => item.ygnm).filter(Boolean))];
 
@@ -107,15 +72,11 @@ const ferryResult = {
 for (const [id, island] of Object.entries(apiConfig.islands)) {
   ferryResult.islands[id] = {
     ferryRequired: island.ferryRequired,
-    forecast: island.ferryRequired ? limitPerDate(relevantForecasts.filter((item) => matchesForecastStops(item, island.ferryStops)).map((item) => normalizeForecast(item, island.ferryStops)), 12) : [],
-    schedule: island.ferryRequired ? limitPerDate(allSchedules.filter((item) => matchesScheduleIsland(item, island.ferryStops)).map((item) => normalizeSchedule(item, island.ferryStops)), 12) : [],
-    status: island.ferryRequired ? latestStatuses.filter((item) => matchesStatusIsland(item, island.ferryStops)).map(normalizeStatus).slice(0, 8) : []
+    forecast: island.ferryRequired ? limitPerDate(relevantForecasts.filter((item) => matchesForecastStops(item, island.ferryStops)).map((item) => normalizeForecast(item, island.ferryStops)), 8) : [],
+    schedule: island.ferryRequired ? limitPerDate(allSchedules.filter((item) => matchesScheduleIsland(item, island.ferryStops)).map((item) => normalizeSchedule(item, island.ferryStops)), 8) : [],
+    status: island.ferryRequired ? latestStatuses.filter((item) => matchesStatusIsland(item, island.ferryStops)).map(normalizeStatus).slice(0, 5) : []
   };
 }
-
-const ferryOutputPath = path.resolve(projectRoot, apiConfig.localData.ferrySnapshot);
-await fs.writeFile(ferryOutputPath, `${JSON.stringify(ferryResult, null, 2)}\n`, "utf8");
-console.log(`Done: ${ferryOutputPath}`);
 
 const weatherBase = latestKmaBase();
 const currentForecastStamp = koreaDateTimeStamp();
@@ -129,9 +90,11 @@ const weatherResult = {
   islands: {}
 };
 const weatherByGrid = new Map();
+const weatherTargets = new Map(Object.entries(apiConfig.islands).map(([id, island]) => [id, island.location]));
+for (const island of islandResult.islands) weatherTargets.set(island.id, island.location);
 
-for (const [id, island] of Object.entries(apiConfig.islands)) {
-  const grid = toKmaGrid(island.location.lat, island.location.lon);
+for (const [id, location] of weatherTargets) {
+  const grid = toKmaGrid(location.lat, location.lon);
   const gridKey = `${grid.nx},${grid.ny}`;
   let hourly = weatherByGrid.get(gridKey);
   if (!hourly) {
@@ -147,20 +110,30 @@ for (const [id, island] of Object.entries(apiConfig.islands)) {
       throw new Error(`KMA forecast error: ${payload?.response?.header?.resultMsg || gridKey}`);
     }
     hourly = normalizeWeather(payload?.response?.body?.items?.item, currentForecastStamp);
+    if (!hourly.length) throw new Error("Empty weather response; preserving previous data");
     weatherByGrid.set(gridKey, hourly);
     await wait(120);
   }
   weatherResult.islands[id] = {
-    location: island.location,
+    location,
     grid,
     current: hourly[0] || null,
     hourly
   };
 }
 
-const weatherOutputPath = path.resolve(projectRoot, apiConfig.localData.weatherSnapshot);
-await fs.writeFile(weatherOutputPath, `${JSON.stringify(weatherResult, null, 2)}\n`, "utf8");
-console.log(`Done: ${weatherOutputPath}`);
+// Publish only ferry/weather snapshots; tourism remains live API data.
+const snapshots = [
+  [path.resolve(projectRoot, apiConfig.localData.ferrySnapshot), ferryResult],
+  [path.resolve(projectRoot, apiConfig.localData.weatherSnapshot), weatherResult]
+];
+await fs.mkdir(path.dirname(snapshots[0][0]), { recursive: true });
+for (const [outputPath, payload] of snapshots) {
+  const temporary = `${outputPath}.${process.pid}.tmp`;
+  await fs.writeFile(temporary, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+  await fs.rename(temporary, outputPath);
+  console.log(`Done: ${outputPath}`);
+}
 
 function parseEnv(text) {
   return Object.fromEntries(text.split(/\r?\n/).flatMap((line) => {
@@ -169,10 +142,24 @@ function parseEnv(text) {
   }));
 }
 
-async function fetchJson(url) {
-  const response = await fetch(url, { signal: AbortSignal.timeout(30_000) });
-  if (!response.ok) throw new Error(`HTTP ${response.status}: ${url.hostname}`);
-  return response.json();
+async function fetchJson(url, maxAttempts = 3) {
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    try {
+      const response = await fetch(url, { signal: AbortSignal.timeout(30_000) });
+      if (!response.ok) {
+        const error = new Error(`HTTP ${response.status}: ${url.hostname}`);
+        // Immediate retries cannot resolve a provider quota and consume more calls.
+        error.retryable = response.status >= 500;
+        throw error;
+      }
+      return await response.json();
+    } catch (error) {
+      const retryable = error?.retryable !== false;
+      if (!retryable || attempt === maxAttempts) throw error;
+      console.warn(`API retry ${attempt}/${maxAttempts - 1}: ${url.hostname}`);
+      await wait(500 * attempt);
+    }
+  }
 }
 
 async function fetchStatusPages(date) {
@@ -259,7 +246,7 @@ function normalizeForecast(item, stops) {
   const targetIndex = endpointIndex ?? targetIndices[0] ?? -1;
   const targetStop = targetIndex >= 0 ? routePorts[targetIndex] : "";
   const relation = targetIndex === 0 || targetIndex === routePorts.length - 1 ? "endpoint" : "via";
-  return { date: item._date || item.ilja || "", time: formatTime(item.chtm), ship: item.ygnm || "", departure: item.chjcnm || "", route: item.uhcdnm || item.mhcdnm || "", stops: item.gicdName || "", targetStop, relation, state: item.uhgbnm || "", note: item.bigo || "" };
+  return { date: item._date || item.ilja || "", time: formatTime(item.chtm), ship: item.ygnm || "", departure: item.chjcnm || "", stops: item.gicdName || "", targetStop, relation, state: item.uhgbnm || "", note: item.bigo || "" };
 }
 
 function normalizeSchedule(item, stops) {
@@ -267,11 +254,11 @@ function normalizeSchedule(item, stops) {
   const directStop = endpoints.find((port) => stops.some((stop) => portMatchesStop(port, stop))) || "";
   const route = item.nvg_seawy_nm || item.lcns_seawy_nm || "";
   const routeStop = stops.find((stop) => routeMentionsStop(route, stop)) || "";
-  return { date: item._date || item.rlvt_ymd || "", time: formatTime(item.sail_tm), ship: item.psnshp_nm || "", origin: item.oport_nm || "", destination: item.dest_nm || "", route, targetStop: directStop || routeStop, relation: directStop ? "endpoint" : "via", state: item.nvg_stts_nm || item.nvg_se_nm || "", reason: item.cntrl_rsn_nm || item.nnavi_rsn_nm || item.cnls_etc_rsn || "" };
+  return { date: item._date || item.rlvt_ymd || "", time: formatTime(item.sail_tm), ship: item.psnshp_nm || "", origin: item.oport_nm || "", destination: item.dest_nm || "", targetStop: directStop || routeStop, relation: directStop ? "endpoint" : "via", state: item.nvg_stts_nm || item.nvg_se_nm || "", reason: item.cntrl_rsn_nm || item.nnavi_rsn_nm || item.cnls_etc_rsn || "" };
 }
 
 function normalizeStatus(item) {
-  return { time: formatTime(item.sail_tm), ship: item.psnshp_nm || "", port: item.portcl_nm || "", route: item.nvg_seawy_nm || item.lcns_seawy_nm || "", state: item.nvg_stts_nm || "", changedAt: item.nvg_stts_chg_dt || "" };
+  return { time: formatTime(item.sail_tm), ship: item.psnshp_nm || "", port: item.portcl_nm || "", state: item.nvg_stts_nm || "", changedAt: item.nvg_stts_chg_dt || "" };
 }
 
 function asArray(value) { return Array.isArray(value) ? value : value ? [value] : []; }
@@ -328,10 +315,7 @@ function normalizeWeather(items, currentStamp) {
       time: point.time,
       temperature: finiteNumber(point.TMP),
       rainChance,
-      precipitationType,
       precipitation: String(point.PCP || "강수없음"),
-      sky,
-      humidity: finiteNumber(point.REH),
       wind,
       wave,
       icon: weatherIcon(precipitationType, sky),

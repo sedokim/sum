@@ -5,5 +5,5 @@
  * 키가 비어 있거나 인증에 실패하면 설정 오류를 안내합니다.
  */
 window.SEOMURO_MAP_CONFIG = Object.freeze({
-  KAKAO_JAVASCRIPT_KEY: "98069fcb8df0318e937a36d1506fa736"
+  KAKAO_JAVASCRIPT_KEY: "c798871c2e92f9d1d40e6305224a68b3"
 });

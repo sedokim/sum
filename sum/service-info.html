@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>서비스·데이터 이용 안내 | 섬으로</title>
+  <style>body{margin:0;background:#f4f7f6;color:#153932;font:16px/1.7 system-ui,sans-serif}main{max-width:850px;margin:auto;padding:30px 20px 70px}h1{font-size:clamp(26px,5vw,36px)}h2{font-size:21px}section{background:white;border:1px solid #dce8e2;border-radius:18px;padding:22px;margin:20px 0}a{color:#116d60}li{margin:8px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}button{padding:12px 18px;border-radius:10px;background:#116d60;color:white;border:0;font:inherit}summary{cursor:pointer}small{color:#536a62}</style>
+</head>
+<body><main>
+  <a href="./">← 섬으로 돌아가기</a>
+  <h1>서비스와 데이터 이용 안내</h1>
+  <p>섬으로는 전라남도 여수시의 섬 관광정보·배편·날씨를 함께 살펴보는 독립 웹서비스입니다. 회원가입이나 로그인 없이 모든 기능을 이용할 수 있습니다. 한국관광공사가 개발·운영하는 서비스가 아닙니다.</p>
+  <section><h2>데이터 출처와 제공 방식</h2>
+    <p><strong>출처: ⓒ한국관광공사</strong></p>
+    <ul>
+      <li><a href="https://www.data.go.kr/data/15101578/openapi.do" target="_blank" rel="noopener noreferrer">한국관광공사 국문 관광정보 서비스</a>: 여수 지역 관광정보와 공통 상세정보를 서버에서 실시간 호출합니다. 관광정보 DB·JSON을 대신 제공하지 않습니다.</li>
+      <li>배편: 한국해양교통안전공단 운항 예보·스케줄·상태 API. JSON 파일로 제공하고 날짜가 바뀐 뒤 요청 시 갱신합니다.</li>
+      <li>날씨: 기상청 단기예보 API. 섬 좌표의 예보 격자로 조회하여 JSON 파일로 제공합니다. 화면에 제공 날짜와 갱신 상태를 표시합니다.</li>
+      <li>지도·주변 시설 검색: 카카오맵. 검색 기준은 선택한 섬의 공개 좌표이며 사용자의 현재 위치가 아닙니다.</li>
+    </ul>
+    <p>관광 상세정보 조회가 제한되면 실시간 기본정보만 표시하며, 목록 조회도 실패하면 오류와 재시도 버튼을 표시합니다. 배편·날씨는 마지막 저장분이 제공될 수 있으므로 기준 날짜를 확인하세요.</p>
+    <p>지역 및 관광 설명을 바탕으로 만든 난이도·권장 체류시간·동행 추천은 서비스의 참고용 추정이며, 공인된 무장애 여행·안전 인증이 아닙니다. 계절 추천도 실제 축제 일정이나 개화 알림을 보장하지 않습니다.</p>
+  </section>
+  <section><h2>사진 이용 안내</h2>
+    <p>관광 사진은 권리정보를 확인할 수 있는 공공누리 제1·제3유형만 표시합니다. 제3유형 이미지는 자르거나 확대하지 않습니다. 사진별 출처와 이용유형을 확인하세요. 기관 로고는 사용하지 않습니다.</p>
+  </section>
+  <section><h2>개인정보와 방문 스탬프</h2>
+    <p>이 서비스의 애플리케이션 코드는 이름·이메일·계정·GPS 위치를 수집하지 않습니다. 방문 스탬프는 이 브라우저의 localStorage에만 저장되며 서버로 보내지 않습니다. 스탬프 영역의 초기화 버튼 또는 브라우저 사이트 데이터 삭제로 지울 수 있습니다. 스탬프는 직접 기록하는 여행 일지이며 실제 방문 인증이 아닙니다.</p>
+    <p>회원가입·로그인과 데이터베이스를 사용하지 않으며 별도의 API 호출 통계를 저장하지 않습니다. 지도·외부 사진·예매 사이트 접속 시 해당 제공자에게 통상적인 네트워크 요청이 전달되며 해당 서비스의 정책이 적용됩니다. 실제 배포 호스팅의 접속 로그와 보관 정책은 운영자가 배포 전에 확인해야 합니다.</p>
+  </section>
+  <section><h2>배편과 여행 안전</h2>
+    <p>본 서비스는 예매·결제 대행을 하지 않습니다. 배편 선택 시 예약 안내를 제공하고 외부 공식 예매 사이트로 이동합니다. 선택한 항로가 외부 사이트에 자동 입력되지는 않습니다. 좌석, 요금, 출항·도착 시각, 입도 가능 여부는 반드시 선사에 최종 확인하세요. 기상청 예보는 선사의 운항 결정이 아닙니다.</p>
+  </section>
+  <section><h2>연결 상태</h2><p id="status" role="status">확인 전</p><button id="check" type="button">서버 상태 확인</button><details><summary>데이터 기준일 보기</summary><pre id="result">서버 상태 확인 버튼을 누르세요.</pre></details><small>이 화면은 운영 점검용입니다. 대회 측의 인증키 기반 검증이나 제출 완료를 대신하지 않습니다.</small></section>
+  <script type="module">
+    import { publicConfig } from "./public-config.js";
+    document.getElementById("check").addEventListener("click", async (event) => {
+      event.target.disabled = true;
+      try {
+        const origin = ["5500", "5501"].includes(location.port) ? `${location.protocol}//${location.hostname}:${publicConfig.localApiPort}` : location.origin;
+        const response = await fetch(`${origin}/api/health`, { cache: "no-store", signal: AbortSignal.timeout(10000) });
+        if (!response.ok) throw new Error("server_unavailable");
+        const info = await response.json();
+        document.getElementById("status").textContent = "서버 연결 성공 · 관광 API 실제 응답 확인 중…";
+        let catalogue;
+        try {
+          const tourResponse = await fetch(`${origin}/api/islands`, { cache: "no-store", signal: AbortSignal.timeout(55000) });
+          const tour = await tourResponse.json();
+          catalogue = {
+            ok: tourResponse.ok && tour.ok === true && Array.isArray(tour.islands) && tour.islands.length > 0,
+            count: tour.islands?.length || 0,
+            partial: tour.partial === true,
+            detailsUnavailable: tour.detailsUnavailable || 0,
+            generatedAt: tour.generatedAt || null,
+            error: tour.error || tour.warning || null
+          };
+        } catch { catalogue = { ok: false, error: "connection_failed" }; }
+        const tourStatus = !catalogue.ok ? "조회 실패" : catalogue.partial ? `기본정보 ${catalogue.count}개 정상 · 상세 ${catalogue.detailsUnavailable}개 미조회` : `${catalogue.count}개 정상 조회`;
+        document.getElementById("status").textContent = `관광정보: ${tourStatus} · 배편·날씨 저장본: ${info.snapshots.fresh ? "오늘 기준" : "갱신 확인 필요"}`;
+        document.getElementById("result").textContent = JSON.stringify({ ...info, actualTourCheck: catalogue }, null, 2);
+      } catch { document.getElementById("status").textContent = "서버에 연결할 수 없습니다. Node 서버가 실행 중인지 확인해주세요."; }
+      finally { event.target.disabled = false; }
+    });
+  </script>
+</main></body></html>
