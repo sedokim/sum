@@ -157,7 +157,7 @@ function setSecurityHeaders(res, origin, embeddedMap = false) {
   res.setHeader("Permissions-Policy", "geolocation=(), microphone=(), camera=()");
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://dapi.kakao.com https://t1.daumcdn.net; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self' https://dapi.kakao.com https://*.daumcdn.net https://*.kakao.com; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors " + (embeddedMap ? "'self'" : "'none'")
+    "default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://dapi.kakao.com https://t1.daumcdn.net https://t1.kakaocdn.net; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self' https://dapi.kakao.com https://*.daumcdn.net https://*.kakaocdn.net https://*.kakao.com; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors " + (embeddedMap ? "'self'" : "'none'")
   );
 }
 

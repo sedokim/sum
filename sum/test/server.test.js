@@ -75,6 +75,9 @@ test("application shell includes the proposal features and security headers", { 
     const contentSecurityPolicy = response.headers.get("content-security-policy") || "";
     assert.match(contentSecurityPolicy, /default-src 'self'/);
     assert.match(contentSecurityPolicy, /img-src 'self' https: data:/);
+    const scriptSources = contentSecurityPolicy.split(';').find(directive => directive.trim().startsWith('script-src '));
+    assert.match(scriptSources, /https:\/\/t1\.kakaocdn\.net(?:\s|$)/);
+    assert.match(scriptSources, /https:\/\/t1\.daumcdn\.net(?:\s|$)/);
     assert.equal(response.headers.get("x-content-type-options"), "nosniff");
     assert.match(html, /let ISLANDS = \[\]/);
     assert.match(html, /publicConfig\.endpoints\.islands/);
