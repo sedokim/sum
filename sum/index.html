@@ -1029,7 +1029,8 @@
         return ferryTripHtml(trip.time, trip.ship, `${trip.origin} → ${trip.destination}`, trip.state || "일정", notice, { trip, island });
       }).join("");
       const statusHtml = statuses.slice(0, 5).map((trip) => ferryTripHtml(trip.time, trip.ship, trip.port ? `${trip.port} 선착장` : `${island.name} 관련 항로`, trip.state || "이력", "")).join("");
-      els.ferryDataList.innerHTML = `${noticeHtml}<div class="ferry-list">${forecastHtml}</div>${scheduleHtml ? `<details class="ferry-details"><summary>출발·도착 시간표 ${schedules.length}건 보기</summary><div class="ferry-list">${scheduleHtml}</div></details>` : ""}${statusHtml ? `<details class="ferry-details"${!forecasts.length && !schedules.length ? " open" : ""}><summary>${formatApiDate(state.ferryData.statusDate)} 실제 운항이력 보기</summary><div class="ferry-list">${statusHtml}</div></details>` : ""}<p class="ferry-note">배편을 누르면 해당 노선의 KSA 검색어와 공식 선사 전화번호가 표시됩니다. KSA는 외부 링크로 노선을 자동 선택하는 기능을 제공하지 않습니다.</p>`;
+      const reservationNote = forecasts.length || schedules.length ? "배편을 누르면 해당 노선의 KSA 검색어와 공식 선사 전화번호가 표시됩니다. KSA는 외부 링크로 노선을 자동 선택하는 기능을 제공하지 않습니다." : "운항이력은 실제 입·출항 상태 기록이며, 예약 가능한 배편 시간표와는 다릅니다.";
+      els.ferryDataList.innerHTML = `${noticeHtml}<div class="ferry-list">${forecastHtml}</div>${scheduleHtml ? `<details class="ferry-details"><summary>출발·도착 시간표 ${schedules.length}건 보기</summary><div class="ferry-list">${scheduleHtml}</div></details>` : ""}${statusHtml ? `<details class="ferry-details"${!forecasts.length && !schedules.length ? " open" : ""}><summary>${formatApiDate(state.ferryData.statusDate)} 실제 운항이력 보기</summary><div class="ferry-list">${statusHtml}</div></details>` : ""}<p class="ferry-note">${escapeHtml(reservationNote)}</p>`;
       els.ferryDataList.querySelectorAll("[data-ferry-reservation]").forEach((button) => button.addEventListener("click", () => openFerryReservation(button)));
     }
 
