@@ -1,0 +1,16 @@
+.env
+API-설정.env
+*.env
+.env.*
+apikey
+.apikey
+node_modules
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+tmp
+.vscode
+*.pdf
+test
+.git
+.diagnostics

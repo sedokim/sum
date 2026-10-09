@@ -6,146 +6,185 @@ import { getTourIslands } from "./tour-island-service.js";
 import { loadApiEnv } from "./api-env.js";
 
 const projectRoot = path.dirname(fileURLToPath(import.meta.url));
-const env = await loadApiEnv();
-console.log("TourAPI island catalogue");
-const islandResult = await getTourIslands();
 
-const today = toKoreaDate(new Date());
-const yesterday = toKoreaDate(new Date(Date.now() - 86_400_000));
-const travelDates = koreaDateRange(3);
-const allForecasts = [];
-let successfulForecastDates = 0;
-for (const date of travelDates) {
-  console.log(`Ferry forecast: ${date}`);
-  const forecastPayload = await fetchJson(buildApiUrl("ferryForecast", "tomorrow", { ilja: date }, env));
-  if (forecastPayload?.header?.resultCode === "SC000") {
-    successfulForecastDates += 1;
-    allForecasts.push(...asArray(forecastPayload?.body?.dataList).map((item) => ({ ...item, _date: date })));
-  } else {
-    console.warn(`Ferry forecast unavailable: ${date} · ${forecastPayload?.header?.resultMsg || "no data"}`);
-  }
-  await wait(120);
-}
-if (!successfulForecastDates) throw new Error("All ferry forecast requests failed; preserving previous data");
-const relevantForecasts = allForecasts.filter((item) => item.jbnm === "여수" && matchesAnyIsland(item));
-const shipNames = [...new Set(relevantForecasts.map((item) => item.ygnm).filter(Boolean))];
-
-const allSchedules = [];
-for (const date of travelDates) {
-  for (const shipName of shipNames) {
-    console.log(`Ferry schedule: ${date} · ${shipName}`);
-    const payload = await fetchJson(buildApiUrl("ferrySchedule", "schedules", {
-      rlvtYmd: date,
-      psnshpNm: shipName
-    }, env));
-    if (payload?.response?.header?.resultCode === "200") {
-      allSchedules.push(...asArray(payload.response.body?.items?.item).map((item) => ({ ...item, _date: date })));
-    } else if (payload?.response?.header?.resultCode !== "153") {
-      throw new Error(`Ferry schedule error: ${payload?.response?.header?.resultMsg || shipName}`);
+// A provider failure must never prevent another provider's successful update.
+export async function refreshSnapshots({ kind = "all", env, root = projectRoot, now = new Date(), request = fetchJson, islandLoader = getTourIslands, pause = wait, logger = console } = {}) {
+  if (!["all", "weather", "ferry"].includes(kind)) throw new Error("Unknown snapshot kind");
+  const context = { env: env || await loadApiEnv(), now, request, islandLoader, pause, logger };
+  const kinds = kind === "all" ? ["weather", "ferry"] : [kind];
+  const results = await Promise.allSettled(kinds.map(async (dataset) => {
+    const payload = dataset === "weather" ? await refreshWeatherData(context) : await refreshFerryData(context);
+    const outputPath = path.resolve(root, apiConfig.localData[`${dataset}Snapshot`]);
+    await fs.mkdir(path.dirname(outputPath), { recursive: true });
+    const temporary = `${outputPath}.${process.pid}.tmp`;
+    try {
+      await fs.writeFile(temporary, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+      await fs.rename(temporary, outputPath);
+    } finally {
+      await fs.rm(temporary, { force: true });
     }
-    await wait(120);
-  }
-}
-
-let statusDate = today;
-let allStatuses = await fetchStatusPages(today);
-if (!allStatuses.length) {
-  statusDate = yesterday;
-  allStatuses = await fetchStatusPages(yesterday);
-}
-const latestStatuses = latestStatusPerStop(allStatuses.filter((item) => shipNames.includes(item.psnshp_nm)));
-
-const ferryResult = {
-  schemaVersion: 2,
-  generatedAt: new Date().toISOString(),
-  forecastDate: today,
-  availableDates: travelDates,
-  statusDate,
-  sources: {
-    forecast: apiConfig.providers.ferryForecast.docsUrl,
-    schedule: apiConfig.providers.ferrySchedule.docsUrl,
-    status: apiConfig.providers.ferryStatus.docsUrl
-  },
-  islands: {}
-};
-
-for (const [id, island] of Object.entries(apiConfig.islands)) {
-  ferryResult.islands[id] = {
-    ferryRequired: island.ferryRequired,
-    forecast: island.ferryRequired ? limitPerDate(relevantForecasts.filter((item) => matchesForecastStops(item, island.ferryStops)).map((item) => normalizeForecast(item, island.ferryStops)), 8) : [],
-    schedule: island.ferryRequired ? limitPerDate(allSchedules.filter((item) => matchesScheduleIsland(item, island.ferryStops)).map((item) => normalizeSchedule(item, island.ferryStops)), 8) : [],
-    status: island.ferryRequired ? latestStatuses.filter((item) => matchesStatusIsland(item, island.ferryStops)).map(normalizeStatus).slice(0, 5) : []
-  };
-}
-
-const weatherBase = latestKmaBase();
-const currentForecastStamp = koreaDateTimeStamp();
-const weatherResult = {
-  schemaVersion: 2,
-  generatedAt: new Date().toISOString(),
-  baseDate: weatherBase.baseDate,
-  baseTime: weatherBase.baseTime,
-  source: apiConfig.providers.weatherForecast.label,
-  sourceUrl: apiConfig.providers.weatherForecast.docsUrl,
-  islands: {}
-};
-const weatherByGrid = new Map();
-const weatherTargets = new Map(Object.entries(apiConfig.islands).map(([id, island]) => [id, island.location]));
-for (const island of islandResult.islands) weatherTargets.set(island.id, island.location);
-
-for (const [id, location] of weatherTargets) {
-  const grid = toKmaGrid(location.lat, location.lon);
-  const gridKey = `${grid.nx},${grid.ny}`;
-  let hourly = weatherByGrid.get(gridKey);
-  if (!hourly) {
-    console.log(`KMA forecast: grid ${gridKey}`);
-    const payload = await fetchJson(buildApiUrl("weatherForecast", "villageForecast", {
-      base_date: weatherBase.baseDate,
-      base_time: weatherBase.baseTime,
-      nx: grid.nx,
-      ny: grid.ny,
-      numOfRows: 2000
-    }, env));
-    if (payload?.response?.header?.resultCode !== "00") {
-      throw new Error(`KMA forecast error: ${payload?.response?.header?.resultMsg || gridKey}`);
-    }
-    hourly = normalizeWeather(payload?.response?.body?.items?.item, currentForecastStamp);
-    if (!hourly.length) throw new Error("Empty weather response; preserving previous data");
-    weatherByGrid.set(gridKey, hourly);
-    await wait(120);
-  }
-  weatherResult.islands[id] = {
-    location,
-    grid,
-    current: hourly[0] || null,
-    hourly
-  };
-}
-
-// Publish only ferry/weather snapshots; tourism remains live API data.
-const snapshots = [
-  [path.resolve(projectRoot, apiConfig.localData.ferrySnapshot), ferryResult],
-  [path.resolve(projectRoot, apiConfig.localData.weatherSnapshot), weatherResult]
-];
-await fs.mkdir(path.dirname(snapshots[0][0]), { recursive: true });
-for (const [outputPath, payload] of snapshots) {
-  const temporary = `${outputPath}.${process.pid}.tmp`;
-  await fs.writeFile(temporary, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
-  await fs.rename(temporary, outputPath);
-  console.log(`Done: ${outputPath}`);
-}
-
-function parseEnv(text) {
-  return Object.fromEntries(text.split(/\r?\n/).flatMap((line) => {
-    const match = line.match(/^\s*([A-Z][A-Z0-9_]*)\s*=\s*(.*)\s*$/);
-    return match ? [[match[1], match[2]]] : [];
+    logger.log(`Done: ${dataset} snapshot`);
+    return payload;
   }));
+  return Object.fromEntries(kinds.map((dataset, index) => [dataset, results[index]]));
 }
 
-async function fetchJson(url, maxAttempts = 3) {
+async function refreshFerryData({ env, now, request, pause, logger }) {
+  const today = toKoreaDate(now);
+  const yesterday = toKoreaDate(new Date(now.getTime() - 86_400_000));
+  const travelDates = koreaDateRange(3, now);
+  const allForecasts = [];
+  let successfulForecastDates = 0;
+  for (const date of travelDates) {
+    logger.log(`Ferry forecast: ${date}`);
+    const forecastPayload = await request(buildApiUrl("ferryForecast", "tomorrow", { ilja: date }, env));
+    if (forecastPayload?.header?.resultCode === "SC000") {
+      successfulForecastDates += 1;
+      allForecasts.push(...asArray(forecastPayload?.body?.dataList).map((item) => ({ ...item, _date: date })));
+    } else {
+      logger.warn(`Ferry forecast unavailable: ${date} · ${forecastPayload?.header?.resultMsg || "no data"}`);
+    }
+    await pause(120);
+  }
+  if (!successfulForecastDates) throw new Error("All ferry forecast requests failed; preserving previous data");
+  const relevantForecasts = allForecasts.filter((item) => item.jbnm === "여수" && matchesAnyIsland(item));
+  const shipNames = [...new Set(relevantForecasts.map((item) => item.ygnm).filter(Boolean))];
+
+  const allSchedules = [];
+  for (const date of travelDates) {
+    for (const shipName of shipNames) {
+      logger.log(`Ferry schedule: ${date} · ${shipName}`);
+      const payload = await request(buildApiUrl("ferrySchedule", "schedules", {
+        rlvtYmd: date,
+        psnshpNm: shipName
+      }, env));
+      if (payload?.response?.header?.resultCode === "200") {
+        allSchedules.push(...asArray(payload.response.body?.items?.item).map((item) => ({ ...item, _date: date })));
+      } else if (payload?.response?.header?.resultCode !== "153") {
+        throw new Error(`Ferry schedule error: ${payload?.response?.header?.resultMsg || shipName}`);
+      }
+      await pause(120);
+    }
+  }
+
+  let statusDate = today;
+  let allStatuses = await fetchStatusPages(today, { env, request, pause, logger });
+  if (!allStatuses.length) {
+    statusDate = yesterday;
+    allStatuses = await fetchStatusPages(yesterday, { env, request, pause, logger });
+  }
+  const latestStatuses = latestStatusPerStop(allStatuses.filter((item) => shipNames.includes(item.psnshp_nm)));
+
+  const ferryResult = {
+    schemaVersion: 2,
+    generatedAt: now.toISOString(),
+    forecastDate: today,
+    availableDates: travelDates,
+    statusDate,
+    sources: {
+      forecast: apiConfig.providers.ferryForecast.docsUrl,
+      schedule: apiConfig.providers.ferrySchedule.docsUrl,
+      status: apiConfig.providers.ferryStatus.docsUrl
+    },
+    islands: {}
+  };
+
+  for (const [id, island] of Object.entries(apiConfig.islands)) {
+    ferryResult.islands[id] = {
+      ferryRequired: island.ferryRequired,
+      forecast: island.ferryRequired ? limitPerDate(relevantForecasts.filter((item) => matchesForecastStops(item, island.ferryStops)).map((item) => normalizeForecast(item, island.ferryStops)), 8) : [],
+      schedule: island.ferryRequired ? limitPerDate(allSchedules.filter((item) => matchesScheduleIsland(item, island.ferryStops)).map((item) => normalizeSchedule(item, island.ferryStops)), 8) : [],
+      status: island.ferryRequired ? latestStatuses.filter((item) => matchesStatusIsland(item, island.ferryStops)).map(normalizeStatus).slice(0, 5) : []
+    };
+  }
+  return ferryResult;
+}
+
+async function refreshWeatherData({ env, now, request, islandLoader, pause, logger }) {
+  const weatherBase = latestKmaBase(now);
+  const currentForecastStamp = koreaDateTimeStamp(now);
+  const weatherResult = {
+    schemaVersion: 2,
+    generatedAt: now.toISOString(),
+    forecastDate: toKoreaDate(now),
+    baseDate: weatherBase.baseDate,
+    baseTime: weatherBase.baseTime,
+    source: apiConfig.providers.weatherForecast.label,
+    sourceUrl: apiConfig.providers.weatherForecast.docsUrl,
+    islands: {}
+  };
+  const weatherTargets = new Map(Object.entries(apiConfig.islands).map(([id, island]) => [id, island.location]));
+  try {
+    const islandResult = await islandLoader();
+    for (const island of islandResult.islands || []) {
+      if (Number.isFinite(island.location?.lat) && Number.isFinite(island.location?.lon)) weatherTargets.set(island.id, island.location);
+    }
+  } catch {
+    logger.warn("TourAPI island enrichment unavailable; refreshing configured weather locations");
+  }
+
+  const grids = new Map();
+  for (const [id, location] of weatherTargets) {
+    const grid = toKmaGrid(location.lat, location.lon);
+    const gridKey = `${grid.nx},${grid.ny}`;
+    if (!grids.has(gridKey)) grids.set(gridKey, { grid, targets: [] });
+    grids.get(gridKey).targets.push({ id, location });
+  }
+  const unavailableIslands = [];
+  // Three bounded workers keep first-load refresh inside the server timeout.
+  const pendingGrids = [...grids.values()];
+  await Promise.all(Array.from({ length: Math.min(3, pendingGrids.length) }, async () => {
+    while (pendingGrids.length) {
+      const { grid, targets } = pendingGrids.shift();
+      const gridKey = `${grid.nx},${grid.ny}`;
+      try {
+        logger.log(`KMA forecast: grid ${gridKey}`);
+        const payload = await request(buildApiUrl("weatherForecast", "villageForecast", {
+          base_date: weatherBase.baseDate,
+          base_time: weatherBase.baseTime,
+          nx: grid.nx,
+          ny: grid.ny,
+          numOfRows: 2000
+        }, env), 2, 12_000);
+        if (payload?.response?.header?.resultCode !== "00") {
+          throw new Error(`KMA forecast error: ${payload?.response?.header?.resultMsg || gridKey}`);
+        }
+        const hourly = normalizeWeather(payload?.response?.body?.items?.item, currentForecastStamp);
+        if (!hourly.length) throw new Error("Empty weather response; preserving previous data");
+        for (const { id, location } of targets) weatherResult.islands[id] = { location, grid, current: hourly[0], hourly };
+      } catch {
+        unavailableIslands.push(...targets.map(({ id }) => id));
+        logger.warn(`KMA forecast unavailable: grid ${gridKey}`);
+      }
+      await pause(120);
+    }
+  }));
+  if (!Object.keys(weatherResult.islands).length) throw new Error("All weather requests failed; preserving previous data");
+  weatherResult.partial = unavailableIslands.length > 0;
+  weatherResult.unavailableIslands = unavailableIslands;
+  return weatherResult;
+}
+
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  try {
+    const kind = process.argv.find((arg) => arg.startsWith("--kind="))?.slice(7) || "all";
+    const results = await refreshSnapshots({ kind });
+    for (const [dataset, result] of Object.entries(results)) {
+      if (result.status === "rejected") {
+        console.error(`${dataset} snapshot refresh failed; previous data retained: ${result.reason?.message || "API unavailable"}`);
+        process.exitCode = 1;
+      }
+    }
+  } catch (error) {
+    console.error(error.message);
+    process.exitCode = 1;
+  }
+}
+
+async function fetchJson(url, maxAttempts = 3, timeoutMs = 30_000) {
   for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
     try {
-      const response = await fetch(url, { signal: AbortSignal.timeout(30_000) });
+      const response = await fetch(url, { signal: AbortSignal.timeout(timeoutMs) });
       if (!response.ok) {
         const error = new Error(`HTTP ${response.status}: ${url.hostname}`);
         // Immediate retries cannot resolve a provider quota and consume more calls.
@@ -162,8 +201,8 @@ async function fetchJson(url, maxAttempts = 3) {
   }
 }
 
-async function fetchStatusPages(date) {
-  const first = await fetchJson(buildApiUrl("ferryStatus", "statuses", { rlvtYmd: date, pageNo: 1 }, env));
+async function fetchStatusPages(date, { env, request, pause, logger }) {
+  const first = await request(buildApiUrl("ferryStatus", "statuses", { rlvtYmd: date, pageNo: 1 }, env));
   const code = first?.response?.header?.resultCode;
   if (code === "153") return [];
   if (code !== "200") throw new Error(`Ferry status error: ${first?.response?.header?.resultMsg || "unknown"}`);
@@ -171,10 +210,10 @@ async function fetchStatusPages(date) {
   const total = Number(first.response.body?.totalCount || items.length);
   const pages = Math.ceil(total / 1000);
   for (let pageNo = 2; pageNo <= pages; pageNo += 1) {
-    console.log(`Ferry status: ${date} page ${pageNo}/${pages}`);
-    const payload = await fetchJson(buildApiUrl("ferryStatus", "statuses", { rlvtYmd: date, pageNo }, env));
+    logger.log(`Ferry status: ${date} page ${pageNo}/${pages}`);
+    const payload = await request(buildApiUrl("ferryStatus", "statuses", { rlvtYmd: date, pageNo }, env));
     if (payload?.response?.header?.resultCode === "200") items.push(...asArray(payload.response.body?.items?.item));
-    await wait(120);
+    await pause(120);
   }
   return items;
 }
@@ -274,7 +313,7 @@ function limitPerDate(items, limit) {
 function formatTime(value) { const text = String(value || "").padStart(4, "0"); return `${text.slice(0, 2)}:${text.slice(2, 4)}`; }
 function wait(ms) { return new Promise((resolve) => setTimeout(resolve, ms)); }
 function toKoreaDate(date) { return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul", year: "numeric", month: "2-digit", day: "2-digit" }).format(date).replaceAll("-", ""); }
-function koreaDateRange(days) { return Array.from({ length: days }, (_, index) => toKoreaDate(new Date(Date.now() + index * 86_400_000))); }
+function koreaDateRange(days, now = new Date()) { return Array.from({ length: days }, (_, index) => toKoreaDate(new Date(now.getTime() + index * 86_400_000))); }
 
 function latestKmaBase(now = new Date()) {
   const safeTime = new Date(now.getTime() - 20 * 60_000);

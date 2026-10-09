@@ -11,8 +11,6 @@ const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const PORT = toPort(process.env.PORT, 4173);
 const HOST = process.env.HOST || "0.0.0.0";
 const execFileAsync = promisify(execFile);
-let snapshotRefreshPromise = null;
-let snapshotRetryAfter = 0;
 
 /**
  * The recommendation catalogue is assembled from TourAPI on the server. Weather
@@ -21,7 +19,8 @@ let snapshotRetryAfter = 0;
  * Kakao Maps JavaScript key configuration is intentionally public because
  * browser map keys must be domain-restricted in Kakao Developers.
  */
-export function createServer({ readSnapshot = createSnapshotReader(), refreshSnapshots = true, islandLoader = getTourIslands } = {}) {
+export function createServer({ readSnapshot = createSnapshotReader(), refreshSnapshots = true, islandLoader = getTourIslands, runSnapshotRefresh = executeSnapshotRefresh } = {}) {
+  const ensureDailySnapshot = createDailySnapshotRefresher({ readSnapshot, runRefresh: runSnapshotRefresh });
   const handleRequest = async (req, res) => {
     setSecurityHeaders(res, req.headers.origin, /^\/map\.html(?:\?|$)/.test(req.url || ""));
     const method = req.method || "GET";
@@ -50,8 +49,8 @@ export function createServer({ readSnapshot = createSnapshotReader(), refreshSna
         today,
         snapshots: {
           ferryDate: ferry?.forecastDate || null,
-          weatherDate: weather?.baseDate || null,
-          fresh: ferry?.forecastDate === today && weather?.baseDate === today
+          weatherDate: weather?.forecastDate || weather?.baseDate || null,
+          fresh: snapshotIsCurrent("ferry", ferry, today) && snapshotIsCurrent("weather", weather, today)
         },
         message: "로그인·DB 없이 이용합니다. 관광공사 정보는 실시간 API, 배편·날씨는 API 생성 JSON으로 제공합니다."
       }, 200, method);
@@ -69,19 +68,16 @@ export function createServer({ readSnapshot = createSnapshotReader(), refreshSna
       }
     }
 
-    if (requestUrl.pathname === "/data/ferry-api.json" || requestUrl.pathname === "/data/weather-api.json") {
-      try {
-        if (refreshSnapshots) await ensureDailySnapshots(readSnapshot);
-      } catch (error) {
-        console.error("Daily ferry/weather refresh failed; serving the last snapshot:", error?.message || error);
-      }
-    }
-
     const datasetKind = new Map([
       ["/data/ferry-api.json", "ferry"],
       ["/data/weather-api.json", "weather"]
     ]).get(requestUrl.pathname);
     if (datasetKind) {
+      try {
+        if (refreshSnapshots) await ensureDailySnapshot(datasetKind);
+      } catch (error) {
+        console.error(`${datasetKind} refresh failed; serving the last snapshot:`, error?.message || error);
+      }
       const payload = await readSnapshot(datasetKind);
       return sendJson(res, payload || { ok: false, error: "dataset_unavailable" }, payload ? 200 : 503, method);
     }
@@ -123,23 +119,41 @@ export function createServer({ readSnapshot = createSnapshotReader(), refreshSna
   });
 }
 
-async function ensureDailySnapshots(readSnapshot) {
-  const today = koreaDateKey();
-  const [ferry, weather] = await Promise.all([readSnapshot("ferry"), readSnapshot("weather")]);
-  if (ferry?.forecastDate === today && weather?.baseDate === today) return;
-  if (Date.now() < snapshotRetryAfter) return;
-  if (!snapshotRefreshPromise) {
-    snapshotRefreshPromise = execFileAsync(process.execPath, [path.join(ROOT, "refresh-tour-data.mjs")], {
-      cwd: ROOT,
-      timeout: 180_000,
-      windowsHide: true,
-      maxBuffer: 1024 * 1024
-    }).catch(() => {
-      snapshotRetryAfter = Date.now() + 60_000;
-      throw new Error("Snapshot refresh failed; retry deferred for 60 seconds");
-    }).finally(() => { snapshotRefreshPromise = null; });
-  }
-  await snapshotRefreshPromise;
+export function createDailySnapshotRefresher({ readSnapshot, runRefresh = executeSnapshotRefresh, clock = Date.now }) {
+  const states = new Map();
+  return async (kind) => {
+    if (!["weather", "ferry"].includes(kind)) throw new Error("Unknown snapshot kind");
+    const today = koreaDateKey(new Date(clock()));
+    if (snapshotIsCurrent(kind, await readSnapshot(kind), today)) return;
+    if (!states.has(kind)) states.set(kind, { pending: null, retryAfter: 0 });
+    const state = states.get(kind);
+    if (clock() < state.retryAfter) return;
+    if (!state.pending) {
+      state.pending = Promise.resolve().then(() => runRefresh(kind)).then(async () => {
+        // Partial data is usable, but retry missing locations without a request storm.
+        if (!snapshotIsCurrent(kind, await readSnapshot(kind), today)) state.retryAfter = clock() + 60_000;
+      }).catch(() => {
+        state.retryAfter = clock() + 60_000;
+        throw new Error(`${kind} refresh failed; retry deferred for 60 seconds`);
+      }).finally(() => { state.pending = null; });
+    }
+    await state.pending;
+  };
+}
+
+function snapshotIsCurrent(kind, payload, today) {
+  return kind === "weather"
+    ? (payload?.forecastDate || payload?.baseDate) === today && !payload?.partial
+    : payload?.forecastDate === today;
+}
+
+async function executeSnapshotRefresh(kind) {
+  await execFileAsync(process.execPath, [path.join(ROOT, "refresh-tour-data.mjs"), `--kind=${kind}`], {
+    cwd: ROOT,
+    timeout: 180_000,
+    windowsHide: true,
+    maxBuffer: 1024 * 1024
+  });
 }
 
 function koreaDateKey(reference = new Date()) {

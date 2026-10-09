@@ -2,6 +2,9 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { getTourIslands } from "../tour-island-service.js";
 
+// These mocked requests must not depend on a developer's real API credentials.
+process.env.TOUR_API_KEY = "unit-test-key";
+
 const areaItems = ["금오도", "안도"].map((title, i) => ({ contentid: String(i + 1), contenttypeid: "12", title, addr1: "전라남도 여수시 남면", mapx: "127.75", mapy: "34.51" }));
 const reply = (items) => ({ ok: true, json: async () => ({ response: { header: { resultCode: "0000" }, body: { totalCount: items.length, items: { item: items } } } }) });
 

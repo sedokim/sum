@@ -789,7 +789,7 @@
       }
       if (state.weatherData.error) {
         els.weatherUpdate.textContent = "날씨 갱신 필요";
-        els.weatherPanel.innerHTML = '<p class="weather-panel-empty">refresh-tour-data.cmd를 실행해 날씨 데이터를 갱신해 주세요.</p>';
+        els.weatherPanel.innerHTML = '<p class="weather-panel-empty">기상정보를 일시적으로 불러오지 못했습니다. 잠시 후 자동으로 다시 확인합니다.</p>';
         return;
       }
       els.weatherUpdate.textContent = `${formatApiDate(selectedDate)} 선택 · ${formatWeatherUpdated(state.weatherData.generatedAt)} 갱신`;
@@ -1113,9 +1113,9 @@
     }
 
     function syncTravelDateRange() {
-      const ferryDates = Array.isArray(state.ferryData?.availableDates) ? state.ferryData.availableDates : [];
-      const weatherDates = [...new Set(Object.values(state.weatherData?.islands || {}).flatMap((record) => Array.isArray(record?.hourly) ? record.hourly.map((point) => point.date) : []))];
       const todayKey = koreaInputDate().replaceAll("-", "");
+      const ferryDates = (Array.isArray(state.ferryData?.availableDates) ? state.ferryData.availableDates : []).filter((date) => date >= todayKey);
+      const weatherDates = [...new Set(Object.values(state.weatherData?.islands || {}).flatMap((record) => Array.isArray(record?.hourly) ? record.hourly.map((point) => point.date) : []))].filter((date) => date >= todayKey).sort();
       const sharedDates = ferryDates.length && weatherDates.length ? ferryDates.filter((date) => weatherDates.includes(date)) : ferryDates.length ? ferryDates : weatherDates;
       const available = sharedDates.filter((date) => /^\d{8}$/.test(date) && date >= todayKey);
       if (available.length) {
@@ -1132,7 +1132,7 @@
 
     function snapshotsMatchToday() {
       const todayKey = koreaInputDate().replaceAll("-", "");
-      return state.ferryData?.forecastDate === todayKey && state.weatherData?.baseDate === todayKey;
+      return state.ferryData?.forecastDate === todayKey && (state.weatherData?.forecastDate || state.weatherData?.baseDate) === todayKey && !state.weatherData?.partial;
     }
 
     async function refreshSnapshotData() {
