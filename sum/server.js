@@ -50,6 +50,8 @@ export function createServer({ readSnapshot = createSnapshotReader(), refreshSna
         snapshots: {
           ferryDate: ferry?.forecastDate || null,
           weatherDate: weather?.forecastDate || weather?.baseDate || null,
+          ferryPartial: Boolean(ferry?.partial),
+          ferryProviders: ferry?.providerStatus || null,
           fresh: snapshotIsCurrent("ferry", ferry, today) && snapshotIsCurrent("weather", weather, today)
         },
         message: "로그인·DB 없이 이용합니다. 관광공사 정보는 실시간 API, 배편·날씨는 API 생성 JSON으로 제공합니다."
@@ -124,7 +126,11 @@ export function createDailySnapshotRefresher({ readSnapshot, runRefresh = execut
   return async (kind) => {
     if (!["weather", "ferry"].includes(kind)) throw new Error("Unknown snapshot kind");
     const today = koreaDateKey(new Date(clock()));
-    if (snapshotIsCurrent(kind, await readSnapshot(kind), today)) return;
+    const current = await readSnapshot(kind);
+    if (snapshotIsCurrent(kind, current, today)) {
+      const retryAfter = Date.parse(current?.retryAfter);
+      if (kind !== "ferry" || !current?.partial || !Number.isFinite(retryAfter) || clock() < retryAfter) return;
+    }
     if (!states.has(kind)) states.set(kind, { pending: null, retryAfter: 0 });
     const state = states.get(kind);
     if (clock() < state.retryAfter) return;

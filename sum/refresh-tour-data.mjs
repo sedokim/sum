@@ -33,47 +33,85 @@ async function refreshFerryData({ env, now, request, pause, logger }) {
   const today = toKoreaDate(now);
   const yesterday = toKoreaDate(new Date(now.getTime() - 86_400_000));
   const travelDates = koreaDateRange(3, now);
+  const providerStatus = {
+    forecast: { available: false, partial: false, reason: null },
+    schedule: { available: false, partial: false, reason: null },
+    status: { available: false, partial: false, reason: null }
+  };
+  const markFailed = (kind, error) => {
+    providerStatus[kind].partial = true;
+    providerStatus[kind].reason = error?.code === "22" ? "daily_limit" : error?.status === 429 || error?.code === "23" ? "rate_limited" : "unavailable";
+    logger.warn(`Ferry ${kind} unavailable: ${providerStatus[kind].reason}`);
+  };
+
+  // Status retrieval is independent of forecast and schedule availability.
+  const statusRequest = (async () => {
+    let date = today;
+    try {
+      let items = await fetchStatusPages(date, { env, request, pause, logger });
+      providerStatus.status.available = true;
+      if (!items.length) {
+        date = yesterday;
+        items = await fetchStatusPages(date, { env, request, pause, logger });
+      }
+      return { date, items };
+    } catch (error) {
+      markFailed("status", error);
+      return { date, items: [] };
+    }
+  })();
+
   const allForecasts = [];
-  let successfulForecastDates = 0;
   for (const date of travelDates) {
     logger.log(`Ferry forecast: ${date}`);
-    const forecastPayload = await request(buildApiUrl("ferryForecast", "tomorrow", { ilja: date }, env));
-    if (forecastPayload?.header?.resultCode === "SC000") {
-      successfulForecastDates += 1;
+    try {
+      const forecastPayload = await request(buildApiUrl("ferryForecast", "tomorrow", { ilja: date }, env));
+      if (forecastPayload?.header?.resultCode !== "SC000") throw ferryResponseError(forecastPayload);
+      providerStatus.forecast.available = true;
       allForecasts.push(...asArray(forecastPayload?.body?.dataList).map((item) => ({ ...item, _date: date })));
-    } else {
-      logger.warn(`Ferry forecast unavailable: ${date} · ${forecastPayload?.header?.resultMsg || "no data"}`);
+    } catch (error) {
+      markFailed("forecast", error);
+      if (error?.status === 429 || ["22", "23"].includes(error?.code)) break;
     }
     await pause(120);
   }
-  if (!successfulForecastDates) throw new Error("All ferry forecast requests failed; preserving previous data");
   const relevantForecasts = allForecasts.filter((item) => item.jbnm === "여수" && matchesAnyIsland(item));
-  const shipNames = [...new Set(relevantForecasts.map((item) => item.ygnm).filter(Boolean))];
+  const { date: statusDate, items: allStatuses } = await statusRequest;
+  const relatedStatuses = allStatuses.filter((item) => Object.values(apiConfig.islands).some((island) => island.ferryRequired && matchesStatusIsland(item, island.ferryStops)));
+  const shipNames = [...new Set([...relevantForecasts.map((item) => item.ygnm), ...relatedStatuses.map((item) => item.psnshp_nm)].filter(Boolean))];
 
   const allSchedules = [];
-  for (const date of travelDates) {
+  scheduleRequests: for (const date of travelDates) {
     for (const shipName of shipNames) {
       logger.log(`Ferry schedule: ${date} · ${shipName}`);
-      const payload = await request(buildApiUrl("ferrySchedule", "schedules", {
-        rlvtYmd: date,
-        psnshpNm: shipName
-      }, env));
-      if (payload?.response?.header?.resultCode === "200") {
-        allSchedules.push(...asArray(payload.response.body?.items?.item).map((item) => ({ ...item, _date: date })));
-      } else if (payload?.response?.header?.resultCode !== "153") {
-        throw new Error(`Ferry schedule error: ${payload?.response?.header?.resultMsg || shipName}`);
+      try {
+        const payload = await request(buildApiUrl("ferrySchedule", "schedules", {
+          rlvtYmd: date,
+          psnshpNm: shipName
+        }, env), 2, 12_000);
+        const code = payload?.response?.header?.resultCode;
+        if (!["200", "153"].includes(code)) throw ferryResponseError(payload);
+        providerStatus.schedule.available = true;
+        if (code === "200") allSchedules.push(...asArray(payload.response.body?.items?.item).map((item) => ({ ...item, _date: date })));
+      } catch (error) {
+        markFailed("schedule", error);
+        // One failed provider should not consume its remaining quota per vessel.
+        break scheduleRequests;
       }
       await pause(120);
     }
   }
-
-  let statusDate = today;
-  let allStatuses = await fetchStatusPages(today, { env, request, pause, logger });
-  if (!allStatuses.length) {
-    statusDate = yesterday;
-    allStatuses = await fetchStatusPages(yesterday, { env, request, pause, logger });
+  if (!shipNames.length && !providerStatus.forecast.available) {
+    providerStatus.schedule.partial = true;
+    providerStatus.schedule.reason = "unavailable";
   }
-  const latestStatuses = latestStatusPerStop(allStatuses.filter((item) => shipNames.includes(item.psnshp_nm)));
+
+  if (!Object.values(providerStatus).some((provider) => provider.available)) throw new Error("All ferry providers failed; preserving previous data");
+  const latestStatuses = latestStatusPerStop(allStatuses);
+  const partial = Object.values(providerStatus).some((provider) => provider.partial);
+  const retryAfter = partial ? (Object.values(providerStatus).some((provider) => provider.reason === "daily_limit")
+    ? new Date(`${today.slice(0, 4)}-${today.slice(4, 6)}-${today.slice(6, 8)}T00:00:00+09:00`).getTime() + 86_400_000
+    : now.getTime() + 15 * 60_000) : null;
 
   const ferryResult = {
     schemaVersion: 2,
@@ -81,6 +119,9 @@ async function refreshFerryData({ env, now, request, pause, logger }) {
     forecastDate: today,
     availableDates: travelDates,
     statusDate,
+    partial,
+    providerStatus,
+    retryAfter: retryAfter ? new Date(retryAfter).toISOString() : null,
     sources: {
       forecast: apiConfig.providers.ferryForecast.docsUrl,
       schedule: apiConfig.providers.ferrySchedule.docsUrl,
@@ -94,7 +135,7 @@ async function refreshFerryData({ env, now, request, pause, logger }) {
       ferryRequired: island.ferryRequired,
       forecast: island.ferryRequired ? limitPerDate(relevantForecasts.filter((item) => matchesForecastStops(item, island.ferryStops)).map((item) => normalizeForecast(item, island.ferryStops)), 8) : [],
       schedule: island.ferryRequired ? limitPerDate(allSchedules.filter((item) => matchesScheduleIsland(item, island.ferryStops)).map((item) => normalizeSchedule(item, island.ferryStops)), 8) : [],
-      status: island.ferryRequired ? latestStatuses.filter((item) => matchesStatusIsland(item, island.ferryStops)).map(normalizeStatus).slice(0, 5) : []
+      status: island.ferryRequired ? latestStatuses.filter((item) => matchesStatusIsland(item, island.ferryStops)).map((item) => ({ ...normalizeStatus(item), date: statusDate })).slice(0, 5) : []
     };
   }
   return ferryResult;
@@ -187,6 +228,10 @@ async function fetchJson(url, maxAttempts = 3, timeoutMs = 30_000) {
       const response = await fetch(url, { signal: AbortSignal.timeout(timeoutMs) });
       if (!response.ok) {
         const error = new Error(`HTTP ${response.status}: ${url.hostname}`);
+        error.status = response.status;
+        const envelope = await response.json().catch(() => null);
+        const code = envelope?.OpenAPI_ServiceResponse?.cmmMsgHeader?.returnReasonCode;
+        if (code !== undefined) error.code = String(code);
         // Immediate retries cannot resolve a provider quota and consume more calls.
         error.retryable = response.status >= 500;
         throw error;
@@ -201,18 +246,25 @@ async function fetchJson(url, maxAttempts = 3, timeoutMs = 30_000) {
   }
 }
 
+function ferryResponseError(payload) {
+  const code = payload?.OpenAPI_ServiceResponse?.cmmMsgHeader?.returnReasonCode
+    ?? payload?.response?.header?.resultCode ?? payload?.header?.resultCode;
+  return Object.assign(new Error("Ferry provider response unavailable"), { code: String(code || "unknown") });
+}
+
 async function fetchStatusPages(date, { env, request, pause, logger }) {
   const first = await request(buildApiUrl("ferryStatus", "statuses", { rlvtYmd: date, pageNo: 1 }, env));
   const code = first?.response?.header?.resultCode;
   if (code === "153") return [];
-  if (code !== "200") throw new Error(`Ferry status error: ${first?.response?.header?.resultMsg || "unknown"}`);
+  if (code !== "200") throw ferryResponseError(first);
   const items = [...asArray(first.response.body?.items?.item)];
   const total = Number(first.response.body?.totalCount || items.length);
   const pages = Math.ceil(total / 1000);
   for (let pageNo = 2; pageNo <= pages; pageNo += 1) {
     logger.log(`Ferry status: ${date} page ${pageNo}/${pages}`);
     const payload = await request(buildApiUrl("ferryStatus", "statuses", { rlvtYmd: date, pageNo }, env));
-    if (payload?.response?.header?.resultCode === "200") items.push(...asArray(payload.response.body?.items?.item));
+    if (payload?.response?.header?.resultCode !== "200") throw ferryResponseError(payload);
+    items.push(...asArray(payload.response.body?.items?.item));
     await pause(120);
   }
   return items;

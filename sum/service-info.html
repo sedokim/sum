@@ -17,7 +17,7 @@
       <li>날씨: 기상청 단기예보 API. 섬 좌표의 예보 격자로 조회하여 JSON 파일로 제공합니다. 화면에 제공 날짜와 갱신 상태를 표시합니다.</li>
       <li>지도·주변 시설 검색: 카카오맵. 검색 기준은 선택한 섬의 공개 좌표이며 사용자의 현재 위치가 아닙니다.</li>
     </ul>
-    <p>관광 상세정보 조회가 제한되면 실시간 기본정보만 표시하며, 목록 조회도 실패하면 오류와 재시도 버튼을 표시합니다. 배편·날씨는 마지막 저장분이 제공될 수 있으므로 기준 날짜를 확인하세요.</p>
+    <p>관광 상세정보 조회가 제한되면 실시간 기본정보만 표시하며, 목록 조회도 실패하면 오류와 재시도 버튼을 표시합니다. 배편 API 중 일부가 제한되어도 정상인 운항예보·시간표·운항이력은 표시하며, 미제공 항목을 별도로 안내합니다. 일일 호출 제한이 확인되면 한국 시간 다음 날부터 다시 조회합니다. 배편·날씨는 마지막 저장분이 제공될 수 있으므로 기준 날짜를 확인하세요.</p>
     <p>지역 및 관광 설명을 바탕으로 만든 난이도·권장 체류시간·동행 추천은 서비스의 참고용 추정이며, 공인된 무장애 여행·안전 인증이 아닙니다. 계절 추천도 실제 축제 일정이나 개화 알림을 보장하지 않습니다.</p>
   </section>
   <section><h2>사진 이용 안내</h2>
@@ -55,7 +55,7 @@
           };
         } catch { catalogue = { ok: false, error: "connection_failed" }; }
         const tourStatus = !catalogue.ok ? "조회 실패" : catalogue.partial ? `기본정보 ${catalogue.count}개 정상 · 상세 ${catalogue.detailsUnavailable}개 미조회` : `${catalogue.count}개 정상 조회`;
-        document.getElementById("status").textContent = `관광정보: ${tourStatus} · 배편·날씨 저장본: ${info.snapshots.fresh ? "오늘 기준" : "갱신 확인 필요"}`;
+        document.getElementById("status").textContent = `관광정보: ${tourStatus} · 배편·날씨 저장본: ${info.snapshots.fresh ? "오늘 기준" : "갱신 확인 필요"}${info.snapshots.ferryPartial ? " · 배편 일부 항목 미제공" : ""}`;
         document.getElementById("result").textContent = JSON.stringify({ ...info, actualTourCheck: catalogue }, null, 2);
       } catch { document.getElementById("status").textContent = "서버에 연결할 수 없습니다. Node 서버가 실행 중인지 확인해주세요."; }
       finally { event.target.disabled = false; }

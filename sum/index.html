@@ -569,7 +569,7 @@
   <script type="module">
     import { publicConfig } from "./public-config.js";
     import { koreaInputDate } from "./date-utils.js";
-    import { ferryAvailability, suggestFerryTimes, recommendationScore } from "./trip-utils.js";
+    import { ferryAvailability, suggestFerryTimes, recommendationScore, ferryProviderNotice } from "./trip-utils.js";
 
     let ISLANDS = [];
     const FERRY_CONTACTS = [
@@ -996,7 +996,7 @@
       }
       if (state.ferryData.error) {
         els.ferryDataStatus.textContent = "갱신 필요";
-        els.ferryDataList.innerHTML = '<p class="official-data-empty">refresh-tour-data.cmd를 실행해 운항정보를 갱신해 주세요.</p>';
+        els.ferryDataList.innerHTML = '<p class="official-data-empty">운항정보를 일시적으로 불러오지 못했습니다. 잠시 후 자동으로 다시 확인합니다.</p>';
         return;
       }
       const record = state.ferryData.islands?.[island.id];
@@ -1009,9 +1009,11 @@
       const forecasts = Array.isArray(record?.forecast) ? record.forecast.filter((trip) => (trip.date || state.ferryData.forecastDate) === selectedDate) : [];
       const schedules = Array.isArray(record?.schedule) ? record.schedule.filter((trip) => (trip.date || state.ferryData.forecastDate) === selectedDate) : [];
       const statuses = selectedDate === state.ferryData.statusDate && Array.isArray(record?.status) ? record.status : [];
-      els.ferryDataStatus.textContent = `${formatApiDate(selectedDate)} 배편`;
-      if (!forecasts.length && !schedules.length) {
-        els.ferryDataList.innerHTML = `<p class="official-data-empty">${escapeHtml(formatApiDate(selectedDate))} 운항정보를 찾지 못했습니다. 선사에 직접 확인해 주세요.</p>`;
+      const providerNotice = ferryProviderNotice(state.ferryData.providerStatus);
+      const noticeHtml = providerNotice ? `<p class="ferry-note" role="status">${escapeHtml(providerNotice)}</p>` : "";
+      els.ferryDataStatus.textContent = `${formatApiDate(selectedDate)} 배편${state.ferryData.partial ? " · 부분 제공" : ""}`;
+      if (!forecasts.length && !schedules.length && !statuses.length) {
+        els.ferryDataList.innerHTML = `${noticeHtml}<p class="official-data-empty">${escapeHtml(formatApiDate(selectedDate))} 운항정보를 찾지 못했습니다. 선사에 직접 확인해 주세요.</p>`;
         return;
       }
       const forecastHtml = forecasts.slice(0, 5).map((trip) => {
@@ -1027,7 +1029,7 @@
         return ferryTripHtml(trip.time, trip.ship, `${trip.origin} → ${trip.destination}`, trip.state || "일정", notice, { trip, island });
       }).join("");
       const statusHtml = statuses.slice(0, 5).map((trip) => ferryTripHtml(trip.time, trip.ship, trip.port ? `${trip.port} 선착장` : `${island.name} 관련 항로`, trip.state || "이력", "")).join("");
-      els.ferryDataList.innerHTML = `<div class="ferry-list">${forecastHtml}</div>${scheduleHtml ? `<details class="ferry-details"><summary>출발·도착 시간표 ${schedules.length}건 보기</summary><div class="ferry-list">${scheduleHtml}</div></details>` : ""}${statusHtml ? `<details class="ferry-details"><summary>${formatApiDate(state.ferryData.statusDate)} 실제 운항이력 보기</summary><div class="ferry-list">${statusHtml}</div></details>` : ""}<p class="ferry-note">배편을 누르면 해당 노선의 KSA 검색어와 공식 선사 전화번호가 표시됩니다. KSA는 외부 링크로 노선을 자동 선택하는 기능을 제공하지 않습니다.</p>`;
+      els.ferryDataList.innerHTML = `${noticeHtml}<div class="ferry-list">${forecastHtml}</div>${scheduleHtml ? `<details class="ferry-details"><summary>출발·도착 시간표 ${schedules.length}건 보기</summary><div class="ferry-list">${scheduleHtml}</div></details>` : ""}${statusHtml ? `<details class="ferry-details"${!forecasts.length && !schedules.length ? " open" : ""}><summary>${formatApiDate(state.ferryData.statusDate)} 실제 운항이력 보기</summary><div class="ferry-list">${statusHtml}</div></details>` : ""}<p class="ferry-note">배편을 누르면 해당 노선의 KSA 검색어와 공식 선사 전화번호가 표시됩니다. KSA는 외부 링크로 노선을 자동 선택하는 기능을 제공하지 않습니다.</p>`;
       els.ferryDataList.querySelectorAll("[data-ferry-reservation]").forEach((button) => button.addEventListener("click", () => openFerryReservation(button)));
     }
 
@@ -1132,7 +1134,9 @@
 
     function snapshotsMatchToday() {
       const todayKey = koreaInputDate().replaceAll("-", "");
-      return state.ferryData?.forecastDate === todayKey && (state.weatherData?.forecastDate || state.weatherData?.baseDate) === todayKey && !state.weatherData?.partial;
+      const ferryRetryAfter = Date.parse(state.ferryData?.retryAfter);
+      const ferryRetryDue = state.ferryData?.partial && Number.isFinite(ferryRetryAfter) && Date.now() >= ferryRetryAfter;
+      return state.ferryData?.forecastDate === todayKey && !ferryRetryDue && (state.weatherData?.forecastDate || state.weatherData?.baseDate) === todayKey && !state.weatherData?.partial;
     }
 
     async function refreshSnapshotData() {

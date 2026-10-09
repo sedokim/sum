@@ -28,7 +28,7 @@ function options(root, extra = {}) {
   return { root, env, now, pause: async () => {}, logger: quiet, islandLoader: async () => ({ islands: [] }), ...extra };
 }
 
-test("ferry quota failure cannot prevent a successful weather snapshot", async () => {
+test("failure of every ferry provider cannot prevent a successful weather snapshot", async () => {
   await withDirectory(async (root) => {
     await fs.mkdir(path.join(root, "data"));
     const previousFerry = '{"forecastDate":"20260918","islands":{}}';
@@ -36,10 +36,6 @@ test("ferry quota failure cannot prevent a successful weather snapshot", async (
     const results = await refreshSnapshots(options(root, {
       request: async (url) => {
         if (url.pathname.includes("getVilageFcst")) return weatherPayload;
-        if (url.pathname.includes("get_tmr_forecastnew")) return {
-          header: { resultCode: "SC000" },
-          body: { dataList: [{ jbnm: "여수", gicdName: "여수,함구미", ygnm: "테스트선박" }] }
-        };
         throw new Error("HTTP 429: apis.data.go.kr");
       }
     }));

@@ -1,11 +1,23 @@
 const BLOCKED_STATE = /비운|결항|통제|취소/;
 const NORMAL_STATE = /정상|운항|출항|완료/;
 
+export function ferryProviderNotice(providerStatus) {
+  const labels = { forecast: "운항예보", schedule: "시간표", status: "운항이력" };
+  return Object.entries(providerStatus || {}).filter(([, provider]) => provider?.partial).map(([kind, provider]) => {
+    const reason = provider.reason === "daily_limit" ? "일일 호출 한도 초과" : provider.reason === "rate_limited" ? "일시적인 호출 제한" : "API 연결 오류";
+    return `${labels[kind] || "일부 정보"}: ${reason}로 ${provider.available ? "일부만 제공됩니다" : "일시 미제공됩니다"}.`;
+  }).join(" ");
+}
+
 export function ferryAvailability(record, date) {
   if (!record) return status("unknown", "정보 확인", "해당 섬의 운항정보가 없습니다.", false);
   if (record.ferryRequired === false) return status("road", "육로·도보", "여객선 없이 접근할 수 있습니다.", true);
   const trips = dateTrips(record.forecast, date);
-  if (!trips.length) return status("unknown", "선사 확인", "선택 날짜의 운항예보가 없습니다.", false);
+  if (!trips.length) {
+    if (dateTrips(record.status, date).length) return status("unknown", "운항이력 있음", "실제 운항이력이 제공되지만 선택 날짜의 운항예보는 없습니다.", false);
+    if (dateTrips(record.schedule, date).length) return status("unknown", "시간표 있음", "시간표가 제공되지만 운항 여부는 선사 확인이 필요합니다.", false);
+    return status("unknown", "선사 확인", "선택 날짜의 운항예보가 없습니다.", false);
+  }
   const blocked = trips.filter((trip) => BLOCKED_STATE.test(trip.state || "")).length;
   const normal = trips.filter((trip) => NORMAL_STATE.test(trip.state || "") && !BLOCKED_STATE.test(trip.state || "")).length;
   if (blocked === trips.length) return status("blocked", "통제·비운", "현재 수집된 관련 항로가 모두 통제 또는 비운으로 표시됩니다.", false);
